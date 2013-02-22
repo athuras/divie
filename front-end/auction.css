@@ -76,6 +76,14 @@ body {
 	border-right: 1px solid #315286;
 }
 
+.remBudget {
+	position: absolute;
+	top: 0;
+	left: 40%;
+	right: 40%;
+	color: #fff;
+}
+
 .links {
 	position: absolute;
 	top: 16px;
