@@ -191,7 +191,7 @@ body {
 	height: 200px;
 	width: 200px;
 	border-radius: 100px;
-	margin: 6% 0 0 8%;
+	margin: 4em 0 0 4em;
 }
 
 .bigTitle {
@@ -199,8 +199,8 @@ body {
 	font-size: 48pt;
 	color: #e0e5ed;
 	position: absolute;
-	top: 10%;
-	left: 30%;
+	top: 1em;
+	left: 4.5em;
 }
 
 .description {
@@ -209,8 +209,16 @@ body {
 	color: #9fa3ab;
 	width: 60%;
 	position: absolute;
-	top: 20%;
-	left: 30%;
+	top: 8em;
+	left: 15.5em;
+}
+
+#slider {
+	width: 60%;
+	height: 12px;
+	background-color: #0e0e1b;
+	box-shadow: inset 1px 1px 1px #c6d1d6;
+	border-radius: 10px;
 }
 
 
