@@ -17,10 +17,10 @@ def connect_db():
     return conn
 '''
 @app.route('/')
-def index():
-    db.home()
-'''
 def home():
+    return db.home()
+'''
+def index():
     db.home()
 
 @app.route('/db_test')
