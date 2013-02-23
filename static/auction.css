@@ -89,6 +89,7 @@ body {
 	font-size: 14pt;
 	margin-right: 3%;
 	color: #e0e5ed;
+	font-weight: 100;
 }
 
 .links li {
@@ -115,7 +116,7 @@ body {
 	width: 33.3%;
 	top: 50px;
 	bottom: 0;
-	z-index: -2;
+	z-index: -3;
 }
 
 .leftNav #leftTitle {
@@ -127,12 +128,14 @@ body {
 	padding: 14px 0 12px 20px;
 	width: 100%;
 	border-bottom: 2px solid #171717;
+	font-weight: 300;
 }
 
 .leftNav ul {
 	width: 100%;
 	position: absolute;
 	top: 64px;
+	font-weight: 100;
 }
 
 .leftNav li {
@@ -147,10 +150,17 @@ body {
 }
 
 .leftNav li #valueBar {
-	width: 80%;
+	width: 40%;
 	height: 5px;
 	background-color: #933d3d;
 	border-radius: 10px;
+	margin-top: 10px;
+}
+
+.leftNav li #assignText {
+	color: #365d98;
+	font-size: 13pt;
+	font-weight: 300;
 	margin-top: 10px;
 }
 
@@ -162,8 +172,47 @@ body {
 	top: 50px;
 	bottom: 0;
 	right: 0;
+	z-index: -2;
+}
+
+.assetOverlay {
+	background-color: #171717;
+	background-image: url('img/bg-fuzz.png');
+	position: absolute;
+	top: 50px;
+	bottom: 0;
+	right: 0;
+	width: 66.7%;
+	box-shadow: 0 0 20px #171717;
 	z-index: -1;
 }
+
+#image {
+	height: 200px;
+	width: 200px;
+	border-radius: 100px;
+	margin: 6% 0 0 8%;
+}
+
+.bigTitle {
+	font-weight: 100;
+	font-size: 48pt;
+	color: #e0e5ed;
+	position: absolute;
+	top: 10%;
+	left: 30%;
+}
+
+.description {
+	font-size: 14pt;
+	font-weight: 100;
+	color: #9fa3ab;
+	width: 60%;
+	position: absolute;
+	top: 20%;
+	left: 30%;
+}
+
 
 .rightBg #horizon {
 	text-align: center;
@@ -172,8 +221,6 @@ body {
 	left: 0px;
 	width: 100%;
 	height: 1px;
-	overflow: visible;
-	visibility: visible;
 	display: block;
 }
 
