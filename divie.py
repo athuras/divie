@@ -18,15 +18,14 @@ def connect_db():
 '''
 @app.route('/')
 def home():
-    return db.home()
-'''
-def index():
-    db.home()
+    return "Not Dead Yet ..." #db.home()
 
 @app.route('/db_test')
 def get_items():
-    db.get_items()
-'''
+    query = "SELECT * FROM item;"
+    vals = db.query_template(query)
+    return vals
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)

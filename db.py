@@ -52,18 +52,23 @@ def db_test():
         conn.close()
     return 'SUCCESS!:\n' + str(vals)
 
-def get_items():
-	conn = None
-	try:
-		conn = connect_db()
-		cur = conn.cursor()
-		cur.execute("SELECT * FROM item;")
-		vals = cur.fetchall()
-		conn.commit()
-	except psycopg2.Error as e:
-		return 'DB Error: ' + str(e)
+def query_template(query):
+    conn = None
+    try:
+        conn = connect_db()
+        cur = conn.cursor()
+        cur.execute(query)
+        vals = cur.fetchall()
+        conn.commit()
+    except psycopg2.Error as e:
+        return 'DB Error: ' + str(e)
 
-	finally:
-		cur.close()
-		conn.close()
-	return str(vals)
+    finally:
+        cur.close()
+        conn.close()
+    return str(vals)
+
+def get_items():
+    query = "SELECT * FROM item;"
+    vals = query_template(query)
+    return vals
