@@ -333,15 +333,19 @@ a {
 .rightBg #helperText {
 	font-size: 28pt;
 	color: #b7c0b6;
-	margin-left: -20%;
+	margin: -100px 0 0 -30%;
 	position: absolute;
-	top: -35px;
 	left: 50%;
-	width: 40%;
+	width: 60%;
 	visibility: visible;
 	font-weight: 100;
 }
 
+#finished {
+	margin: -325px 0 0 -330px;
+	position: absolute;
+	left: 50%;
+}
 
 
 
