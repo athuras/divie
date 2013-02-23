@@ -76,14 +76,6 @@ body {
 	border-right: 1px solid #315286;
 }
 
-.remBudget {
-	position: absolute;
-	top: 0;
-	left: 40%;
-	right: 40%;
-	color: #fff;
-}
-
 .links {
 	position: absolute;
 	top: 16px;
@@ -101,8 +93,14 @@ body {
 	padding: 14px;
 }
 
-.links #myAuctions {
-	border-right: 1px solid #315286;	
+.links #remBudget {
+	margin-right: 15%;
+	border-right: 1px solid #315286;
+}
+
+.links #logOut {
+	border-right: 1px solid #315286;
+	min-width: 60px;
 }
 
 
