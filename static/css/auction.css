@@ -301,21 +301,6 @@ outline:none;
 -moz-outline-style:none;
 }
 
-<<<<<<< HEAD:static/auction.css
-=======
-
-/*#sliderFill {
-	width: 20%;
-	height: 12px;
-	border-radius: 10px;
-	position: absolute;
-	top: 50%;
-	left: 20%;
-	right: 20%;
-	background-color: #933d3d;
-}*/
-
->>>>>>> 79c24648b526eef0e07a10458c57e43ed6908633:static/css/auction.css
 #slicon {
 	margin: -0.4em 0 0 15em;
 }
