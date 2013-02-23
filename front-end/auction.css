@@ -50,6 +50,11 @@ table {
 
 /* ---- END OF CSS RESET ---- */
 
+@font-face {
+	font-family: 'Museo Sans';
+	src:url('fonts/MuseoSans-100.otf') format("opentype");
+	font-weight: 100;
+}
 
 body {
 	font-family: 'Museo Sans', 'Helvetica Neue', sans-serif;
@@ -88,8 +93,14 @@ body {
 	padding: 14px;
 }
 
-.links #myAuctions {
-	border-right: 1px solid #315286;	
+.links #remBudget {
+	margin-right: 15%;
+	border-right: 1px solid #315286;
+}
+
+.links #logOut {
+	border-right: 1px solid #315286;
+	min-width: 60px;
 }
 
 
