@@ -266,19 +266,19 @@ body {
 	top: -60px;
 	margin-left: -35px;
 	z-index: 200;
-	background: url(../img/slider-tooltip-large.png);
+	background: url(../img/slider-tooltip-heart.png);
 }
  
 /*Result div where the slider value is displayed*/
 #slider-result {
-	font-size: 20pt;
+	font-size: 32pt;
 	color: #993d3d;
 	text-align: center;
 	text-shadow: #000 2px 3px;
 	font-weight: 100;
 	position: absolute;
-	bottom: 31px;
-	left: 350px;
+	bottom: -1.5em;
+	left: 50%;
 	z-index: 300;
 }
 
@@ -298,6 +298,15 @@ body {
 	left: 9px;
 	top: 1px;
 	position: absolute;
+}
+
+.sliderText {
+	color: #e0e5ed;
+	font-size: 14pt;
+	position: absolute;
+	left: 0;
+	top: 50%;
+	text-shadow: #000 2px 2px;
 }
  
 a {
