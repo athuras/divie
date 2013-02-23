@@ -24,14 +24,19 @@ def db_test():
     conn = None
     try:
         conn = connect_db()
+        cur = conn.cursor()
+        cur.execute("DROP TABLE if exists test;")
+        cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+        cur.execute("INSERT INTO test (num, data) VALUES (%s, %s);", (31415, 'THISISATEST'))
+        cur.execute("SELECT * FROM test;")
+        vals = curr.fetchall()
     except psycopg2.Error as e:
         return 'DB Error: ' + str(e)
 
-    cur = conn.cursor()
-    cur.execute("DROP TABLE if exists test;")
-    cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
-    cur.execute("INSERT INTO test (num, data) VALUES (%s, %s);", (31415, 'THISISATEST'))
-    return 'SUCCESS!:\n' + str(cur.execute("SELECT * FROM test;"))
+    finally:
+        cur.close()
+        conn.close()
+    return 'SUCCESS!:\n' + str(vals)
 
 
 if __name__ == '__main__':
