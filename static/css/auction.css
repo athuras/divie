@@ -328,11 +328,11 @@ a {
 }
 
 #previous {
-	left: 28%;
+	left: 12em;
 }
 
 #next {
-	right: 28%;
+	right: 12em;
 }
 
 .rightBg #horizon {
