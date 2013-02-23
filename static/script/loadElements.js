@@ -102,7 +102,6 @@ function loadAsset(idTag)
 				var newSliderResultDiv = document.createElement("div");
 				newSliderResultDiv.setAttribute("id", "slider-result")
 				var sliderResultValue = document.createTextNode(AssetList[findArrLoc(idTag)].rank);
-				console.log(sliderResultValue);
 				newSliderResultDiv.appendChild(sliderResultValue);
 
 				sliderResultWrapper.appendChild(newSliderResultDiv);
@@ -117,22 +116,20 @@ function loadAsset(idTag)
 				newSliderClass.appendChild(newSliderDiv);
 				newSliderClass.appendChild(sliderResultWrapper);
 				newSliderClass.appendChild(newSliderInput);
-				var nextID = parseInt(idTag) + 1;
-				console.log(nextID);
+
 				var nextButton = document.createElement("div");
-				nextButton.setAttribute("class", "lowerBtn");
+				nextButton.setAttribute("class", formatButton(idTag, "next"));
 				nextButton.setAttribute("id", "next");
 				nextButton.setAttribute("onclick", 'loadAsset(' + nextID + ');');
 				var nextButtonValue = document.createTextNode("Next Item");
 				nextButton.appendChild(nextButtonValue);
 
 				var prevButton = document.createElement("div");
-				prevButton.setAttribute("class", "lowerBtn");
+				prevButton.setAttribute("class", formatButton(idTag, "prev"));
 				prevButton.setAttribute("id", "previous");
 				prevButton.setAttribute("onclick", 'loadAsset(' + prevID + ');');
 				var prevButtonValue = document.createTextNode("Previous Item");
-				prevButton.appendChild(prevButtonValue);
-				
+				prevButton.appendChild(prevButtonValue);		
 				
 
 				newDiv.appendChild(newTopBoxDiv);
@@ -148,16 +145,16 @@ function loadAsset(idTag)
 
 			else
 			{
-
 				document.getElementById("image").setAttribute("src" , AssetList[findArrLoc(idTag)].img);
 				document.getElementById("currAssetTitle").innerHTML = AssetList[findArrLoc(idTag)].name;
 				document.getElementById("desc").innerHTML = AssetList[findArrLoc(idTag)].description;
 				document.getElementById("slider-result").innerHTML = AssetList[findArrLoc(idTag)].rank;
 				document.getElementById("previous").setAttribute("onclick", 'loadAsset(' + prevID + ');');
 				document.getElementById("next").setAttribute("onclick", 'loadAsset(' + nextID + ');');
+				document.getElementById("previous").setAttribute("class", formatButton(idTag, "prev"));
+				document.getElementById("next").setAttribute("class", formatButton(idTag, "next"));
 
 			}
-			console.log(currBudget);
 
 			$( "#slider" ).slider({
 		        animate: true,
@@ -171,7 +168,6 @@ function loadAsset(idTag)
 		        //this gets a live reading of the value and prints it on the page
 		        slide: function( event, ui ) {
 		            $( "#slider-result" ).html( ui.value );
-		            document.getElementById("slider-result").style.left = document.getElementsByTagName("a").item(0).style.left;
 		            
 		        },
 		 
@@ -209,6 +205,22 @@ function loadAsset(idTag)
 		console.log("ERRRROROROROROR" + err.message);
 	}
 };
+
+function formatButton(idTag, order)
+{
+	if (idTag < 1 && order == "prev")
+	{
+		return "noClick";
+	}
+	else if (idTag == AssetList.length - 1 && order == "next")
+	{
+		return "noClick";
+	}
+	else
+	{
+		return "lowerBtn";
+	}
+}
 
 function findArrLoc(idTag)
 {
