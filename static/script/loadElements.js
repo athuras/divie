@@ -1,6 +1,6 @@
 var AssetList = [];
-AssetList.push(new Asset(0, "Sailboat Painting", 37));
-AssetList.push(new Asset(1, "Car", 0));
+AssetList.push(new Asset(0, "Sailboat Painting", 37, '', "img/sailboat.png"));
+AssetList.push(new Asset(1, "Car", 0, '', "img/car.jpg"));
 AssetList.push(new Asset(2, "Lamp", 0));
 AssetList.push(new Asset(3, "Family Portrait", 0));
 AssetList.push(new Asset(4, "Sailboat Painting", 0));
@@ -41,7 +41,8 @@ function Asset (id, name, rank, description, imgSrc){
 	this.name = name;
 	this.rank = rank;
 	this.description = "Now that we know who you are, I know who I am. I'm not a mistake! It all makes sense! In a comic, you know how you can tell who the arch-villain's going to be? He's the exact opposite of the hero. And most times they're friends, like you and me! I should've known way back when... You know why, David? Because of the kids. They called me Mr Glass.";
-	this.img = "img/sailboat.png";
+	// this.description = description;
+	this.img = imgSrc;
 };
 
 function loadAsset(idTag)
@@ -117,7 +118,7 @@ function loadAsset(idTag)
 
 	else
 	{
-		document.getElementById("image", AssetList[findArrLoc(idTag)].image);
+		document.getElementById("image").setAttribute("src" , AssetList[findArrLoc(idTag)].img);
 		document.getElementById("currAssetTitle").innerHTML = AssetList[findArrLoc(idTag)].name;
 		document.getElementById("desc").innerHTML = AssetList[findArrLoc(idTag)].description;
 	}

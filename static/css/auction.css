@@ -248,12 +248,12 @@ body {
 
 /*the slider background*/
 .slider {
-	width: 365px;
-	height: 13px;
+	width: 540px;
+	height: 16px;
 	background: url(../img/slider-bg.png);
-	margin-left: -162.5px;
+	margin-left: -265px;
 	position: absolute;
-	top: -7px;
+	top: -8px;
 	left: 50%;
 }
  
@@ -263,7 +263,7 @@ body {
 	height: 27px;
 	position: absolute;
 	top: -7px;
-	margin-left: -12px;
+	margin-left: -4px;
 	z-index: 200;
 	background: url(../img/slider-tool.png);
 }
@@ -286,7 +286,7 @@ body {
 /*This is the fill bar colour*/
 .ui-widget-header {
 	background: url(../img/fill.png) no-repeat left;
-	height: 10px;
+	height: 14px;
 	left: -1px;
 	top: 1px;
 	position: absolute;
