@@ -138,6 +138,7 @@ body {
 	position: absolute;
 	top: 64px;
 	font-weight: 100;
+	cursor: pointer;
 }
 
 .leftNav li {
@@ -306,18 +307,32 @@ a {
 	text-align: center;
 	width: 12em;
 	position: absolute;
-	bottom: 8em;
+	bottom: 10em;
 	color: #d7dfea;
 	background-color: #1d212b;
 	font-weight: 100;
+	cursor: pointer;
+}
+
+.lowerBtn:hover {
+	background-color: #1f242d;
+}
+
+.lowerBtn:active {
+	background: transparent;
+}
+
+.lowerBtn .noClick {
+	background: transparent;
+	color: #ccc;
 }
 
 #previous {
-	left: 26%;
+	left: 28%;
 }
 
 #next {
-	right: 26%;
+	right: 28%;
 }
 
 .rightBg #horizon {
