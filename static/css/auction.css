@@ -147,7 +147,7 @@ body {
 	color: #e0e5ed;
 }
 
-.leftNav #active {
+.leftNav .active {
 	background-color: #4a535f;
 }
 
@@ -231,56 +231,67 @@ body {
 	font-weight: 100;
 	color: #9fa3ab;
 	padding: 1em 0 0 0;
-
 }
 
- 
+.sliderHorizon {
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 0px;
+	width: 100%;
+	height: 1px;
+	display: block;
+}
+
 /*the slider background*/
 .slider {
-width:230px;
-height:11px;
-background:url(../img/slider-bg.png);
-position:relative;
-margin:0;
-padding:0 10px;
+	width: 365px;
+	height: 13px;
+	background: url(../img/slider-bg.png);
+	margin-left: -162.5px;
+	position: absolute;
+	top: -7px;
+	left: 50%;
 }
  
 /*Style for the slider button*/
 .ui-slider-handle {
-width:24px;
-height:24px;
-position:absolute;
-top:-7px;
-margin-left:-12px;
-z-index:200;
-background:url(../img/slider-button.png);
+	width: 24px;
+	height: 27px;
+	position: absolute;
+	top: -7px;
+	margin-left: -12px;
+	z-index: 200;
+	background: url(../img/slider-tool.png);
 }
  
 /*Result div where the slider value is displayed*/
 #slider-result {
-font-size:50px;
-height:200px;
-font-family:Arial, Helvetica, sans-serif;
-color:#fff;
-width:250px;
-text-align:center;
-text-shadow:0 1px 1px #000;
-font-weight:700;
-padding:20px 0;
+	font-size: 50px;
+	height: 200px;
+	color: #fafafa;
+	width: 250px;
+	text-align: center;
+	text-shadow: 0 1px 1px #000;
+	font-weight: 300;
+	padding: 20px 0;
+	position: absolute;
+	top: 52%;
+	left: 250px;
 }
  
 /*This is the fill bar colour*/
 .ui-widget-header {
-background:url(../img/fill.png) no-repeat left;
-height:8px;
-left:1px;
-top:1px;
-position:absolute;
+	background: url(../img/fill.png) no-repeat left;
+	height: 10px;
+	left: -1px;
+	top: 1px;
+	position: absolute;
 }
  
 a {
-outline:none;
--moz-outline-style:none;
+	outline:none;
+	-moz-outline-style:none;
 }
 
 #slicon {
