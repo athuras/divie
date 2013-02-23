@@ -50,6 +50,7 @@ table {
 
 /* ---- END OF CSS RESET ---- */
 
+
 @font-face {
 	font-family: 'Museo Sans';
 	src:url('fonts/MuseoSans-100.otf') format("opentype");
@@ -65,6 +66,7 @@ table {
 body {
 	font-family: 'Museo Sans', 'Helvetica Neue', sans-serif;
 	margin: 0;
+	min-width: 1200px;
 }
 
 .header {
@@ -191,7 +193,7 @@ body {
 	height: 200px;
 	width: 200px;
 	border-radius: 100px;
-	margin: 6% 0 0 8%;
+	margin: 4em 0 0 4em;
 }
 
 .bigTitle {
@@ -199,20 +201,67 @@ body {
 	font-size: 48pt;
 	color: #e0e5ed;
 	position: absolute;
-	top: 10%;
-	left: 30%;
+	top: 1em;
+	left: 4.5em;
 }
 
 .description {
-	font-size: 14pt;
+	font-size: 13pt;
 	font-weight: 100;
 	color: #9fa3ab;
 	width: 60%;
 	position: absolute;
-	top: 20%;
-	left: 30%;
+	top: 8.4em;
+	left: 16.7em;
 }
 
+#slider {
+	width: 60%;
+	height: 12px;
+	background-color: #0e0e1b;
+	box-shadow: 1px 1px 1px #c6d1d6;
+	border-radius: 10px;
+	position: absolute;
+	top: 50%;
+	left: 20%;
+	right: 20%;
+}
+
+/*#sliderFill {
+	width: 20%;
+	height: 12px;
+	border-radius: 10px;
+	position: absolute;
+	top: 50%;
+	left: 20%;
+	right: 20%;
+	background-color: #933d3d;
+}*/
+
+#slicon {
+	margin: -0.4em 0 0 15em;
+}
+
+.lowerBtn {
+	border-radius: 10px;
+	border: 3px solid #0e0e1b;
+	padding: 1em 0 1em 0;
+	text-align: center;
+	width: 12em;
+	position: absolute;
+	bottom: 8em;
+	color: #d7dfea;
+	background-color: #1d212b;
+	font-weight: 100;
+}
+
+#previous {
+	left: 26%;
+}
+
+#next {
+	right: 26%;
+}
 
 .rightBg #horizon {
 	text-align: center;
