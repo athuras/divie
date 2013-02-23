@@ -22,8 +22,8 @@ def home():
 
 @app.route('/db_test')
 def get_items():
-    query = "SELECT * FROM item;"
-    vals = db.query_template(query)
+    #query = "SELECT * FROM item;"
+    vals = db.get_items(query)
     return vals
 
 if __name__ == '__main__':

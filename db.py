@@ -65,9 +65,9 @@ def query_template(query):
     finally:
         cur.close()
         conn.close()
-    return str(vals)
+    return vals
 
 def get_items():
     query = "SELECT * FROM item;"
     vals = query_template(query)
-    return vals
+    return str(vals)
