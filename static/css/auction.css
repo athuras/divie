@@ -282,6 +282,14 @@ body {
 	z-index: 300;
 }
 
+#slider-remaining {
+	font-size: 14pt;
+	color: #993d3d;
+	position: absolute;
+	bottom: -0.5em;
+	right: 0;
+}
+
 .sliderResultWrapper {
 	width: 540px;
 	height: 16px;
