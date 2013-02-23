@@ -108,9 +108,20 @@ body {
 	background-color: #fff;
 	position: absolute;
 	width: 33.3%;
+	top: 50px;
 	bottom: 0;
-	height: 100%;
-	z-index: -1;
+	z-index: -2;
+}
+
+.leftNav #leftTitle {
+	background-image: url('img/bg-fuzz.png');
+	background-color: #c6d1d6;
+	position: absolute;
+	font-size: 28pt;
+	color: #383b40;
+	padding: 14px 0 12px 20px;
+	width: 100%;
+	border-bottom: 2px solid #171717;
 }
 
 .rightBg {
@@ -118,11 +129,36 @@ body {
 	background-color: #646769;
 	position: absolute;
 	width: 66.7%;
+	top: 50px;
 	bottom: 0;
 	right: 0;
-	height: 100%;
-	z-index: -2;
+	z-index: -1;
 }
+
+.rightBg #horizon {
+	text-align: center;
+	position: absolute;
+	top: 50%;
+	left: 0px;
+	width: 100%;
+	height: 1px;
+	overflow: visible;
+	visibility: visible;
+	display: block;
+}
+
+.rightBg #helperText {
+	font-size: 28pt;
+	color: #b7c0b6;
+	margin-left: -125px;
+	position: absolute;
+	top: -35px;
+	left: 45%;
+	width: 500px;
+	visibility: visible;
+}
+
+
 
 
 
