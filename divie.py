@@ -5,7 +5,7 @@ from flask import Flask
 
 
 app = Flask(__name__)
-
+'''
 def connect_db():
     conn = psycopg2.connect(**{
             'host': 'ec2-54-243-232-179.compute-1.amazonaws.com',
@@ -15,9 +15,10 @@ def connect_db():
             'port': 5432
             })
     return conn
-
+'''
 @app.route('/')
-db.home()
+def index():
+    db.home()
 '''
 def home():
     db.home()
