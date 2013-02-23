@@ -29,7 +29,7 @@ def db_test():
         cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
         cur.execute("INSERT INTO test (num, data) VALUES (%s, %s);", (31415, 'THISISATEST'))
         cur.execute("SELECT * FROM test;")
-        vals = curr.fetchall()
+        vals = cur.fetchall()
     except psycopg2.Error as e:
         return 'DB Error: ' + str(e)
 
