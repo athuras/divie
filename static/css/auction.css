@@ -276,8 +276,9 @@ body {
 	/*text-shadow: 0 1px 1px #000;*/
 	font-weight: 100;
 	position: absolute;
-	top: 52%;
-	left: 250px;
+	bottom: 31px;
+	left: 350px;
+	z-index: 300;
 }
  
 /*This is the fill bar colour*/
