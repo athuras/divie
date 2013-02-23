@@ -149,6 +149,9 @@ body {
 
 .leftNav .active {
 	background-color: #4a535f;
+	background-image: url('../img/triangle-selector.png');
+	background-repeat: no-repeat;
+	background-position: right;
 }
 
 .leftNav li #assetTitle {
@@ -195,8 +198,8 @@ body {
 
 #triangleSelector {
 	position: absolute;
-	left: -2.1em;
-	top: 5.4em;
+	left: 8.6em;
+	top: 0.5em;
 }
 
 .topBox {

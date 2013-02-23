@@ -1,5 +1,5 @@
 var AssetList = [];
-AssetList.push(new Asset(0, "Sailboat Painting", 0));
+AssetList.push(new Asset(0, "Sailboat Painting", 37));
 AssetList.push(new Asset(1, "Car", 0));
 AssetList.push(new Asset(2, "Lamp", 0));
 AssetList.push(new Asset(3, "Family Portrait", 0));
@@ -53,9 +53,7 @@ function loadAsset(idTag)
 		var newDiv = document.createElement("div");
 		newDiv.setAttribute("class", "assetOverlay");
 
-		var newSelectorImg = document.createElement("img");
-		newSelectorImg.setAttribute("id", "triangleSelector")
-		newSelectorImg.setAttribute("src", "img/triangle-selector.png");
+
 
 		var newTopBoxDiv = document.createElement("div");
 		newTopBoxDiv.setAttribute("class", "topBox");
@@ -85,13 +83,16 @@ function loadAsset(idTag)
 		newTopBoxDiv.appendChild(newImg);
 		newTopBoxDiv.appendChild(newWordsDiv);
 
+		var newSliderClass = document.createElement("div");
+		newSliderClass.setAttribute("class", "sliderHorizon");
+
 		var newSliderDiv = document.createElement("div");
 		newSliderDiv.setAttribute("class", "slider");
 		newSliderDiv.setAttribute("id", "slider");
 
 		var newSliderResultDiv = document.createElement("div");
 		newSliderResultDiv.setAttribute("id", "slider-result")
-		var sliderResultValue = document.createTextNode("50");
+		var sliderResultValue = document.createTextNode(AssetList[findArrLoc(idTag)].rank);
 		newSliderResultDiv.appendChild(sliderResultValue);
 
 		var newSliderInput = document.createElement("input");
@@ -101,34 +102,17 @@ function loadAsset(idTag)
 		// var newSliderFill = document.createElement("div");
 		// newSliderFill.setAttribute("id", "sliderFill");
 
-		newDiv.appendChild(newSelectorImg);
+		newSliderClass.appendChild(newSliderDiv);
+		newSliderClass.appendChild(newSliderResultDiv);
+		newSliderClass.appendChild(newSliderInput);
+		
 		newDiv.appendChild(newTopBoxDiv);
-		newDiv.appendChild(newSliderDiv);
-		newDiv.appendChild(newSliderResultDiv);
-		newDiv.appendChild(newSliderInput);
+		newDiv.appendChild(newSliderClass);
 		//newDiv.appendChild(newSliderFill);
 
 		mainDiv.appendChild(newDiv);
 
-		 $( "#slider" ).slider({
-           animate: true,
-               range: "min",
-               value: 50,
-               min: 10,
-               max: 100,
-               step: 1,
-                
-               //this gets a live reading of the value and prints it on the page
-               slide: function( event, ui ) {
-                   $( "#slider-result" ).html( ui.value );
-               },
- 
-               //this updates the hidden form field so we can submit the data using a form
-               change: function(event, ui) {
-               $('#hidden').attr('value', ui.value);
-               }
-            
-               });
+
 	}
 
 	else
@@ -137,6 +121,43 @@ function loadAsset(idTag)
 		document.getElementById("currAssetTitle").innerHTML = AssetList[findArrLoc(idTag)].name;
 		document.getElementById("desc").innerHTML = AssetList[findArrLoc(idTag)].description;
 	}
+
+			 $( "#slider" ).slider({
+           animate: true,
+               range: "min",
+               value: AssetList[findArrLoc(idTag)].rank,
+               min: 0,
+               max: 100,
+               step: 1,
+
+              
+
+               //this gets a live reading of the value and prints it on the page
+               slide: function( event, ui ) {
+               		$( "#slider-result" ).html( "5" );
+                   $( "#slider-result" ).html( ui.value );
+                   $( "#slider-result" ).html( "5" );
+               },
+ 
+               //this updates the hidden form field so we can submit the data using a form
+               change: function(event, ui) {
+               $('#hidden').attr('value', ui.value);
+               }
+            
+               });
+
+	for(var j=0;j<AssetList.length;j++)
+	{
+		var liTag = document.getElementById(j);
+		liTag.removeAttribute("class");
+		if (liTag.lastChild.id == "triangleSelector")
+		{
+			liTag.removeChild(liTag.lastChild);
+		}
+	}
+
+	var liTag = document.getElementById(idTag);
+	liTag.setAttribute("class", "active");
 
 	init = false;
 };
