@@ -53,9 +53,19 @@ function loadAsset(idTag)
 		var newDiv = document.createElement("div");
 		newDiv.setAttribute("class", "assetOverlay");
 
+		var newSelectorImg = document.createElement("img");
+		newSelectorImg.setAttribute("id", "triangleSelector")
+		newSelectorImg.setAttribute("src", "img/triangle-selector.png");
+
+		var newTopBoxDiv = document.createElement("div");
+		newTopBoxDiv.setAttribute("class", "topBox");
+
 		var newImg = document.createElement("img");
 		newImg.setAttribute("id", "image");
 		newImg.setAttribute("src", AssetList[findArrLoc(idTag)].img);
+
+		var newWordsDiv = document.createElement("div");
+		newWordsDiv.setAttribute("class", "words");
 
 		var newTitleDiv = document.createElement("div");
 		newTitleDiv.setAttribute("class", "bigTitle");
@@ -68,6 +78,12 @@ function loadAsset(idTag)
 		newDescDiv.setAttribute("id", "desc");
 		var newDescValue = document.createTextNode(AssetList[findArrLoc(idTag)].description);
 		newDescDiv.appendChild(newDescValue);
+
+		newWordsDiv.appendChild(newTitleDiv);
+		newWordsDiv.appendChild(newDescDiv);
+
+		newTopBoxDiv.appendChild(newImg);
+		newTopBoxDiv.appendChild(newWordsDiv);
 
 		var newSliderDiv = document.createElement("div");
 		newSliderDiv.setAttribute("class", "slider");
@@ -85,10 +101,8 @@ function loadAsset(idTag)
 		// var newSliderFill = document.createElement("div");
 		// newSliderFill.setAttribute("id", "sliderFill");
 
-		newDiv.appendChild(newImg);
-		newDiv.appendChild(newTitleDiv);
-		newDiv.appendChild(newDescDiv);
-
+		newDiv.appendChild(newSelectorImg);
+		newDiv.appendChild(newTopBoxDiv);
 		newDiv.appendChild(newSliderDiv);
 		newDiv.appendChild(newSliderResultDiv);
 		newDiv.appendChild(newSliderInput);

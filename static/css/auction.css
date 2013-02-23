@@ -224,10 +224,6 @@ body {
 	font-weight: 100;
 	font-size: 48pt;
 	color: #e0e5ed;
-	/*display: inline-block;*/
-	/*position: absolute;
-	top: 1em;
-	left: 4.5em;*/
 }
 
 .description {
@@ -235,23 +231,9 @@ body {
 	font-weight: 100;
 	color: #9fa3ab;
 	padding: 1em 0 0 0;
-	/*display: inline-block;*/
-	/*position: absolute;
-	top: 8.4em;
-	left: 16.7em;*/
+
 }
 
-/*.slider {
-	width: 60%;
-	height: 12px;
-	background-color: #0e0e1b;
-	box-shadow: 1px 1px 1px #c6d1d6;
-	border-radius: 10px;
-	position: absolute;
-	top: 50%;
-	left: 20%;
-	right: 20%;
-}*/
  
 /*the slider background*/
 .slider {
