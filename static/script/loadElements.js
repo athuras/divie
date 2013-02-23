@@ -1,5 +1,5 @@
 var AssetList = [];
-AssetList.push(new Asset(0, "Sailboat Painting", 37, '', "img/sailboat.png"));
+AssetList.push(new Asset(0, "Sailboat Painting", 0, '', "img/sailboat.png"));
 AssetList.push(new Asset(1, "Car", 0, '', "img/car.jpg"));
 AssetList.push(new Asset(2, "Lamp", 0));
 AssetList.push(new Asset(3, "Family Portrait", 0));
@@ -7,7 +7,7 @@ AssetList.push(new Asset(4, "Sailboat Painting", 0));
 AssetList.push(new Asset(5, "Everything Else", 0));
 
 var init = true;
-var SLIDER_RESULT = 50;
+var MAX_BUDGET_VALUE = 100;
 
 function addAssets()
 {
@@ -47,122 +47,160 @@ function Asset (id, name, rank, description, imgSrc){
 
 function loadAsset(idTag)
 {
-	if (init)
-	{
-		var mainDiv = document.getElementById("main");
-
-		var newDiv = document.createElement("div");
-		newDiv.setAttribute("class", "assetOverlay");
-
-
-
-		var newTopBoxDiv = document.createElement("div");
-		newTopBoxDiv.setAttribute("class", "topBox");
-
-		var newImg = document.createElement("img");
-		newImg.setAttribute("id", "image");
-		newImg.setAttribute("src", AssetList[findArrLoc(idTag)].img);
-
-		var newWordsDiv = document.createElement("div");
-		newWordsDiv.setAttribute("class", "words");
-
-		var newTitleDiv = document.createElement("div");
-		newTitleDiv.setAttribute("class", "bigTitle");
-		newTitleDiv.setAttribute("id", "currAssetTitle");
-		var newTitleValue = document.createTextNode(AssetList[findArrLoc(idTag)].name);
-		newTitleDiv.appendChild(newTitleValue);
-
-		var newDescDiv = document.createElement("div");
-		newDescDiv.setAttribute("class", "description");
-		newDescDiv.setAttribute("id", "desc");
-		var newDescValue = document.createTextNode(AssetList[findArrLoc(idTag)].description);
-		newDescDiv.appendChild(newDescValue);
-
-		newWordsDiv.appendChild(newTitleDiv);
-		newWordsDiv.appendChild(newDescDiv);
-
-		newTopBoxDiv.appendChild(newImg);
-		newTopBoxDiv.appendChild(newWordsDiv);
-
-		var newSliderClass = document.createElement("div");
-		newSliderClass.setAttribute("class", "sliderHorizon");
-
-		var newSliderDiv = document.createElement("div");
-		newSliderDiv.setAttribute("class", "slider");
-		newSliderDiv.setAttribute("id", "slider");
-
-		var newSliderResultDiv = document.createElement("div");
-		newSliderResultDiv.setAttribute("id", "slider-result")
-		var sliderResultValue = document.createTextNode(AssetList[findArrLoc(idTag)].rank);
-		console.log(sliderResultValue);
-		newSliderResultDiv.appendChild(sliderResultValue);
-
-		var newSliderInput = document.createElement("input");
-		newSliderInput.setAttribute("type", "hidden");
-		newSliderInput.setAttribute("id", "hidden");
-
-		// var newSliderFill = document.createElement("div");
-		// newSliderFill.setAttribute("id", "sliderFill");
-
-		newSliderClass.appendChild(newSliderDiv);
-		newSliderClass.appendChild(newSliderResultDiv);
-		newSliderClass.appendChild(newSliderInput);
-		
-		newDiv.appendChild(newTopBoxDiv);
-		newDiv.appendChild(newSliderClass);
-		//newDiv.appendChild(newSliderFill);
-
-		mainDiv.appendChild(newDiv);
-
-
-	}
-
-	else
-	{
-		document.getElementById("image").setAttribute("src" , AssetList[findArrLoc(idTag)].img);
-		document.getElementById("currAssetTitle").innerHTML = AssetList[findArrLoc(idTag)].name;
-		document.getElementById("desc").innerHTML = AssetList[findArrLoc(idTag)].description;
-		document.getElementById("slider-result").innerHTML = AssetList[findArrLoc(idTag)].rank;
-
-	}
-
-	$( "#slider" ).slider({
-        animate: true,
-        range: "min",
-        value: AssetList[findArrLoc(idTag)].rank,
-        min: 0,
-        max: 100,
-        step: 1,
-
-
-        //this gets a live reading of the value and prints it on the page
-        slide: function( event, ui ) {
-            $( "#slider-result" ).html( ui.value );
-        },
- 
-        //this updates the hidden form field so we can submit the data using a form
-        change: function(event, ui) {
-            $('#hidden').attr('value', ui.value);
-            }
-            
-     });
-
-
-	for(var j=0;j<AssetList.length;j++)
-	{
-		var liTag = document.getElementById(j);
-		liTag.removeAttribute("class");
-		if (liTag.lastChild.id == "triangleSelector")
+	try
 		{
-			liTag.removeChild(liTag.lastChild);
-		}
+			var nextID = parseInt(idTag) + 1;
+			var prevID = parseInt(idTag) - 1;
+
+			if (init)
+			{
+				var mainDiv = document.getElementById("main");
+
+				var newDiv = document.createElement("div");
+				newDiv.setAttribute("class", "assetOverlay");
+
+
+
+				var newTopBoxDiv = document.createElement("div");
+				newTopBoxDiv.setAttribute("class", "topBox");
+
+				var newImg = document.createElement("img");
+				newImg.setAttribute("id", "image");
+				newImg.setAttribute("src", AssetList[findArrLoc(idTag)].img);
+
+				var newWordsDiv = document.createElement("div");
+				newWordsDiv.setAttribute("class", "words");
+
+				var newTitleDiv = document.createElement("div");
+				newTitleDiv.setAttribute("class", "bigTitle");
+				newTitleDiv.setAttribute("id", "currAssetTitle");
+				var newTitleValue = document.createTextNode(AssetList[findArrLoc(idTag)].name);
+				newTitleDiv.appendChild(newTitleValue);
+
+				var newDescDiv = document.createElement("div");
+				newDescDiv.setAttribute("class", "description");
+				newDescDiv.setAttribute("id", "desc");
+				var newDescValue = document.createTextNode(AssetList[findArrLoc(idTag)].description);
+				newDescDiv.appendChild(newDescValue);
+
+				newWordsDiv.appendChild(newTitleDiv);
+				newWordsDiv.appendChild(newDescDiv);
+
+				newTopBoxDiv.appendChild(newImg);
+				newTopBoxDiv.appendChild(newWordsDiv);
+
+				var newSliderClass = document.createElement("div");
+				newSliderClass.setAttribute("class", "sliderHorizon");
+
+				var newSliderDiv = document.createElement("div");
+				newSliderDiv.setAttribute("class", "slider");
+				newSliderDiv.setAttribute("id", "slider");
+
+				var newSliderResultDiv = document.createElement("div");
+				newSliderResultDiv.setAttribute("id", "slider-result")
+				var sliderResultValue = document.createTextNode(AssetList[findArrLoc(idTag)].rank);
+				console.log(sliderResultValue);
+				newSliderResultDiv.appendChild(sliderResultValue);
+
+				var newSliderInput = document.createElement("input");
+				newSliderInput.setAttribute("type", "hidden");
+				newSliderInput.setAttribute("id", "hidden");
+
+				// var newSliderFill = document.createElement("div");
+				// newSliderFill.setAttribute("id", "sliderFill");
+
+				newSliderClass.appendChild(newSliderDiv);
+				newSliderClass.appendChild(newSliderResultDiv);
+				newSliderClass.appendChild(newSliderInput);
+				var nextID = parseInt(idTag) + 1;
+				console.log(nextID);
+				var nextButton = document.createElement("div");
+				nextButton.setAttribute("class", "lowerBtn");
+				nextButton.setAttribute("id", "next");
+				nextButton.setAttribute("onclick", 'loadAsset(' + nextID + ');');
+				var nextButtonValue = document.createTextNode("Next Item");
+				nextButton.appendChild(nextButtonValue);
+
+				var prevButton = document.createElement("div");
+				prevButton.setAttribute("class", "lowerBtn");
+				prevButton.setAttribute("id", "previous");
+				prevButton.setAttribute("onclick", 'loadAsset(' + prevID + ');');
+				var prevButtonValue = document.createTextNode("Previous Item");
+				prevButton.appendChild(prevButtonValue);
+				
+				
+
+				newDiv.appendChild(newTopBoxDiv);
+				newDiv.appendChild(newSliderClass);
+				newDiv.appendChild(prevButton);
+				newDiv.appendChild(nextButton);
+				//newDiv.appendChild(newSliderFill);
+
+				mainDiv.appendChild(newDiv);
+
+
+			}
+
+			else
+			{
+
+				document.getElementById("image").setAttribute("src" , AssetList[findArrLoc(idTag)].img);
+				document.getElementById("currAssetTitle").innerHTML = AssetList[findArrLoc(idTag)].name;
+				document.getElementById("desc").innerHTML = AssetList[findArrLoc(idTag)].description;
+				document.getElementById("slider-result").innerHTML = AssetList[findArrLoc(idTag)].rank;
+				document.getElementById("previous").setAttribute("onclick", 'loadAsset(' + prevID + ');');
+				document.getElementById("next").setAttribute("onclick", 'loadAsset(' + nextID + ');');
+
+			}
+			console.log(currBudget);
+
+			$( "#slider" ).slider({
+		        animate: true,
+		        range: "min",
+		        value: AssetList[findArrLoc(idTag)].rank,
+		        min: 0,
+		        max: currBudget + parseInt(AssetList[findArrLoc(idTag)].rank),
+		        step: 1,
+
+
+		        //this gets a live reading of the value and prints it on the page
+		        slide: function( event, ui ) {
+		            $( "#slider-result" ).html( ui.value );
+		        },
+		 
+		        //this updates the hidden form field so we can submit the data using a form
+		        change: function(event, ui) {
+		            $('#hidden').attr('value', ui.value);
+		        },
+
+		        stop: function(event, ui){
+		        	AssetList[findArrLoc(idTag)].rank = document.getElementById("slider-result").innerHTML;
+		        	adjustBudget(idTag);
+		        }
+
+		     });
+
+
+			for(var j=0;j<AssetList.length;j++)
+			{
+				var liTag = document.getElementById(j);
+				liTag.removeAttribute("class");
+				if (liTag.lastChild.id == "triangleSelector")
+				{
+					liTag.removeChild(liTag.lastChild);
+				}
+			}
+
+			var liTag = document.getElementById(idTag);
+			liTag.setAttribute("class", "active");
+
+
+			init = false;
+		}	
+	catch(err)
+	{
+		console.log("ERRRROROROROROR" + err.message);
 	}
-
-	var liTag = document.getElementById(idTag);
-	liTag.setAttribute("class", "active");
-
-
-	init = false;
 };
 
 function findArrLoc(idTag)
@@ -175,5 +213,28 @@ function findArrLoc(idTag)
 		}
 	}
 };
+
+var currBudget = 100;
+
+function adjustBudget()
+{
+	var tempBudget = MAX_BUDGET_VALUE;
+	var runningSum = 0;
+	for(var i=0; i<AssetList.length;i++)
+	{
+		runningSum += parseInt(AssetList[i].rank);
+		
+	}
+	var remBudget = document.getElementById("remBudget");
+	currBudget = parseInt(tempBudget) - parseInt(runningSum);
+	remBudget.innerHTML = "Remaining Budget " + currBudget;
+};
+
+function getRemainingBudget()
+{
+	return REM_BUDGET;
+}
+
+
 
 
