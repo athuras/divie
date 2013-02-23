@@ -29,7 +29,6 @@ def connect_db():
     return conn
 
 
-
 def home():
     return "Not Dead Yet ..."
 
@@ -66,7 +65,7 @@ def query_template(query):
     finally:
         cur.close()
         conn.close()
-    return str(vals)
+    return vals
 
 def get_items():
     query = "SELECT * FROM item;"
