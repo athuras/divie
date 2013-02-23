@@ -56,6 +56,12 @@ table {
 	font-weight: 100;
 }
 
+@font-face {
+	font-family: 'Museo Sans';
+	src:url('fonts/MuseoSans-300.otf') format("opentype");
+	font-weight: 300;
+}
+
 body {
 	font-family: 'Museo Sans', 'Helvetica Neue', sans-serif;
 	margin: 0;
@@ -81,7 +87,6 @@ body {
 	top: 16px;
 	right: 0;
 	font-size: 14pt;
-	font-weight: 100;
 	margin-right: 3%;
 	color: #e0e5ed;
 }
@@ -132,14 +137,21 @@ body {
 
 .leftNav li {
 	border-bottom: 2px solid #171717;
-	padding: 14px 0 12px 20px;
+	padding: 14px 0 14px 20px;
 	font-size: 28pt;
 	color: #e0e5ed;
-	font-weight: 100;
 }
 
-.leftNav #assetTitle {
-	box-shadow: 0 1px -1px #000;
+.leftNav li #assetTitle {
+	text-shadow: #333 0 -2px;
+}
+
+.leftNav li #valueBar {
+	width: 80%;
+	height: 5px;
+	background-color: #933d3d;
+	border-radius: 10px;
+	margin-top: 10px;
 }
 
 .rightBg {
@@ -174,6 +186,7 @@ body {
 	left: 50%;
 	width: 40%;
 	visibility: visible;
+	font-weight: 100;
 }
 
 
