@@ -1,19 +1,43 @@
 import os
-import json
 import psycopg2
-
 from flask import Flask
-from flask import render_template
-from flask import request
 
-apo = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-db = SQLAlchemy(app)
+app = Flask(__name__)
+
+def connect_db():
+    conn = psycopg2.connect(**{
+            'host': 'ec2-54-243-232-179.compute-1.amazonaws.com',
+            'database': 'd708fal6ch74uk',
+            'user': 'qbilqsbasxktlu',
+            'password': 'vEiXaha5nBimvRAxbjRqygZeSE',
+            'port': 5432
+            })
+    return conn
 
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return "Not Dead Yet ..."
+
+@app.route('/db_test')
+def db_test():
+    conn = None
+    try:
+        conn = connect_db()
+        cur = conn.cursor()
+        cur.execute("DROP TABLE if exists test;")
+        cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+        cur.execute("INSERT INTO test (num, data) VALUES (%s, %s);", (31415, 'THISISATEST'))
+        cur.execute("SELECT * FROM test;")
+        vals = cur.fetchall()
+        conn.commit()
+    except psycopg2.Error as e:
+        return 'DB Error: ' + str(e)
+
+    finally:
+        cur.close()
+        conn.close()
+    return 'SUCCESS!:\n' + str(vals)
 
 
 if __name__ == '__main__':
