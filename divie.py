@@ -30,6 +30,7 @@ def db_test():
         cur.execute("INSERT INTO test (num, data) VALUES (%s, %s);", (31415, 'THISISATEST'))
         cur.execute("SELECT * FROM test;")
         vals = cur.fetchall()
+        conn.commit()
     except psycopg2.Error as e:
         return 'DB Error: ' + str(e)
 
