@@ -1,37 +1,39 @@
 import os
-import json
 import psycopg2
-
 from flask import Flask
-from flask import request
 
 app = Flask(__name__)
-conn = None
 
-
-def db_init():
-    '''Connects to the PostgreSQL Database'''
-    global conn
-    params = {
-            'host': "'ec2-54-243-232-179.compute-1.amazonaws.com'",
-            'dbname': "'d708fal6ch74uk'",
-            'user': "'qbilqsbasxktlu'",
-            'password': "'vEiXaha5nBimvRAxbjRqygZeSE'",
-            'port': "'5432'"
-            }
-    con_string = ' '.join(k + '+' + v for k, v in params.iteritems())
-    conn = psycopg2.connect(con_string)
+def connect_db():
+    conn = psycopg2.connect(**{
+            'host': 'ec2-54-243-232-179.compute-1.amazonaws.com',
+            'database': 'd708fal6ch74uk',
+            'user': 'qbilqsbasxktlu',
+            'password': 'vEiXaha5nBimvRAxbjRqygZeSE',
+            'port': 5432
+            })
+    return conn
 
 
 @app.route('/')
 def home():
-    if conn is None:
-        return 'The database connection failed'
-    else:
-        return str(conn)
+    return "Not Dead Yet ..."
+
+@app.route('/db_test')
+def db_test():
+    conn = None
+    try:
+        conn = connect_db()
+    except psycopg2.Error as e:
+        return 'DB Error: ' + str(e)
+
+    cur = conn.cursor()
+    cur.execute("DROP TABLE if exists test;")
+    cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
+    cur.execute("INSERT INTO test (num, data) VALUES (%s);", (31415, 'THISISATEST'))
+    return 'SUCCESS!:\n' + str(cur.execute("SELECT * FROM test;"))
 
 
 if __name__ == '__main__':
-    db_init()
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
