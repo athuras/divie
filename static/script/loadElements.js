@@ -94,6 +94,7 @@ function loadAsset(idTag)
 		var newSliderResultDiv = document.createElement("div");
 		newSliderResultDiv.setAttribute("id", "slider-result")
 		var sliderResultValue = document.createTextNode(AssetList[findArrLoc(idTag)].rank);
+		console.log(sliderResultValue);
 		newSliderResultDiv.appendChild(sliderResultValue);
 
 		var newSliderInput = document.createElement("input");
@@ -121,29 +122,31 @@ function loadAsset(idTag)
 		document.getElementById("image").setAttribute("src" , AssetList[findArrLoc(idTag)].img);
 		document.getElementById("currAssetTitle").innerHTML = AssetList[findArrLoc(idTag)].name;
 		document.getElementById("desc").innerHTML = AssetList[findArrLoc(idTag)].description;
+		document.getElementById("slider-result").innerHTML = AssetList[findArrLoc(idTag)].rank;
+
 	}
 
-			 $( "#slider" ).slider({
-           animate: true,
-               range: "min",
-               value: AssetList[findArrLoc(idTag)].rank,
-               min: 0,
-               max: 100,
-               step: 1,
+	$( "#slider" ).slider({
+        animate: true,
+        range: "min",
+        value: AssetList[findArrLoc(idTag)].rank,
+        min: 0,
+        max: 100,
+        step: 1,
 
-              
 
-               //this gets a live reading of the value and prints it on the page
-               slide: function( event, ui ) {
-                   $( "#slider-result" ).html( ui.value );
-               },
+        //this gets a live reading of the value and prints it on the page
+        slide: function( event, ui ) {
+            $( "#slider-result" ).html( ui.value );
+        },
  
-               //this updates the hidden form field so we can submit the data using a form
-               change: function(event, ui) {
-               $('#hidden').attr('value', ui.value);
-               }
+        //this updates the hidden form field so we can submit the data using a form
+        change: function(event, ui) {
+            $('#hidden').attr('value', ui.value);
+            }
             
-               });
+     });
+
 
 	for(var j=0;j<AssetList.length;j++)
 	{
@@ -157,6 +160,7 @@ function loadAsset(idTag)
 
 	var liTag = document.getElementById(idTag);
 	liTag.setAttribute("class", "active");
+
 
 	init = false;
 };
