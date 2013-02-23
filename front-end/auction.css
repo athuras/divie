@@ -94,8 +94,8 @@ body {
 }
 
 .links #remBudget {
-	margin-right: 15%;
-	border-right: 1px solid #315286;
+	color: #fff;
+	padding: 14px 35px 14px 35px;
 }
 
 .links #logOut {
