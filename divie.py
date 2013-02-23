@@ -30,7 +30,7 @@ def db_test():
     cur = conn.cursor()
     cur.execute("DROP TABLE if exists test;")
     cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
-    cur.execute("INSERT INTO test (num, data) VALUES (%s);", (31415, 'THISISATEST'))
+    cur.execute("INSERT INTO test (num, data) VALUES (%s, %s);", (31415, 'THISISATEST'))
     return 'SUCCESS!:\n' + str(cur.execute("SELECT * FROM test;"))
 
 
