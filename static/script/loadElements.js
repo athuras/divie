@@ -71,15 +71,19 @@ function loadAsset(idTag)
 
 		var newSliderDiv = document.createElement("div");
 		newSliderDiv.setAttribute("class", "slider");
+		newSliderDiv.setAttribute("id", "slider");
 
 		var newSliderResultDiv = document.createElement("div");
 		newSliderResultDiv.setAttribute("id", "slider-result")
-		var sliderResultValue = document.createTextNode(SLIDER_RESULT);
+		var sliderResultValue = document.createTextNode("50");
+		newSliderResultDiv.appendChild(sliderResultValue);
 
 		var newSliderInput = document.createElement("input");
 		newSliderInput.setAttribute("type", "hidden");
 		newSliderInput.setAttribute("id", "hidden");
 
+		// var newSliderFill = document.createElement("div");
+		// newSliderFill.setAttribute("id", "sliderFill");
 
 		newDiv.appendChild(newImg);
 		newDiv.appendChild(newTitleDiv);
@@ -88,8 +92,29 @@ function loadAsset(idTag)
 		newDiv.appendChild(newSliderDiv);
 		newDiv.appendChild(newSliderResultDiv);
 		newDiv.appendChild(newSliderInput);
+		//newDiv.appendChild(newSliderFill);
 
 		mainDiv.appendChild(newDiv);
+
+		 $( "#slider" ).slider({
+           animate: true,
+               range: "min",
+               value: 50,
+               min: 10,
+               max: 100,
+               step: 1,
+                
+               //this gets a live reading of the value and prints it on the page
+               slide: function( event, ui ) {
+                   $( "#slider-result" ).html( ui.value );
+               },
+ 
+               //this updates the hidden form field so we can submit the data using a form
+               change: function(event, ui) {
+               $('#hidden').attr('value', ui.value);
+               }
+            
+               });
 	}
 
 	else
@@ -113,23 +138,4 @@ function findArrLoc(idTag)
 	}
 };
 
-$( ".slider" ).slider({
-           animate: true,
-               range: "min",
-               value: 50,
-               min: 10,
-               max: 100,
-               step: 10,
-                
-               //this gets a live reading of the value and prints it on the page
-               slide: function( event, ui ) {
-                   $( "#slider-result" ).html( ui.value );
-               },
- 
-               //this updates the hidden form field so we can submit the data using a form
-               change: function(event, ui) {
-               $('#hidden').attr('value', ui.value);
-               }
-            
-               });
 
