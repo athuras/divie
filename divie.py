@@ -17,8 +17,7 @@ def connect_db():
     return conn
 
 @app.route('/')
-def home():
-    return "Not Dead Yet ..."
+db.home()
 '''
 def home():
     db.home()
