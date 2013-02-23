@@ -103,6 +103,26 @@ body {
 	min-width: 60px;
 }
 
+.leftNav {
+	background-image: url('img/bg-fuzz.png');
+	background-color: #fff;
+	position: absolute;
+	width: 33.3%;
+	bottom: 0;
+	height: 100%;
+	z-index: -1;
+}
+
+.rightBg {
+	background-image: url('img/bg-fuzz.png');
+	background-color: #646769;
+	position: absolute;
+	width: 66.7%;
+	bottom: 0;
+	right: 0;
+	height: 100%;
+	z-index: -2;
+}
 
 
 
