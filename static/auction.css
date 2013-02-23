@@ -147,6 +147,10 @@ body {
 	color: #e0e5ed;
 }
 
+.leftNav #active {
+	background-color: #4a535f;
+}
+
 .leftNav li #assetTitle {
 	text-shadow: #333 0 -2px;
 }
@@ -189,30 +193,52 @@ body {
 	z-index: -1;
 }
 
+#triangleSelector {
+	position: absolute;
+	left: -2.1em;
+	top: 5.4em;
+}
+
+.topBox {
+	position: absolute;
+	width: 90%;
+	margin: 4em 10% 4em 10%;
+}
+
 #image {
 	height: 200px;
 	width: 200px;
 	border-radius: 100px;
-	margin: 4em 0 0 4em;
+	/*margin: 4em 0 0 4em;*/
+}
+
+.words {
+	position: relative;
+	display: inline-block;
+	width: 65%;
+	margin: 1em 0 0 2em;
+	vertical-align: top;
 }
 
 .bigTitle {
 	font-weight: 100;
 	font-size: 48pt;
 	color: #e0e5ed;
-	position: absolute;
+	/*display: inline-block;*/
+	/*position: absolute;
 	top: 1em;
-	left: 4.5em;
+	left: 4.5em;*/
 }
 
 .description {
 	font-size: 13pt;
 	font-weight: 100;
 	color: #9fa3ab;
-	width: 60%;
-	position: absolute;
+	padding: 1em 0 0 0;
+	/*display: inline-block;*/
+	/*position: absolute;
 	top: 8.4em;
-	left: 16.7em;
+	left: 16.7em;*/
 }
 
 #slider {
@@ -226,17 +252,6 @@ body {
 	left: 20%;
 	right: 20%;
 }
-
-/*#sliderFill {
-	width: 20%;
-	height: 12px;
-	border-radius: 10px;
-	position: absolute;
-	top: 50%;
-	left: 20%;
-	right: 20%;
-	background-color: #933d3d;
-}*/
 
 #slicon {
 	margin: -0.4em 0 0 15em;
