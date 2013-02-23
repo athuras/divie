@@ -9,6 +9,7 @@ AssetList.push(new Asset(5, "Everything Else", 0));
 var init = true;
 var MAX_BUDGET_VALUE = 100;
 
+//this loads assets from server
 function loaded()
 {
 	$.ajax({
