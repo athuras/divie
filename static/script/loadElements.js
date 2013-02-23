@@ -96,11 +96,16 @@ function loadAsset(idTag)
 				newSliderDiv.setAttribute("class", "slider");
 				newSliderDiv.setAttribute("id", "slider");
 
+				var sliderResultWrapper = document.createElement("div");
+				sliderResultWrapper.setAttribute("class", "sliderResultWrapper");
+
 				var newSliderResultDiv = document.createElement("div");
 				newSliderResultDiv.setAttribute("id", "slider-result")
 				var sliderResultValue = document.createTextNode(AssetList[findArrLoc(idTag)].rank);
 				console.log(sliderResultValue);
 				newSliderResultDiv.appendChild(sliderResultValue);
+
+				sliderResultWrapper.appendChild(newSliderResultDiv);
 
 				var newSliderInput = document.createElement("input");
 				newSliderInput.setAttribute("type", "hidden");
@@ -110,7 +115,7 @@ function loadAsset(idTag)
 				// newSliderFill.setAttribute("id", "sliderFill");
 
 				newSliderClass.appendChild(newSliderDiv);
-				newSliderClass.appendChild(newSliderResultDiv);
+				newSliderClass.appendChild(sliderResultWrapper);
 				newSliderClass.appendChild(newSliderInput);
 				var nextID = parseInt(idTag) + 1;
 				console.log(nextID);
@@ -166,6 +171,8 @@ function loadAsset(idTag)
 		        //this gets a live reading of the value and prints it on the page
 		        slide: function( event, ui ) {
 		            $( "#slider-result" ).html( ui.value );
+		            document.getElementById("slider-result").style.left = document.getElementsByTagName("a").item(0).style.left;
+		            
 		        },
 		 
 		        //this updates the hidden form field so we can submit the data using a form
@@ -227,7 +234,7 @@ function adjustBudget()
 	}
 	var remBudget = document.getElementById("remBudget");
 	currBudget = parseInt(tempBudget) - parseInt(runningSum);
-	remBudget.innerHTML = "Remaining Budget " + currBudget;
+	remBudget.innerHTML = "Remaining Budget:  " + '<img src = "img/heart-white.png"/> ' + currBudget;
 };
 
 function getRemainingBudget()

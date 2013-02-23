@@ -281,6 +281,15 @@ body {
 	left: 350px;
 	z-index: 300;
 }
+
+.sliderResultWrapper {
+	width: 540px;
+	height: 16px;
+	margin-left: -265px;
+	position: absolute;
+	top: -8px;
+	left: 50%;
+}
  
 /*This is the fill bar colour*/
 .ui-widget-header {
