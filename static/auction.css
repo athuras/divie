@@ -124,6 +124,24 @@ body {
 	border-bottom: 2px solid #171717;
 }
 
+.leftNav ul {
+	width: 100%;
+	position: absolute;
+	top: 64px;
+}
+
+.leftNav li {
+	border-bottom: 2px solid #171717;
+	padding: 14px 0 12px 20px;
+	font-size: 28pt;
+	color: #e0e5ed;
+	font-weight: 100;
+}
+
+.leftNav #assetTitle {
+	box-shadow: 0 1px -1px #000;
+}
+
 .rightBg {
 	background-image: url('img/bg-fuzz.png');
 	background-color: #646769;
@@ -150,11 +168,11 @@ body {
 .rightBg #helperText {
 	font-size: 28pt;
 	color: #b7c0b6;
-	margin-left: -125px;
+	margin-left: -20%;
 	position: absolute;
 	top: -35px;
-	left: 45%;
-	width: 500px;
+	left: 50%;
+	width: 40%;
 	visibility: visible;
 }
 
