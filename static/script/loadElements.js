@@ -41,9 +41,9 @@ function finishAuction()
 		datatype: "json",
 		url: 'http://divie.herokuapp.com/static/auction.html/submitBids',
 		async: false,
-		data: JSON.stringify(AssetList),
+		//data: JSON.stringify(AssetList),
 		success: function(result){ 
-
+			alert(result)
 		},
 		error: function(){
 			alert("failed to load submit bids.")
