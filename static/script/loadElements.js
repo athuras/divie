@@ -223,7 +223,7 @@ function loadAsset(idTag)
 		}	
 	catch(err)
 	{
-		console.log("ERRRROROROROROR" + err.message);
+		console.log("error: " + err.message);
 	}
 };
 
