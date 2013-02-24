@@ -211,7 +211,7 @@ function loadAsset(idTag)
 				nextButton.setAttribute("class", formatButton(nextPos, "next"));
 				nextButton.setAttribute("id", "next");
 				nextButton.setAttribute("onclick", 'loadAsset(' + nextID + ');');
-				var nextButtonValue = document.createTextNode("next Item");
+				var nextButtonValue = document.createTextNode("Next Item");
 				nextButton.appendChild(nextButtonValue);
 
 				var prevButton = document.createElement("div");
