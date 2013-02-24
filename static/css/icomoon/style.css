@@ -25,7 +25,7 @@ Instead of a list of all class selectors,
 you can use the generic selector below, but it's slower:
 [class*="icon-"]:before {
 */
-.icon-help:before, .icon-arrow-right:before, .icon-arrow-right-2:before, .icon-arrow-left:before, .icon-arrow-down:before, .icon-arrow-up:before, .icon-arrow-left-2:before, .icon-arrow-down-2:before, .icon-arrow-up-2:before, .icon-arrow-left-3:before, .icon-arrow-down-3:before, .icon-arrow-up-3:before, .icon-arrow-right-3:before, .icon-arrow-left-4:before, .icon-arrow-down-4:before, .icon-arrow-up-4:before, .icon-untitled:before, .icon-locked:before, .icon-unlocked:before, .icon-unlock-fill:before, .icon-lock-fill:before, .icon-unlocked-2:before, .icon-locked-2:before, .icon-checkmark:before {
+.icon-help:before, .icon-arrow-right:before, .icon-arrow-right-2:before, .icon-arrow-left:before, .icon-arrow-down:before, .icon-arrow-up:before, .icon-arrow-left-2:before, .icon-arrow-down-2:before, .icon-arrow-up-2:before, .icon-arrow-left-3:before, .icon-arrow-down-3:before, .icon-arrow-up-3:before, .icon-arrow-right-3:before, .icon-arrow-left-4:before, .icon-arrow-down-4:before, .icon-arrow-up-4:before, .icon-untitled:before, .icon-locked:before, .icon-unlocked:before, .icon-unlock-fill:before, .icon-lock-fill:before, .icon-unlocked-2:before, .icon-locked-2:before, .icon-checkmark:before, .icon-close:before, .icon-cancel:before {
 	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
@@ -104,4 +104,10 @@ you can use the generic selector below, but it's slower:
 }
 .icon-checkmark:before {
 	content: "\37";
+}
+.icon-close:before {
+	content: "\38";
+}
+.icon-cancel:before {
+	content: "\39";
 }

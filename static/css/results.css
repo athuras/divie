@@ -11,18 +11,18 @@
 
 .icon-checkmark:before {
 	font-family: 'icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 	content: "\37";
 	color: #62ca66;
 	font-size: 24pt;
-	height: 50px;
-	width: 50px;
-	padding: 10px;
-	margin: 10px 25% 0 25%;
+}
+
+.icon-cancel:before {
+	font-family: 'icomoon';
+	-webkit-font-smoothing: antialiased;
+	content: "\39";
+	color: #cb6464;
+	font-size: 17pt;
 }
 
 /* --- end of icomoon font declaration --- */
@@ -57,6 +57,11 @@ html {
 	font-weight: 300;
 }
 
+table, td, th {
+	text-align: center;
+	vertical-align: middle;
+}
+
 #displayTable {
 	height: 65%;
 	width: 70%;
@@ -71,9 +76,20 @@ table td {
 	border-right: 2px solid #e7e7e7;
 }
 
-#assetHead {
-	color: #171717;
-	border-top-left-radius: 10px; 
+table th {
+	border-right: 2px solid #6488b4;
+}
+
+table td:last-child, th:last-child {
+	border: none;
+}
+
+th {
+	font-size: 20pt;
+}
+
+th:first-child {
+	border-top-left-radius: 10px;
 }
 
 .head {
@@ -106,24 +122,10 @@ table td {
 	color: #858585;
 	font-family: 'Myriad Pro', 'Museo Sans', 'Helvetica Neue', sans-serif;
 	font-size: 15pt;
-	position: relative;
-	display: inline-block;
-	width: 100%;
-	text-align: center;
-	margin: 20px 0 0 0;
-	overflow: hidden;
 }
 
-.approve {
+tfoot td {
 	padding: 1em;
 }
-
-.approve:active {
-	
-}
-
-
-
-
 
 
