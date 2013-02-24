@@ -88,8 +88,6 @@ function loadAsset(idTag)
 			var prevPos = findArrLoc(idTag)-1;
 			var prevID = -1;
 			var nextID = -1;
-
-			console.log(prevPos);
 			if(nextPos < AssetList.length)
 			{
 				nextID = parseInt(AssetList[nextPos].id);

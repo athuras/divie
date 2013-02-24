@@ -6,17 +6,16 @@
 	<link rel='stylesheet' type='text/css' href='css/auction.css'>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script src="script/loadElements.js"></script>
-	<script src="script/jquery-1.9.1.js"></script>
   	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.js"></script>
-  	<script type="text/javascript" src="js/jquery.tinyscrollbar.min.js"></script>
-  	<script type="text/javascript">
-    $(document).ready(function(){
-
-        $('#scrollbar1').tinyscrollbar();
-
-    });
-</script>
-         
+  	<link href="css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+  	<script type"text/javascript" src="script/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script>
+	    (function($){
+	        $(window).load(function(){
+	            $(".scrollbar").mCustomScrollbar();
+	        });
+	    })(jQuery);
+	</script>
 </head>
 <body onload="loaded(); addAssets();">
 	<div class='header'>
@@ -35,10 +34,7 @@
 	<div class='main', id='main'>
 		<div class='leftNav'>
 				<span id='leftTitle'>Asset List</span>
-				<div id="scrollbar1">
-					<div class="scrollbar"><div class="track"><div class="thumb"><div class="end"></div></div></div></div>
-						<ul id='assetList'></ul>
-				</div>
+					<ul id='assetList'></ul>
 		</div>
     </div>
 		<div class='rightBg'>
@@ -51,6 +47,5 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 </html>
