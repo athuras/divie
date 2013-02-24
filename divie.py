@@ -12,7 +12,7 @@ def home():
 
 @app.route('/static/login.html', methods=['POST'])
 def login():
-    if request.method == 'GET':
+    if request.method == 'POST':
         session['username'] = request.form['username']
         return redirect(url_for('static', filename='myAuctions.html'))
 
