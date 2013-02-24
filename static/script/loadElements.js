@@ -1,13 +1,34 @@
 var AssetList = [];
-AssetList.push(new Asset(0, "Sailboat Painting", 0, '', "img/sailboat.png"));
-AssetList.push(new Asset(1, "Car", 0, '', "img/car.jpg"));
-AssetList.push(new Asset(2, "Lamp", 0));
-AssetList.push(new Asset(3, "Family Portrait", 0));
-AssetList.push(new Asset(4, "Sailboat Painting", 0));
-AssetList.push(new Asset(5, "Everything Else", 0));
+// AssetList.push(new Asset(0, "Sailboat Painting", 0, '', "img/sailboat.png"));
+// AssetList.push(new Asset(1, "Car", 0, '', "img/car.jpg"));
+// AssetList.push(new Asset(2, "Lamp", 0, '', "img/sailboat.png"));
+// AssetList.push(new Asset(3, "Family Portrait", 0, '', "img/sailboat.png"));
+// AssetList.push(new Asset(4, "Sailboat Painting", 0, '', "img/sailboat.png"));
+// AssetList.push(new Asset(5, "Everything Else", 0, '', "img/sailboat.png"));
 
 var init = true;
 var MAX_BUDGET_VALUE = 100;
+
+//this loads assets from server
+function loaded()
+{
+	$.ajax({
+		type: "POST",
+		datatype: "json",
+		url: 'http://divie.herokuapp.com/static/auction.html',
+		async: false,
+		success: function(data){ 
+			$.each(data, function(i, at){
+				AssetList.push(new Asset(at.id, at.name, at.ranking, at.desc, at.img));
+			});
+
+			addAssets();
+		},
+		error: function(){
+			alert("failed to load assets.")
+		},
+	})
+};
 
 function addAssets()
 {
@@ -24,13 +45,20 @@ function addAssets()
 
 		var newValueBarDiv = document.createElement("div");
 		newValueBarDiv.setAttribute("id", "valueBar");
+		var newAssignText = document.createElement("div");
+		newAssignText.setAttribute("id", "assignText");
+		var assignTextValue = document.createTextNode("Assign a Value");
+		newAssignText.appendChild(assignTextValue);
 		//var valueBarValue = document.createTextNode(AssetList[i].rank); 
 		
 		newAssetSpan.appendChild(spanValue);
 		//newValueBarDiv.appendChild(valueBarValue);
-		
+	
 		newLi.appendChild(newAssetSpan);
 		newLi.appendChild(newValueBarDiv);
+		newLi.appendChild(newAssignText);
+		//console.log(newLi.childNode['1']);
+		//newLi.childNode[1].style.width = parseInt(AssetList[i].rank) / currBudget * 100 + "%";
 
 		list.appendChild(newLi);
 	}
@@ -42,7 +70,7 @@ function Asset (id, name, rank, description, imgSrc){
 	this.rank = rank;
 	this.description = "Now that we know who you are, I know who I am. I'm not a mistake! It all makes sense! In a comic, you know how you can tell who the arch-villain's going to be? He's the exact opposite of the hero. And most times they're friends, like you and me! I should've known way back when... You know why, David? Because of the kids. They called me Mr Glass.";
 	// this.description = description;
-	this.img = imgSrc;
+	this.img = "img/sailboat.png";//imgSrc;
 };
 
 function loadAsset(idTag)
@@ -52,8 +80,15 @@ function loadAsset(idTag)
 			var nextID = parseInt(idTag) + 1;
 			var prevID = parseInt(idTag) - 1;
 
+			var list = document.getElementById(idTag);
+			if (list.childNodes.length > 2)
+			{
+				list.removeChild(list.childNodes[2]);
+				list.style.height = "70.5px";
+			}
 			if (init)
 			{
+
 				var mainDiv = document.getElementById("main");
 
 				var newDiv = document.createElement("div");
@@ -91,30 +126,37 @@ function loadAsset(idTag)
 
 				var newSliderClass = document.createElement("div");
 				newSliderClass.setAttribute("class", "sliderHorizon");
+				newSliderClass.setAttribute("id", "sliderHorizon");
 
 				var newSliderDiv = document.createElement("div");
 				newSliderDiv.setAttribute("class", "slider");
 				newSliderDiv.setAttribute("id", "slider");
-
-				var sliderResultWrapper = document.createElement("div");
-				sliderResultWrapper.setAttribute("class", "sliderResultWrapper");
 
 				var newSliderResultDiv = document.createElement("div");
 				newSliderResultDiv.setAttribute("id", "slider-result")
 				var sliderResultValue = document.createTextNode(AssetList[findArrLoc(idTag)].rank);
 				newSliderResultDiv.appendChild(sliderResultValue);
 
-				sliderResultWrapper.appendChild(newSliderResultDiv);
-
 				var newSliderInput = document.createElement("input");
 				newSliderInput.setAttribute("type", "hidden");
 				newSliderInput.setAttribute("id", "hidden");
 
+				var newSliderText = document.createElement("div");
+				newSliderText.setAttribute("class", "sliderText");
+
+				var newSliderRem = document.createElement("div");
+				newSliderRem.setAttribute("id", "slider-remaining");
+				var newSliderRemValue = document.createTextNode(getRemainingBudget())
+				newSliderRem.appendChild(newSliderRemValue);
+				newSliderRem.innerHTML = '<img src = "img/heart-red.png"/> ' + getRemainingBudget() + '<br> remaining';
+
 				// var newSliderFill = document.createElement("div");
 				// newSliderFill.setAttribute("id", "sliderFill");
 
+				newSliderClass.appendChild(newSliderRem);
+				newSliderClass.appendChild(newSliderText);
 				newSliderClass.appendChild(newSliderDiv);
-				newSliderClass.appendChild(sliderResultWrapper);
+				newSliderClass.appendChild(newSliderResultDiv);
 				newSliderClass.appendChild(newSliderInput);
 
 				var nextButton = document.createElement("div");
@@ -168,17 +210,18 @@ function loadAsset(idTag)
 		        //this gets a live reading of the value and prints it on the page
 		        slide: function( event, ui ) {
 		            $( "#slider-result" ).html( ui.value );
-		            
+
 		        },
 		 
 		        //this updates the hidden form field so we can submit the data using a form
 		        change: function(event, ui) {
 		            $('#hidden').attr('value', ui.value);
+
 		        },
 
 		        stop: function(event, ui){
 		        	AssetList[findArrLoc(idTag)].rank = document.getElementById("slider-result").innerHTML;
-		        	adjustBudget(idTag);
+		        	adjustBudget();
 		        }
 
 		     });
@@ -197,12 +240,11 @@ function loadAsset(idTag)
 			var liTag = document.getElementById(idTag);
 			liTag.setAttribute("class", "active");
 
-
 			init = false;
 		}	
 	catch(err)
 	{
-		console.log("ERRRROROROROROR" + err.message);
+		console.log("error: " + err.message);
 	}
 };
 
@@ -242,17 +284,34 @@ function adjustBudget()
 	for(var i=0; i<AssetList.length;i++)
 	{
 		runningSum += parseInt(AssetList[i].rank);
+			var listItem = document.getElementById(i);
+			listItem.childNodes[1].style.width = parseInt(AssetList[i].rank) / MAX_BUDGET_VALUE * 100  + "%";
 		
 	}
 	var remBudget = document.getElementById("remBudget");
 	currBudget = parseInt(tempBudget) - parseInt(runningSum);
 	remBudget.innerHTML = "Remaining Budget:  " + '<img src = "img/heart-white.png"/> ' + currBudget;
+	document.getElementById("slider-remaining").innerHTML = '<img src = "img/heart-red.png"/> ' + getRemainingBudget() + '<br> remaining';
 };
 
 function getRemainingBudget()
 {
-	return REM_BUDGET;
-}
+	return currBudget;
+};
+
+function getChildNodeIndex(list, idName)
+{
+	var index = -1
+	for(var i=0;i<list.childNodes.length;i++)
+	{
+		console.log(list.childNodes[i].id);
+		if (list.childNodes[i].id == idName)
+		{
+			index = i;
+		}
+	}
+	return index;
+};
 
 
 
