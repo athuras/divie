@@ -36,7 +36,7 @@ def auction():
     # When user has completed rankings insert into database and return succesful
     if request.method == 'POST':
         result = response.data
-        saveResult = db.save_bids(result, escape(session['username']))
+        saveResult = db.save_Bids(result, escape(session['username']))
         # #TODO: Insert into BIds table
         # #TODO: redirect to myAuctions page if successful
         if saveResult == "successful"
