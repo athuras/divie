@@ -51,7 +51,7 @@ def db_test():
         conn.close()
     return 'SUCCESS!:\n' + str(vals)
 
-def query_template(query):
+def query_template(query, args=()):
     conn = None
     try:
         conn = connect_db()
