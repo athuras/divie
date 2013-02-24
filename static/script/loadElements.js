@@ -49,7 +49,7 @@ function finishAuction()
 			alert("failed to load submit bids.")
 		}
 	})
-}
+};
 
 function addAssets()
 {
