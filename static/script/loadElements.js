@@ -19,7 +19,7 @@ var MAX_BUDGET_VALUE = 100;
 function loaded()
 {
 	$.ajax({
-		type: "POST",
+		type: "GET",
 		datatype: "json",
 		url: 'http://divie.herokuapp.com/static/auction.html',
 		async: false,
@@ -35,6 +35,27 @@ function loaded()
 		}
 	})
 };
+
+function finishAuction()
+{
+	$.ajax({
+		type: "POST",
+		datatype: "json",
+		url: 'http://divie.herokuapp.com/static/auction.html',
+		async: false,
+		data: JSON.stringify(AssetList),
+		success: function(assets){ 
+			$.each(assets, function(i, at){
+				AssetList.push(new Asset(at.item_id, at.item_name, at.item_value, at.description, at.img_url));
+			});
+
+			//addAssets();
+		},
+		error: function(){
+			//alert("failed to load assets.")
+		}
+	})
+}
 
 function addAssets()
 {

@@ -58,8 +58,6 @@ def query_template(query, args=()):
         cur = conn.cursor()
         cur.execute(query, args)
         vals = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in cur.fetchall()]
-        # cur.execute(query)
-        # vals = cur.fetchall()
         conn.commit()
     except psycopg2.Error as e:
         return 'DB Error: ' + str(e)

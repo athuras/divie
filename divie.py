@@ -12,7 +12,7 @@ def home():
 
 @app.route('/static/login.html', methods=['POST'])
 def login():
-    if request.method == 'POST':
+    if request.method == 'GET':
         session['username'] = request.form['username']
         return redirect(url_for('static', filename='myAuctions.html'))
 
@@ -21,13 +21,17 @@ def get_items():
     vals = db.get_items()
     return vals
 
-@app.route('/static/auction.html', methods=['POST'])
+@app.route('/static/auction.html', methods=['POST', 'GET'])
 def auction():
-    if request.method == 'POST':
+    # When auction is loaded request asset list
+    if request.method == 'GET':
         data = db.get_itemsJSON();
         js = json.dumps(data)
         resp = Response(js, status=200, mimetype='application/json')
         return resp
+    # When user has completed rankings insert into database and return succesful
+    elif request.method == 'POST':
+        return request
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
