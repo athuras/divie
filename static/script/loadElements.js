@@ -21,10 +21,31 @@ function loaded()
 	$.ajax({
 		type: "POST",
 		datatype: "json",
-		url: 'http://divie.herokuapp.com/static/auction.html',
+		url: 'http://divie.herokuapp.com/static/auction.html/request',
 		async: false,
 		success: function(data){ 
 			$.each(data, function(i, at){
+				AssetList.push(new Asset(at.item_id, at.item_name, at.item_value, at.description, at.img_url));
+			});
+			alert("made it")
+			//addAssets();
+		},
+		error: function(){
+			alert("failed to load assets.")
+		}
+	})
+};
+
+function finishAuction()
+{
+	$.ajax({
+		type: "POST",
+		datatype: "json",
+		url: 'http://divie.herokuapp.com/static/auction.html',
+		async: false,
+		data: JSON.stringify(AssetList),
+		success: function(assets){ 
+			$.each(assets, function(i, at){
 				AssetList.push(new Asset(at.item_id, at.item_name, at.item_value, at.description, at.img_url));
 			});
 
@@ -34,7 +55,7 @@ function loaded()
 			//alert("failed to load assets.")
 		}
 	})
-};
+}
 
 function addAssets()
 {
@@ -88,8 +109,6 @@ function loadAsset(idTag)
 			var prevPos = findArrLoc(idTag)-1;
 			var prevID = -1;
 			var nextID = -1;
-
-			console.log(prevPos);
 			if(nextPos < AssetList.length)
 			{
 				nextID = parseInt(AssetList[nextPos].id);
