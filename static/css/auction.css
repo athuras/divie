@@ -149,7 +149,7 @@ body {
 
 .leftNav li {
 	border-bottom: 2px solid #171717;
-	padding: 14px 0 14px 20px;
+	padding: 14px 14px 14px 20px;
 	font-size: 28pt;
 	color: #e0e5ed;
 }
@@ -159,6 +159,7 @@ body {
 	background-image: url('../img/triangle-selector.png');
 	background-repeat: no-repeat;
 	background-position: right;
+		padding: 14px 14px 14px 20px;
 }
 
 .leftNav li #assetTitle {
@@ -166,18 +167,19 @@ body {
 }
 
 .leftNav li #valueBar {
-	width: 40%;
+	width: 0%;
 	height: 5px;
 	background-color: #933d3d;
 	border-radius: 10px;
 	margin-top: 10px;
+
 }
 
 .leftNav li #assignText {
 	color: #365d98;
 	font-size: 13pt;
 	font-weight: 300;
-	margin-top: 10px;
+/*	margin-top: 10px;*/
 }
 
 .rightBg {
@@ -293,7 +295,7 @@ body {
 	color: #993d3d;
 	position: absolute;
 	bottom: -0.5em;
-	right: 0;
+	right: 20%;
 }
  
 /*This is the fill bar colour*/
