@@ -14,7 +14,7 @@ def home():
 def login():
     if request.method == 'POST':
         # creates a new session for the user
-        session['userID'] = request.form['username']
+        session['username'] = request.form['username']
         return redirect(url_for('static', filename='myAuctions.html'))
 
 # @app.route('/logout')
@@ -26,7 +26,7 @@ def login():
 def getItems():
     # When auction is loaded request asset list
     if request.method == 'POST':
-        data = db.get_itemsJSON(1)#escape(session['userID']));
+        data = db.get_itemsJSON()#escape(session['username']));
         js = json.dumps(data)
         resp = Response(js, status=200, mimetype='application/json')
         return resp

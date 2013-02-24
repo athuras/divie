@@ -67,7 +67,7 @@ def query_template(query, args=()):
         conn.close()
     return vals
 
-def get_itemsJSON(userID):
+def get_itemsJSON():
     query = "SELECT * FROM item"#"SELECT item.item_id, item.name, item.description, item.img_url, ISNULL(bid.value, 0) FROM item LEFT JOIN bid ON item.item_id = bid.item_id WHERE bid.agent_id = " + userID + ";"
     vals = query_template(query)
     return vals
