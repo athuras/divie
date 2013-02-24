@@ -295,15 +295,6 @@ body {
 	bottom: -0.5em;
 	right: 0;
 }
-
-.sliderResultWrapper {
-	width: 540px;
-	height: 16px;
-	margin-left: -265px;
-	position: absolute;
-	top: -8px;
-	left: 50%;
-}
  
 /*This is the fill bar colour*/
 .ui-widget-header {
@@ -371,11 +362,11 @@ a {
 }
 
 #previous {
-	left: 12em;
+	left: 25%;
 }
 
 #next {
-	right: 12em;
+	right: 25%;
 }
 
 .rightBg #horizon {

@@ -9,6 +9,27 @@ AssetList.push(new Asset(5, "Everything Else", 0));
 var init = true;
 var MAX_BUDGET_VALUE = 100;
 
+//this loads assets from server
+function loaded()
+{
+	$.ajax({
+		type: "POST",
+		datatype: "json",
+		url: 'http://divie.herokuapp.com/static/auction.html',
+		async: false,
+		success: function(data){ 
+			$.each(data, function(i, at){
+				AssetList.push(new Asset(at.id, at.name, at.ranking, at.desc));
+			});
+
+			addAssets();
+		},
+		error: function(){
+			alert("failed to load assets.")
+		},
+	})
+};
+
 function addAssets()
 {
 	var list = document.getElementById("assetList"); //change ID to whatever is used in html
