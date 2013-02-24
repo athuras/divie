@@ -1,10 +1,10 @@
 var AssetList = [];
-// AssetList.push(new Asset(0, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(1, "Car", 0, '', "img/car.jpg"));
-// AssetList.push(new Asset(2, "Lamp", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(3, "Family Portrait", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(4, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(5, "Everything Else", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(0, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(1, "Car", 0, '', "img/car.jpg"));
+AssetList.push(new Asset(2, "Lamp", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(3, "Family Portrait", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(4, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(5, "Everything Else", 0, '', "img/sailboat.png"));
 
 var init = true;
 var MAX_BUDGET_VALUE = 100;
@@ -143,8 +143,6 @@ function loadAsset(idTag)
 
 				var newSliderText = document.createElement("div");
 				newSliderText.setAttribute("class", "sliderText");
-				var newSliderTextValue = document.createTextNode("Slide to select sentimental value");
-				newSliderText.appendChild(newSliderTextValue);
 
 				var newSliderRem = document.createElement("div");
 				newSliderRem.setAttribute("id", "slider-remaining");
