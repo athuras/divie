@@ -8,7 +8,7 @@ app.secret_key = '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1
 
 @app.route('/')
 def home():
-    return redirect(url_for('static', filename='login.html'))
+    return "test"# redirect(url_for('static', filename='login.html'))
 
 @app.route('/static/login.html', methods=['POST'])
 def login():
@@ -16,6 +16,10 @@ def login():
         # creates a new session for the user
         session['username'] = request.form['username']
         return redirect(url_for('static', filename='myAuctions.html'))
+
+@app.route('/test')
+def logout():
+    return escape(session['username'])
 
 @app.route('/logout')
 def logout():
@@ -31,18 +35,18 @@ def getItems():
         resp = Response(js, status=200, mimetype='application/json')
         return resp
 
-@app.route('/submitBids', methods=['POST'])
-def auction():
-    # When user has completed rankings insert into database and return succesful
-    if request.method == 'POST':
-        result = response.data
-        saveResult = db.save_Bids(result, escape(session['username']))
-        # #TODO: Insert into BIds table
-        # #TODO: redirect to myAuctions page if successful
-        if saveResult == "successful"
-            return "success"#redirect(url_for('static', filename='myAuctions.html'))
-        else 
-            return "ERROR"
+# @app.route('/submitBids', methods=['POST'])
+# def auction():
+#     # When user has completed rankings insert into database and return succesful
+#     if request.method == 'POST':
+#         result = response.data
+#         saveResult = db.save_Bids(result, escape(session['username']))
+#         # #TODO: Insert into BIds table
+#         # #TODO: redirect to myAuctions page if successful
+#         if saveResult == "successful"
+#             return "success"#redirect(url_for('static', filename='myAuctions.html'))
+#         else 
+#             return "ERROR"
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
