@@ -39,6 +39,11 @@ html {
 	cursor: pointer;
 }
 
+#idle {
+	opacity: 0.75;
+	cursor: default;
+}
+
 .statusBox {
 	background-color: #3ccb57;
 	height: 100%;
