@@ -1,0 +1,93 @@
+html {
+	background: url('../img/bg-4.jpg') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.panel {
+	width: 60%;
+	position: absolute;
+	bottom: 0;
+	left: 20%;
+	height: 100%;
+	background-color: #63869d;
+	opacity: 0.92;
+	z-index: -2;
+	box-shadow: 0 0 16px #222;
+}
+
+.myAuct {
+	color: #f2f2f2;
+	font-size: 42pt;
+	font-weight: 100;
+	text-align: center;
+	margin-top: 50px;
+	padding: 0.4em 0 0.4em 0;
+	width: 100%;
+	border-bottom: 2px solid #405a6b;
+}
+
+.row {
+	width: 100%;
+	height: 200px;
+	border-bottom: 2px solid #405a6b;
+	position: relative;
+	display: inline-block;
+	background-color: #fff;
+	cursor: pointer;
+}
+
+#idle {
+	opacity: 0.75;
+	cursor: default;
+}
+
+.statusBox {
+	background-color: #3ccb57;
+	height: 100%;
+	width: 100px;
+	position: relative;
+	float: left;
+}
+
+.statusText {
+	font-size: 14pt;
+	font-weight: 100;
+	text-align: center;
+	color: #fff;
+	padding: 80px 10px 0 10px;
+}
+
+.info {
+	position: relative;
+	display: inline-block;
+	padding: 2.5em 0 1.5em 1.5em;
+}
+
+.auctName {
+	font-size: 36pt;
+	font-weight: 100;
+	color: #080f1a;
+}
+
+.date {
+	font-weight: 100;
+	font-size: 16pt;
+}
+
+#start {
+	padding: 1.5em 0 0 0;
+}
+
+.activityIndicator {
+	position: absolute;
+	right: 1em;
+	top: 100px;
+	margin-top: -11px;
+}
+
+
+
+

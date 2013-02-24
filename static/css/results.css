@@ -1,0 +1,88 @@
+html {
+	background: url('../img/bg-4.jpg') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.topText {
+	width: 75%;
+	position: absolute;
+	top: 4em;
+	left: 12.5%;
+	color: #fff;
+	text-shadow: #171717 2px 2px 4px;
+	font-size: 18pt;
+	line-height: 32pt;
+	font-weight: 100;
+}
+
+#yellow {
+	color: #f9c620;
+	font-weight: 300;
+}
+
+#green {
+	color: #67b771;
+	font-weight: 300;
+}
+
+.displayBox {
+	height: 65%;
+	width: 20%;
+	background-color: #fff;
+	border-radius: 10px;
+	position: absolute;
+	top: 13em;
+	left: 15%;
+}
+
+.head {
+	background-color: #719cd0;
+	height: 20%;
+	color: #fff;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+#listNum {
+	font-size: 24pt;
+	font-weight: 300;
+	position: absolute;
+	top: 10%;
+	left: 50%;
+	margin: -12px 0 0 -12px;
+}
+
+.assetRow {
+	position: relative;
+	display: inline-block;
+	height: 60px;
+	padding: 10px 0 0 0;
+	width: 100%;
+	border-bottom: 2px solid #e7e7e7;
+}
+
+.pic {
+	height: 50px;
+	width: 50px;
+	border-radius: 25px;
+	position: fixed;
+	margin: 0 0 0 0.6em;
+}
+
+.assetName {
+	color: #858585;
+	font-family: 'Myriad Pro', 'Museo Sans', 'Helvetica Neue', sans-serif;
+	font-size: 15pt;
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+	margin: 20px 0 0 0;
+	overflow: hidden;
+}
+
+
+

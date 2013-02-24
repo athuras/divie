@@ -1,14 +1,20 @@
 import os
 import psycopg2
 import db
-from flask import Flask, url_for, redirect, request, json, Response, jsonify
-
+from flask import Flask, url_for, redirect, request, json, Response, jsonify, session, escape
 
 app = Flask(__name__)
+app.secret_key = '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1\xa8'
 
 @app.route('/')
 def home():
     return "Not Dead Yet ..." #db.home()
+
+@app.route('/static/login.html', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        session['username'] = request.form['username']
+        return redirect(url_for('static', filename='myAuctions.html'))
 
 @app.route('/db_test')
 def get_items():
@@ -18,24 +24,8 @@ def get_items():
 @app.route('/static/auction.html', methods=['POST'])
 def auction():
     if request.method == 'POST':
-        data = [{
-            'id' : 1,
-            'ranking': 0,
-            'name': 'Sailboat Painting',
-            'desc': 'this is a boat'
-        },{
-            'id' : 2,
-            'ranking': 10,
-            'name': 'Car',
-            'desc': 'this is a car'
-        },{
-            'id' : 3,
-            'ranking': 0,
-            'name': 'Lamp',
-            'desc': 'LAMPLAMPLAMPLAMP'
-        }]
+        data = db.get_itemsJSON();
         js = json.dumps(data)
-
         resp = Response(js, status=200, mimetype='application/json')
         return resp
 

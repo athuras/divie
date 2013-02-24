@@ -51,13 +51,15 @@ def db_test():
         conn.close()
     return 'SUCCESS!:\n' + str(vals)
 
-def query_template(query):
+def query_template(query, args=()):
     conn = None
     try:
         conn = connect_db()
         cur = conn.cursor()
-        cur.execute(query)
-        vals = cur.fetchall()
+        cur.execute(query, args)
+        vals = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in cur.fetchall()]
+        # cur.execute(query)
+        # vals = cur.fetchall()
         conn.commit()
     except psycopg2.Error as e:
         return 'DB Error: ' + str(e)
@@ -67,20 +69,41 @@ def query_template(query):
         conn.close()
     return vals
 
+def get_itemsJSON():
+    query = "SELECT * FROM item;"
+    vals = query_template(query)
+    return vals
+
 def get_items(): #gets item list, description, image url and value
     query = "SELECT * FROM item;"
     vals = query_template(query)
     return str(vals)
+
+def get_auctionJSON():
+    query = "SELECT * FROM auction;"
+    vals = query_template(query)
+    return vals
 
 def get_auction(): #gets executor, auction name and start and end date
     query = "SELECT * FROM auction;"
     vals = query_template(query)
     return str(vals)
 
+def get_usersJSON(): #gets users for given auction & their id for use to decide if executor
+    query = "SELECT * FROM agent;"
+    vals = query_template(query)
+    return vals
+
 def get_users(): #gets users for given auction & their id for use to decide if executor
     query = "SELECT * FROM agent;"
     vals = query_template(query)
     return str(vals)
+
+def get_bidJSON(username):
+    auction_id = 1
+    query = "SELECT * FROM item WHERE auction_id = " + auction_id + "AND agent_id = " + username + ";"
+    vals = query_template(query)
+    return vals
 
 def get_bid():
     auction_id = 1

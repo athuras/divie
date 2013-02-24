@@ -149,7 +149,7 @@ body {
 
 .leftNav li {
 	border-bottom: 2px solid #171717;
-	padding: 14px 0 14px 20px;
+	padding: 14px 14px 14px 20px;
 	font-size: 28pt;
 	color: #e0e5ed;
 }
@@ -159,25 +159,29 @@ body {
 	background-image: url('../img/triangle-selector.png');
 	background-repeat: no-repeat;
 	background-position: right;
+		padding: 14px 14px 14px 20px;
 }
 
 .leftNav li #assetTitle {
-	text-shadow: #333 0 -2px;
+	text-shadow: #333 1px 1px;
 }
 
 .leftNav li #valueBar {
-	width: 40%;
-	height: 5px;
+	width: 0;
+	height: 7px;
 	background-color: #933d3d;
 	border-radius: 10px;
-	margin-top: 10px;
+	position: relative;
+	top: 21px;
 }
 
 .leftNav li #assignText {
 	color: #365d98;
 	font-size: 13pt;
 	font-weight: 300;
-	margin-top: 10px;
+	position: relative;
+	top: 3px;
+	margin-top: 7px;
 }
 
 .rightBg {
@@ -292,8 +296,8 @@ body {
 	font-size: 14pt;
 	color: #993d3d;
 	position: absolute;
-	bottom: -0.5em;
-	right: 0;
+	bottom: -3.2em;
+	right: 20%;
 }
  
 /*This is the fill bar colour*/
@@ -353,7 +357,6 @@ a {
 	width: 12em;
 	position: absolute;
 	bottom: 10em;
-	color: #d7dfea;
 	font-weight: 100;
 	cursor: pointer;
 	background: transparent;
@@ -367,6 +370,19 @@ a {
 
 #next {
 	right: 25%;
+}
+
+#finished {
+	background-image: url('../img/bg-fuzz.png');
+	background-color: #2ff62a;
+}
+
+#finished:hover {
+	background-color: #5fff5f;
+}
+
+#finished:active {
+	background-color: #374d3b;
 }
 
 .rightBg #horizon {
