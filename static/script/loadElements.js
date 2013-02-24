@@ -1,10 +1,10 @@
 var AssetList = [];
-// AssetList.push(new Asset(0, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(1, "Car", 0, '', "img/car.jpg"));
-// AssetList.push(new Asset(2, "Lamp", 0));
-// AssetList.push(new Asset(3, "Family Portrait", 0));
-// AssetList.push(new Asset(4, "Sailboat Painting", 0));
-// AssetList.push(new Asset(5, "Everything Else", 0));
+AssetList.push(new Asset(0, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(1, "Car", 0, '', "img/car.jpg"));
+AssetList.push(new Asset(2, "Lamp", 0));
+AssetList.push(new Asset(3, "Family Portrait", 0));
+AssetList.push(new Asset(4, "Sailboat Painting", 0));
+AssetList.push(new Asset(5, "Everything Else", 0));
 
 var init = true;
 var MAX_BUDGET_VALUE = 100;
