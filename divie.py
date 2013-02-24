@@ -23,7 +23,7 @@ def home():
 @app.route('/db_test')
 def get_items():
     #query = "SELECT * FROM item;"
-    vals = db.db_test()
+    vals = db.get_items()
     return vals
 
 @app.route('/static/auction.html', methods=['POST'])

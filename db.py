@@ -70,4 +70,4 @@ def query_template(query):
 def get_items():
     query = "SELECT * FROM item;"
     vals = query_template(query)
-    return vals
+    return str(vals)
