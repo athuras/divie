@@ -1,10 +1,17 @@
 var AssetList = [];
-// AssetList.push(new Asset(101, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(2, "Car", 0, '', "img/car.jpg"));
-// AssetList.push(new Asset(3, "Lamp", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(4, "Family Portrait", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(5, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(6, "Everything Else", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(101, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(2, "Car", 0, '', "img/car.jpg"));
+AssetList.push(new Asset(3, "Lamp", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(4, "Family Portrait", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(5, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(6, "Everything Else", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(1031, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(23, "Car", 0, '', "img/car.jpg"));
+AssetList.push(new Asset(33, "Lamp", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(43, "Family Portrait", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(53, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(36, "Everything Else", 0, '', "img/sailboat.png"));
+
 
 var init = true;
 var MAX_BUDGET_VALUE = 100;
@@ -78,8 +85,21 @@ function loadAsset(idTag)
 {
 	try
 		{
-			var nextID = parseInt(idTag) + 1;
-			var prevID = parseInt(idTag) - 1;
+			var nextPos = findArrLoc(idTag)+1;
+			var prevPos = findArrLoc(idTag)-1;
+			var prevID = -1;
+			var nextID = -1;
+
+			console.log(prevPos);
+			if(nextPos < AssetList.length)
+			{
+				nextID = parseInt(AssetList[nextPos].id);
+			}
+			if(prevPos > -1)
+			{
+
+				prevID = parseInt(AssetList[prevPos].id);
+			}
 
 			var list = document.getElementById(AssetList[findArrLoc(idTag)].id);
 			if (list.childNodes.length > 2)
@@ -161,14 +181,14 @@ function loadAsset(idTag)
 				newSliderClass.appendChild(newSliderInput);
 
 				var nextButton = document.createElement("div");
-				nextButton.setAttribute("class", formatButton(idTag, "next"));
+				nextButton.setAttribute("class", formatButton(nextPos, "next"));
 				nextButton.setAttribute("id", "next");
 				nextButton.setAttribute("onclick", 'loadAsset(' + nextID + ');');
 				var nextButtonValue = document.createTextNode("Next Item");
 				nextButton.appendChild(nextButtonValue);
 
 				var prevButton = document.createElement("div");
-				prevButton.setAttribute("class", formatButton(idTag, "prev"));
+				prevButton.setAttribute("class", formatButton(prevPos, "prev"));
 				prevButton.setAttribute("id", "previous");
 				prevButton.setAttribute("onclick", 'loadAsset(' + prevID + ');');
 				var prevButtonValue = document.createTextNode("Previous Item");
@@ -194,8 +214,8 @@ function loadAsset(idTag)
 				document.getElementById("slider-result").innerHTML = AssetList[findArrLoc(idTag)].rank;
 				document.getElementById("previous").setAttribute("onclick", 'loadAsset(' + prevID + ');');
 				document.getElementById("next").setAttribute("onclick", 'loadAsset(' + nextID + ');');
-				document.getElementById("previous").setAttribute("class", formatButton(idTag, "prev"));
-				document.getElementById("next").setAttribute("class", formatButton(idTag, "next"));
+				document.getElementById("previous").setAttribute("class", formatButton(prevPos, "prev"));
+				document.getElementById("next").setAttribute("class", formatButton(nextPos, "next"));
 
 			}
 
@@ -252,11 +272,11 @@ function loadAsset(idTag)
 
 function formatButton(idTag, order)
 {
-	if (idTag < 1 && order == "prev")
+	if (idTag < 0 && order == "prev")
 	{
 		return "noClick";
 	}
-	else if (idTag == AssetList.length - 1 && order == "next")
+	else if (idTag == AssetList.length && order == "next")
 	{
 		return "noClick";
 	}
