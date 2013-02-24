@@ -15,6 +15,13 @@ def get_items():
     vals = db.get_items()
     return vals
 
+@app.route('/requesttest')
+def requests():
+    data = db.get_items()
+    js = json.dumps(data)
+    resp = Response(js, status=200, mimetype='application/json')
+    return resp
+
 @app.route('/static/auction.html', methods=['POST'])
 def auction():
     if request.method == 'POST':
