@@ -25,7 +25,7 @@ def requests():
 @app.route('/static/auction.html', methods=['POST'])
 def auction():
     if request.method == 'POST':
-        data = db.get_items();
+        data = db.get_itemsJSON();
         # data = [{
         #     'id' : 1,
         #     'ranking': 0,
