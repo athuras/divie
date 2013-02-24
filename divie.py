@@ -17,7 +17,7 @@ def login():
         return redirect(url_for('static', filename='myAuctions.html'))
 
 @app.route('/static/myAuctions.html', methods=['POST'])
-def login():
+def load_auction():
     if request.method == 'POST':
         return redirect(url_for('static', filename='auction.html'))
 
