@@ -22,7 +22,7 @@ function loaded()
 				AssetList.push(new Asset(at.id, at.name, at.ranking, at.desc, at.img));
 			});
 
-			addAssets();
+			//addAssets();
 		},
 		error: function(){
 			alert("failed to load assets.")
