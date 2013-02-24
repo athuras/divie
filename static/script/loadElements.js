@@ -19,7 +19,7 @@ var MAX_BUDGET_VALUE = 100;
 function loaded()
 {
 	$.ajax({
-		type: "GET",
+		type: "POST",
 		datatype: "json",
 		url: 'http://divie.herokuapp.com/static/auction.html/request',
 		async: false,
@@ -31,7 +31,7 @@ function loaded()
 			//addAssets();
 		},
 		error: function(){
-			//alert("failed to load assets.")
+			alert("failed to load assets.")
 		}
 	})
 };

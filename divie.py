@@ -21,10 +21,10 @@ def get_items():
     vals = db.get_items()
     return vals
 
-@app.route('/static/auction.html/request', methods=['GET'])
+@app.route('/static/auction.html/request', methods=['POST'])
 def getItems():
     # When auction is loaded request asset list
-    if request.method == 'GET' and request.headers['Content-Type'] == 'application/json':
+    if request.method == 'POST':# and request.headers['Content-Type'] == 'application/json':
         data = db.get_itemsJSON();
         js = json.dumps(data)
         resp = Response(js, status=200, mimetype='application/json')
