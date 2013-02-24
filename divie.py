@@ -10,17 +10,17 @@ app.secret_key = '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1
 def home():
     return 'tttttt'
 
-@app.route('/static/login.html', methods=['POST']
+@app.route('/static/login.html', methods=['POST'])
 def login():
     if request.method == 'POST':
         # creates a new session for the user
         session['username'] = request.form['username']
         return redirect(url_for('static', filename='myAuctions.html'))
 
-# @app.route('/logout')
-# def logout():
-#     session.pop('userID', None)
-#     return redirect(url_for('static', filename='login.html'))
+@app.route('/logout')
+def logout():
+    session.pop('userID', None)
+    return redirect(url_for('static', filename='login.html'))
 
 @app.route('/static/auction.html/requestAssets', methods=['POST'])
 def getItems():
