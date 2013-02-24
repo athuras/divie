@@ -1,20 +1,20 @@
 import os
 import psycopg2
 import db
-from flask import Flask, url_for, redirect, request, json, Response, jsonify
+from flask import Flask, url_for, redirect, request, json, Response, jsonify, session, escape
 
 app = Flask(__name__)
-# app.secret_key = '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1\xa8'
+app.secret_key = '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1\xa8'
 
 @app.route('/')
 def home():
     return "Not Dead Yet ..." #db.home()
 
-# @app.route('/static/login.html', methods=['POST'])
-# def login():
-#     if request.method == 'POST':
-#         # session['username'] = request.form['username']
-#         return redirect(url_for('static/myAuctions.html'))
+@app.route('/static/login.html', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        # session['username'] = request.form['username']
+        return redirect(url_for('static/myAuctions.html'))
 
 @app.route('/db_test')
 def get_items():
