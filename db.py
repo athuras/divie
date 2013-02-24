@@ -68,7 +68,7 @@ def query_template(query, args=()):
     return vals
 
 def get_itemsJSON():
-    query = "SELECT * FROM item"#"SELECT item.item_id, item.name, item.description, item.img_url, ISNULL(bid.value, 0) FROM item LEFT JOIN bid ON item.item_id = bid.item_id WHERE bid.agent_id = " + userID + ";"
+    query = "SELECT * FROM item;"#"SELECT item.item_id, item.name, item.description, item.img_url, ISNULL(bid.value, 0) FROM item LEFT JOIN bid ON item.item_id = bid.item_id WHERE bid.agent_id = " + userID + ";"
     vals = query_template(query)
     return vals
 
@@ -97,11 +97,11 @@ def get_users(): #gets users for given auction & their id for use to decide if e
     vals = query_template(query)
     return str(vals)
 
-def get_bidJSON(username):
-    auction_id = 1
-    query = "SELECT * FROM item WHERE auction_id = " + auction_id + "AND agent_id = " + username + ";"
-    vals = query_template(query)
-    return vals
+# def get_bidJSON(username):
+#     auction_id = 1
+#     query = "SELECT * FROM item WHERE auction_id = " + auction_id + "AND agent_id = " + username + ";"
+#     vals = query_template(query)
+#     return vals
 
 def get_bid():
     auction_id = 1
