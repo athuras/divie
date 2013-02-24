@@ -120,10 +120,10 @@ def save_Bids(results, userID):
     auction_id = 1
 
     for curResult in results:
-        if curResult.rank != 0: #look for better way
-            query = "INSERT INTO bid VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s)" % \
-                {"aucID": auction_id, "itemID": curResult.id, "uID": userID, \
-                "bidVal": curResult.rank, "dTime": 1}
+        if curResult["rank"] != 0: #look for better way
+            query = "INSERT INTO bid VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % \
+                {"aucID": auction_id, "itemID": curResult["id"], "uID": userID, \
+                "bidVal": curResult["rank"], "dTime": 1}
             vals = query_template(query)
     else:
         return "successful"

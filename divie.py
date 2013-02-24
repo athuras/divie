@@ -35,26 +35,7 @@ def getItems():
 def saveBids():
     # When user has completed rankings insert into database and return succesful
     if request.method == 'POST':
-        res = [{
-            'id' : 1,
-            'ranking': 0,
-            'name': 'Sailboat Painting',
-            'desc': 'this is a boat'
-            'img': "img/sailboat.png"
-        },{
-            'id' : 2,
-            'ranking': 10,
-            'name': 'Car',
-            'desc': 'this is a car'
-            'img': "img/sailboat.png"
-        },{
-            'id' : 3,
-            'ranking': 0,
-            'name': 'Lamp',
-            'desc': 'LAMPLAMPLAMPLAMP'
-            'img': "img/sailboat.png"
-        }]#request.json
-
+        res = json.dumps(request.json)
         saveResult = db.save_Bids(res, escape(session['username']))
         return saveResult
 
