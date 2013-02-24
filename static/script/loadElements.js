@@ -61,9 +61,8 @@ function addAssets()
 {
 	var leftNavHeight = $(".leftNav").height();
 	var headerHeight = $(".header").height()
-	console.log(leftNavHeight);
-	console.log(headerHeight);
-	$(".leftNav").height(leftNavHeight - headerHeight - 5);
+	var assetTitleHeight = $(".assetTitle").height();
+	$(".leftNav").height(leftNavHeight - headerHeight - 50);
 	var list = document.getElementById("assetList"); //change ID to whatever is used in html
 	for(var i=0; i<AssetList.length; i++)
 	{
