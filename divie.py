@@ -13,8 +13,13 @@ def home():
 @app.route('/static/login.html', methods=['POST'])
 def login():
     if request.method == 'POST':
-        # session['username'] = request.form['username']
+        session['username'] = request.form['username']
         return redirect(url_for('static', filename='myAuctions.html'))
+
+@app.route('/static/myAuctions.html', methods=['POST'])
+def load_auction():
+    if request.method == 'POST':
+        return redirect(url_for('static', filename='auction.html'))
 
 @app.route('/db_test')
 def get_items():
