@@ -16,11 +16,6 @@ def login():
         session['username'] = request.form['username']
         return redirect(url_for('static', filename='myAuctions.html'))
 
-@app.route('/static/myAuctions.html', methods=['POST'])
-def load_auction():
-    if request.method == 'POST':
-        return redirect(url_for('static', filename='auction.html'))
-
 @app.route('/db_test')
 def get_items():
     vals = db.get_items()
