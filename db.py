@@ -120,7 +120,7 @@ def save_Bids(results, userID):
     auction_id = 1
 
     for curResult in results:
-        if curResult.value != 0 #look for better way
+        if curResult.value != 0: #look for better way
             query = "INSERT INTO bid VALUES ({0}, {1}, {2}, {3}, {4})" \
                 .format(auction_id, curResult.id, userID, curResult.rank, 1)
             vals = query_template(query)
