@@ -18,7 +18,7 @@ def login():
         return redirect(url_for('static', filename='myAuctions.html'))
 
 @app.route('/test')
-def logout():
+def ttt():
     return escape(session['username'])
 
 @app.route('/logout')
