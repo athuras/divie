@@ -59,7 +59,11 @@ function finishAuction()
 
 function addAssets()
 {
-
+	var leftNavHeight = $(".leftNav").height();
+	var headerHeight = $(".header").height()
+	console.log(leftNavHeight);
+	console.log(headerHeight);
+	$(".leftNav").height(leftNavHeight - headerHeight - 5);
 	var list = document.getElementById("assetList"); //change ID to whatever is used in html
 	for(var i=0; i<AssetList.length; i++)
 	{
@@ -122,8 +126,20 @@ function loadAsset(idTag)
 			var list = document.getElementById(AssetList[findArrLoc(idTag)].id);
 			if (list.childNodes.length > 2)
 			{
-				list.removeChild(list.childNodes[2]);
-				list.style.height = "70.5px";
+				if(list.childNodes[2].id == "assignText")
+				{
+					list.removeChild(list.childNodes[2]);
+					list.style.height = "70.5px";
+				}
+				if(list.childNodes.length == 2)
+				{
+					var remIndicator = document.createElement("div");
+					remIndicator.setAttribute("id", "remIndicator");
+					var remIndicatorValue = document.createTextNode("");
+					remIndicator.appendChild(remIndicatorValue);
+					remIndicator.innerHTML ='<img src = "img/heart-red.png"/> ' + 0;
+					list.appendChild(remIndicator);
+				}
 			}
 			if (init)
 			{
@@ -202,7 +218,7 @@ function loadAsset(idTag)
 				nextButton.setAttribute("class", formatButton(nextPos, "next"));
 				nextButton.setAttribute("id", "next");
 				nextButton.setAttribute("onclick", 'loadAsset(' + nextID + ');');
-				var nextButtonValue = document.createTextNode("Next Item");
+				var nextButtonValue = document.createTextNode("next Item");
 				nextButton.appendChild(nextButtonValue);
 
 				var prevButton = document.createElement("div");
@@ -211,16 +227,24 @@ function loadAsset(idTag)
 				prevButton.setAttribute("onclick", 'loadAsset(' + prevID + ');');
 				var prevButtonValue = document.createTextNode("Previous Item");
 				prevButton.appendChild(prevButtonValue);		
+
+				var finishedButton = document.createElement("div");
+				finishedButton.setAttribute("class", "lowerBtn");
+				finishedButton.setAttribute("id", "finished");
+				finishedButton.setAttribute("onClick", "finishAuction();")
+				var finishedButtonValue = document.createTextNode("Finished!");
+				finishedButton.appendChild(finishedButtonValue);
 				
 
 				newDiv.appendChild(newTopBoxDiv);
 				newDiv.appendChild(newSliderClass);
 				newDiv.appendChild(prevButton);
 				newDiv.appendChild(nextButton);
+				newDiv.appendChild(finishedButton);
 				//newDiv.appendChild(newSliderFill);
 
 				mainDiv.appendChild(newDiv);
-
+				document.getElementById("finished").style.visibility = "hidden";
 
 			}
 
@@ -260,7 +284,7 @@ function loadAsset(idTag)
 
 		        stop: function(event, ui){
 		        	AssetList[findArrLoc(idTag)].rank = document.getElementById("slider-result").innerHTML;
-		        	adjustBudget();
+		        	adjustBudget(idTag);
 		        }
 
 		     });
@@ -307,21 +331,37 @@ function formatButton(idTag, order)
 
 var currBudget = 100;
 
-function adjustBudget()
+function adjustBudget(idTag)
 {
 	var tempBudget = MAX_BUDGET_VALUE;
 	var runningSum = 0;
 	for(var i=0; i<AssetList.length;i++)
 	{
 		runningSum += parseInt(AssetList[i].rank);
-			var listItem = document.getElementById(AssetList[i].id);
-			listItem.childNodes[1].style.width = parseInt(AssetList[i].rank) / MAX_BUDGET_VALUE * 100  + "%";
+		var listItem = document.getElementById(AssetList[i].id);
+		listItem.childNodes[1].style.width = parseInt(AssetList[i].rank) / MAX_BUDGET_VALUE * 100  + "%";
 
 	}
 	var remBudget = document.getElementById("remBudget");
 	currBudget = parseInt(tempBudget) - parseInt(runningSum);
 	remBudget.innerHTML = "Remaining Budget:  " + '<img src = "img/heart-white.png"/> ' + currBudget;
 	document.getElementById("slider-remaining").innerHTML = '<img src = "img/heart-red.png"/> ' + getRemainingBudget() + '<br> remaining';
+	document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[2].style.width = (parseInt(AssetList[findArrLoc(idTag)].rank) / MAX_BUDGET_VALUE * 100) + 6  + "%";
+	document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[2].innerHTML = '<img src = "img/heart-red.png"/> ' + AssetList[findArrLoc(idTag)].rank;
+
+	if (currBudget == 0)
+	{
+		document.getElementById("next").style.visibility = "hidden";
+		document.getElementById("previous").style.visibility = "hidden";	
+		document.getElementById("finished").style.visibility = "";
+		console.log(currBudget);
+	}
+	else if(currBudget > 0)
+	{
+		document.getElementById("next").style.visibility = "";
+		document.getElementById("previous").style.visibility = "";	
+		document.getElementById("finished").style.visibility= "hidden";
+	}
 };
 
 
