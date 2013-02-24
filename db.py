@@ -79,15 +79,31 @@ def get_items(): #gets item list, description, image url and value
     vals = query_template(query)
     return str(vals)
 
+def get_auctionJSON():
+    query = "SELECT * FROM auction;"
+    vals = query_template(query)
+    return vals
+
 def get_auction(): #gets executor, auction name and start and end date
     query = "SELECT * FROM auction;"
     vals = query_template(query)
     return str(vals)
 
+def get_usersJSON(): #gets users for given auction & their id for use to decide if executor
+    query = "SELECT * FROM agent;"
+    vals = query_template(query)
+    return vals
+
 def get_users(): #gets users for given auction & their id for use to decide if executor
     query = "SELECT * FROM agent;"
     vals = query_template(query)
     return str(vals)
+
+def get_bidJSON(username):
+    auction_id = 1
+    query = "SELECT * FROM item WHERE auction_id = " + auction_id + "AND agent_id = " + username ";"
+    vals = query_template(query)
+    return vals
 
 def get_bid():
     auction_id = 1
