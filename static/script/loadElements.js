@@ -27,7 +27,7 @@ function loaded()
 			$.each(data, function(i, at){
 				AssetList.push(new Asset(at.item_id, at.item_name, at.item_value, at.description, at.img_url));
 			});
-
+			alert("made it")
 			//addAssets();
 		},
 		error: function(){
