@@ -70,6 +70,7 @@ function loadAsset(idTag)
 {
 	try
 		{
+			alert(AssetList)
 			var nextID = parseInt(idTag) + 1;
 			var prevID = parseInt(idTag) - 1;
 
