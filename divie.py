@@ -14,7 +14,7 @@ def home():
 def login():
     if request.method == 'POST':
         # session['username'] = request.form['username']
-        return redirect(url_for('static/myAuctions.html'))
+        return redirect(url_for('static' filename='myAuctions.html'))
 
 @app.route('/db_test')
 def get_items():
