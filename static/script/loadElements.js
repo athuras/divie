@@ -12,7 +12,6 @@ AssetList.push(new Asset(43, "Family Portrait", 0, '', "img/sailboat.png"));
 AssetList.push(new Asset(53, "Sailboat Painting", 0, '', "img/sailboat.png"));
 AssetList.push(new Asset(36, "Everything Else", 0, '', "img/sailboat.png"));
 
-
 var init = true;
 var MAX_BUDGET_VALUE = 100;
 
@@ -32,7 +31,7 @@ function loaded()
 			//addAssets();
 		},
 		error: function(){
-			alert("failed to load assets.")
+			// alert("failed to load assets.")
 		},
 	})
 };
