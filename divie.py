@@ -17,10 +17,6 @@ def login():
         session['username'] = request.form['username']
         return redirect(url_for('static', filename='myAuctions.html'))
 
-@app.route('/test')
-def ttt():
-    return escape(session['username'])
-
 @app.route('/logout')
 def logout():
     session.pop('userID', None)
@@ -35,11 +31,11 @@ def getItems():
         resp = Response(js, status=200, mimetype='application/json')
         return resp
 
-@app.route('/submitBids', methods=['POST'])
-def auction():
+@app.route('/static/auction.html/submitBids', methods=['POST'])
+def saveBids():
     # When user has completed rankings insert into database and return succesful
     if request.method == 'POST':
-        result = request.data
+        result = "[{'t': 1}, {'t': 2}]"#request.json
         saveResult = db.save_Bids(result, escape(session['username']))
         if saveResult == "successful"
             return saveResult#redirect(url_for('static', filename='myAuctions.html'))
