@@ -1,4 +1,4 @@
-function redirect()
+$('#gAuction').click(function()
 {
 	$.ajax({
 		type: "POST",
@@ -10,4 +10,4 @@ function redirect()
 			// alert("failed to load assets.")
 		},
 	})
-};
+});
