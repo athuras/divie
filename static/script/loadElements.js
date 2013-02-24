@@ -32,7 +32,7 @@ function loaded()
 		},
 		error: function(){
 			//alert("failed to load assets.")
-		},
+		}
 	})
 };
 

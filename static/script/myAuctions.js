@@ -8,10 +8,11 @@ $(document).ready(function(){
 			datatype: "json",
 			url: 'http://divie.herokuapp.com/static/myAuctions.html',
 			async: false,
+			success: function(){ alert("it worked")}
 			error: function(){
 				alert("failed to load assets.")
-			},
+			}
 		})
-	});	
+	})	
 });
 
