@@ -1,0 +1,29 @@
+html {
+	background: url('../img/bg-4.jpg') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.topText {
+	width: 75%;
+	position: absolute;
+	top: 4em;
+	left: 12.5%;
+	color: #fff;
+	text-shadow: #171717 2px 2px;
+	font-size: 18pt;
+	line-height: 32pt;
+	font-weight: 100;
+}
+
+#yellow {
+	color: #f9c620;
+	font-weight: 300;
+}
+
+#green {
+	color: #67b771;
+	font-weight: 300;
+}
