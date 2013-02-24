@@ -1,10 +1,10 @@
 var AssetList = [];
-// AssetList.push(new Asset(0, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(1, "Car", 0, '', "img/car.jpg"));
-// AssetList.push(new Asset(2, "Lamp", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(3, "Family Portrait", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(4, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(5, "Everything Else", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(101, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(2, "Car", 0, '', "img/car.jpg"));
+AssetList.push(new Asset(3, "Lamp", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(4, "Family Portrait", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(5, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(6, "Everything Else", 0, '', "img/sailboat.png"));
 
 var init = true;
 var MAX_BUDGET_VALUE = 100;
@@ -32,6 +32,7 @@ function loaded()
 
 function addAssets()
 {
+
 	var list = document.getElementById("assetList"); //change ID to whatever is used in html
 	for(var i=0; i<AssetList.length; i++)
 	{
@@ -80,7 +81,7 @@ function loadAsset(idTag)
 			var nextID = parseInt(idTag) + 1;
 			var prevID = parseInt(idTag) - 1;
 
-			var list = document.getElementById(idTag);
+			var list = document.getElementById(AssetList[findArrLoc(idTag)].id);
 			if (list.childNodes.length > 2)
 			{
 				list.removeChild(list.childNodes[2]);
@@ -229,15 +230,16 @@ function loadAsset(idTag)
 
 			for(var j=0;j<AssetList.length;j++)
 			{
-				var liTag = document.getElementById(j);
+				var liTag = document.getElementById(AssetList[j].id);
+
 				liTag.removeAttribute("class");
-				if (liTag.lastChild.id == "triangleSelector")
+				if (liTag.lastChild.id == "active")
 				{
 					liTag.removeChild(liTag.lastChild);
 				}
 			}
 
-			var liTag = document.getElementById(idTag);
+			var liTag = document.getElementById(AssetList[findArrLoc(idTag)].id);
 			liTag.setAttribute("class", "active");
 
 			init = false;
@@ -264,16 +266,6 @@ function formatButton(idTag, order)
 	}
 }
 
-function findArrLoc(idTag)
-{
-	for(var i=0; i<AssetList.length;i++)
-	{
-		if (AssetList[i].id == idTag)
-		{
-			return i;
-		}
-	}
-};
 
 var currBudget = 100;
 
@@ -284,15 +276,16 @@ function adjustBudget()
 	for(var i=0; i<AssetList.length;i++)
 	{
 		runningSum += parseInt(AssetList[i].rank);
-			var listItem = document.getElementById(i);
+			var listItem = document.getElementById(AssetList[i].id);
 			listItem.childNodes[1].style.width = parseInt(AssetList[i].rank) / MAX_BUDGET_VALUE * 100  + "%";
-		
+
 	}
 	var remBudget = document.getElementById("remBudget");
 	currBudget = parseInt(tempBudget) - parseInt(runningSum);
 	remBudget.innerHTML = "Remaining Budget:  " + '<img src = "img/heart-white.png"/> ' + currBudget;
 	document.getElementById("slider-remaining").innerHTML = '<img src = "img/heart-red.png"/> ' + getRemainingBudget() + '<br> remaining';
 };
+
 
 function getRemainingBudget()
 {
@@ -313,6 +306,15 @@ function getChildNodeIndex(list, idName)
 	return index;
 };
 
-
+function findArrLoc(idTag)
+{
+	for(var i=0; i<AssetList.length;i++)
+	{
+		if (AssetList[i].id == idTag)
+		{
+			return i;
+		}
+	}
+};
 
 
