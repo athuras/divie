@@ -18,22 +18,23 @@ def get_items():
 @app.route('/static/auction.html', methods=['POST'])
 def auction():
     if request.method == 'POST':
-        data = [{
-            'id' : 1,
-            'ranking': 0,
-            'name': 'Sailboat Painting',
-            'desc': 'this is a boat'
-        },{
-            'id' : 2,
-            'ranking': 10,
-            'name': 'Car',
-            'desc': 'this is a car'
-        },{
-            'id' : 3,
-            'ranking': 0,
-            'name': 'Lamp',
-            'desc': 'LAMPLAMPLAMPLAMP'
-        }]
+        data = db.get_items();
+        # data = [{
+        #     'id' : 1,
+        #     'ranking': 0,
+        #     'name': 'Sailboat Painting',
+        #     'desc': 'this is a boat'
+        # },{
+        #     'id' : 2,
+        #     'ranking': 10,
+        #     'name': 'Car',
+        #     'desc': 'this is a car'
+        # },{
+        #     'id' : 3,
+        #     'ranking': 0,
+        #     'name': 'Lamp',
+        #     'desc': 'LAMPLAMPLAMPLAMP'
+        # }]
         js = json.dumps(data)
 
         resp = Response(js, status=200, mimetype='application/json')

@@ -67,6 +67,11 @@ def query_template(query):
         conn.close()
     return vals
 
+def get_itemsJSON():
+    query = "SELECT * FROM item;"
+    vals = query_template(query)
+    return vals
+
 def get_items(): #gets item list, description, image url and value
     query = "SELECT * FROM item;"
     vals = query_template(query)
