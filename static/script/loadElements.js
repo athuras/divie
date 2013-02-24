@@ -19,7 +19,7 @@ function loaded()
 		async: false,
 		success: function(data){ 
 			$.each(data, function(i, at){
-				AssetList.push(new Asset(at.id, at.name, at.ranking, at.desc));
+				AssetList.push(new Asset(at.id, at.name, at.ranking, at.desc, at.img));
 			});
 
 			addAssets();
