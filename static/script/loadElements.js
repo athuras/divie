@@ -31,7 +31,7 @@ function loaded()
 			//addAssets();
 		},
 		error: function(){
-			// alert("failed to load assets.")
+			//alert("failed to load assets.")
 		},
 	})
 };
