@@ -124,6 +124,8 @@ def save_Bids(results, userID):
             query = "INSERT INTO bid VALUES ({0}, {1}, {2}, {3}, {4})" \
                 .format(auction_id, curResult.id, userID, curResult.rank, 1)
             vals = query_template(query)
+    else:
+        return "successful"
 
     #figure out what to do here
     return "successful"

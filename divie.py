@@ -35,12 +35,30 @@ def getItems():
 def saveBids():
     # When user has completed rankings insert into database and return succesful
     if request.method == 'POST':
-        result = "[{'t': 1}, {'t': 2}]"#request.json
-        saveResult = db.save_Bids(result, escape(session['username']))
-        if saveResult == "successful"
-            return saveResult#redirect(url_for('static', filename='myAuctions.html'))
-        else 
-            return "ERROR"
+        res = [{
+            'id' : 1,
+            'ranking': 0,
+            'name': 'Sailboat Painting',
+            'desc': 'this is a boat'
+            'img': "img/sailboat.png"
+        },{
+            'id' : 2,
+            'ranking': 10,
+            'name': 'Car',
+            'desc': 'this is a car'
+            'img': "img/sailboat.png"
+        },{
+            'id' : 3,
+            'ranking': 0,
+            'name': 'Lamp',
+            'desc': 'LAMPLAMPLAMPLAMP'
+            'img': "img/sailboat.png"
+        }]#request.json
+
+        saveResult = db.save_Bids(res, escape(session['username']))
+        return saveResult
+
+    return "error2"
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
