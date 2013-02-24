@@ -22,11 +22,11 @@ def logout():
     session.pop('userID', None)
     return redirect(url_for('static', filename='login.html'))
 
-@app.route('/requestAssets', methods=['POST'])
+@app.route('/static/auction.html/requestAssets', methods=['POST'])
 def getItems():
     # When auction is loaded request asset list
     if request.method == 'POST':
-        data = db.get_itemsJSON(escape(session['userID']));
+        data = db.get_itemsJSON(1)#escape(session['userID']));
         js = json.dumps(data)
         resp = Response(js, status=200, mimetype='application/json')
         return resp
