@@ -7,18 +7,19 @@ from flask import Flask, url_for, redirect, request, json, Response, jsonify
 app = Flask(__name__)
 app.secret = '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1\xa8'
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/static/login.html', methods=['POST'])
 def login():
     if request.method == 'POST':
         session['username'] = request.form['username']
-        
+
         return redirect(url_for('static', filename='myAuctions.html'))
-    return '''
-        <form action="" method="post">
-            <p><input type=text name=username>
-            <p><input type=submit value=Login>
-        </form>
-    '''
+    
+    # return '''
+    #     <form action="" method="post">
+    #         <p><input type=text name=username>
+    #         <p><input type=submit value=Login>
+    #     </form>
+    # '''
 
 @app.route('/')
 def home():
