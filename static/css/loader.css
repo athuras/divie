@@ -1,3 +1,11 @@
+html {
+	background: url('../img/bg-4.jpg') no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
 #floatingBarsG{
 	position:relative;
 	width:121px;

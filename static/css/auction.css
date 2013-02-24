@@ -125,11 +125,7 @@ body {
 	top: 50px;
 	bottom: 0;
 	z-index: -3;
-<<<<<<< HEAD
 	height: auto !important;
-	min-height: 100%;
-=======
->>>>>>> a1f2c3b7f9500df3ca865dae109af4ea17f533d8
 	height: 100%;
 }
 

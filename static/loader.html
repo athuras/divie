@@ -2,10 +2,24 @@
 
 <html>
 <head>
+	<title>divie | The simple asset divider</title>
+	<link rel='stylesheet' type='text/css' href='css/auction.css'/>
 	<link type="text/css" rel="stylesheet" href="css/loader.css" />
 </head>
 
-<body>
+<body onload="loaded(); addAssets();">
+	<div class='header'>
+		<img class='logo' src='img/divie-logo.png'>
+		<div class='links'>
+			<ul>
+				<li id='remBudget'>
+				Remaining Budget: <img src = "img/heart-white.png"/> 100</li><li>
+				My Auctions</li><li>
+				Profile</li><li id='logOut'>
+				Log Out</li>
+			</ul>
+		</div>
+	</div>
 	<div class="aligncenter">
 		<div id="floatingBarsG">
 			<div class="blockG" id="rotateG_01"></div>
