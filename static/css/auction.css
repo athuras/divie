@@ -355,7 +355,6 @@ a {
 	width: 12em;
 	position: absolute;
 	bottom: 10em;
-	color: #d7dfea;
 	font-weight: 100;
 	cursor: pointer;
 	background: transparent;
@@ -369,6 +368,19 @@ a {
 
 #next {
 	right: 25%;
+}
+
+#finished {
+	background-image: url('../img/bg-fuzz.png');
+	background-color: #2ff62a;
+}
+
+#finished:hover {
+	background-color: #5fff5f;
+}
+
+#finished:active {
+	background-color: #374d3b;
 }
 
 .rightBg #horizon {
