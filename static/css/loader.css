@@ -1,117 +1,124 @@
 #floatingBarsG{
-position:relative;
-width:121px;
-height:150px}
+	position:relative;
+	width:121px;
+	height:150px;
+}
+
+.aligncenter{
+	position:absolute;
+	margin:-75px 0 0 -60.5px;
+	top:35%;
+	left:50%;
+}
+
+.calcdiv {
+	position: relative;
+	margin:-17px 0 0 -174.5px;
+	width:349px;
+	height:34px;
+	top:165%;
+	left:50%;
+}
 
 .blockG{
-position:absolute;
-background-color:#FFFFFF;
-width:20px;
-height:47px;
+	position:absolute;
+	background-color:#FFFFFF;
+	width:20px;
+	height:47px;
 
--webkit-border-radius:16px 16px 0 0;
--webkit-transform:scale(0.4);
--webkit-animation-name:fadeG;
--webkit-animation-duration:1.28s;
--webkit-animation-iteration-count:infinite;
--webkit-animation-direction:linear;
+	-webkit-border-radius:16px 16px 16px 16px;
+	-webkit-transform:scale(0.4);
+	-webkit-animation-name:fadeG;
+	-webkit-animation-duration:1.28s;
+	-webkit-animation-iteration-count:infinite;
+	-webkit-animation-direction:linear;
 
-border-radius:16px 16px 16 16;
-transform:scale(0.4);
-animation-name:fadeG;
-animation-duration:1.28s;
-animation-iteration-count:infinite;
-animation-direction:linear;
+	border-radius:16px 16px 16px 16px;
+	transform:scale(0.4);
+	animation-name:fadeG;
+	animation-duration:1.28s;
+	animation-iteration-count:infinite;
+	animation-direction:linear;
 }
 
 #rotateG_01{
-left:0;
-top:55px;
--webkit-animation-delay:0.4800000000000001s;
--webkit-transform:rotate(-90deg);
-animation-delay:0.4800000000000001s;
-transform:rotate(-90deg);
+	left:0;
+	top:55px;
+	-webkit-animation-delay:0.4800000000000001s;
+	-webkit-transform:rotate(-90deg);
+	animation-delay:0.4800000000000001s;
+	transform:rotate(-90deg);
 }
 
 #rotateG_02{
-left:16px;
-top:19px;
--webkit-animation-delay:0.64s;
--webkit-transform:rotate(-45deg);
-animation-delay:0.64s;
-transform:rotate(-45deg);
+	left:16px;
+	top:19px;
+	-webkit-animation-delay:0.64s;
+	-webkit-transform:rotate(-45deg);
+	animation-delay:0.64s;
+	transform:rotate(-45deg);
 }
 
 #rotateG_03{
-left:51px;
-top:6px;
--webkit-animation-delay:0.8s;
--webkit-transform:rotate(0deg);
-animation-delay:0.8s;
-transform:rotate(0deg);
+	left:51px;
+	top:6px;
+	-webkit-animation-delay:0.8s;
+	-webkit-transform:rotate(0deg);
+	animation-delay:0.8s;
+	transform:rotate(0deg);
 }
 
 #rotateG_04{
-right:16px;
-top:19px;
--webkit-animation-delay:0.9600000000000002s;
--webkit-transform:rotate(45deg);
-animation-delay:0.9600000000000002s;
-transform:rotate(45deg);
+	right:16px;
+	top:19px;
+	-webkit-animation-delay:0.9600000000000002s;
+	-webkit-transform:rotate(45deg);
+	animation-delay:0.9600000000000002s;
+	transform:rotate(45deg);
 }
 
 #rotateG_05{
-right:0;
-top:55px;
--webkit-animation-delay:1.12s;
--webkit-transform:rotate(90deg);
-animation-delay:1.12s;
-transform:rotate(90deg);
+	right:0;
+	top:55px;
+	-webkit-animation-delay:1.12s;
+	-webkit-transform:rotate(90deg);
+	animation-delay:1.12s;
+	transform:rotate(90deg);
 }
 
 #rotateG_06{
-right:16px;
-bottom:14px;
--webkit-animation-delay:1.28s;
--webkit-transform:rotate(135deg);
-animation-delay:1.28s;
-transform:rotate(135deg);
+	right:16px;
+	bottom:14px;
+	-webkit-animation-delay:1.28s;
+	-webkit-transform:rotate(135deg);
+	animation-delay:1.28s;
+	transform:rotate(135deg);
 }
 
 #rotateG_07{
-bottom:0;
-left:51px;
--webkit-animation-delay:1.44s;
--webkit-transform:rotate(180deg);
-animation-delay:1.44s;
-transform:rotate(180deg);
+	bottom:0;
+	left:51px;
+	-webkit-animation-delay:1.44s;
+	-webkit-transform:rotate(180deg);
+	animation-delay:1.44s;
+	transform:rotate(180deg);
 }
 
 #rotateG_08{
-left:16px;
-bottom:14px;
--webkit-animation-delay:1.6s;
--webkit-transform:rotate(-135deg);
-animation-delay:1.6s;
-transform:rotate(-135deg);
+	left:16px;
+	bottom:14px;
+	-webkit-animation-delay:1.6s;
+	-webkit-transform:rotate(-135deg);
+	animation-delay:1.6s;
+	transform:rotate(-135deg);
 }
-
 
 @-webkit-keyframes fadeG{
-0%{
-background-color:#365d98}
-
-100%{
-background-color:#FFFFFF}
-
+	0%		{background-color:#365d98}
+	100%	{background-color:#FFFFFF}
 }
 
-
 @keyframes fadeG{
-0%{
-background-color:#365d98}
-
-100%{
-background-color:#FFFFFF}
-
+	0%		{background-color:#365d98}
+	100%	{background-color:#FFFFFF}
 }
