@@ -368,6 +368,19 @@ a {
 	right: 25%;
 }
 
+#finished {
+	background-image: url('../img/bg-fuzz.png');
+	background-color: #2ff62a;
+}
+
+#finished:hover {
+	background-color: #5fff5f;
+}
+
+#finished:active {
+	background-color: #374d3b;
+}
+
 .rightBg #horizon {
 	text-align: center;
 	position: absolute;
