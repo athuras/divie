@@ -1,0 +1,107 @@
+@font-face {
+	font-family: 'icomoon';
+	src:url('fonts/icomoon.eot');
+	src:url('fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('fonts/icomoon.woff') format('woff'),
+		url('fonts/icomoon.ttf') format('truetype'),
+		url('fonts/icomoon.svg#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Use the following CSS code if you want to use data attributes for inserting your icons */
+[data-icon]:before {
+	font-family: 'icomoon';
+	content: attr(data-icon);
+	speak: none;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+
+/* Use the following CSS code if you want to have a class per icon */
+/*
+Instead of a list of all class selectors,
+you can use the generic selector below, but it's slower:
+[class*="icon-"]:before {
+*/
+.icon-help:before, .icon-arrow-right:before, .icon-arrow-right-2:before, .icon-arrow-left:before, .icon-arrow-down:before, .icon-arrow-up:before, .icon-arrow-left-2:before, .icon-arrow-down-2:before, .icon-arrow-up-2:before, .icon-arrow-left-3:before, .icon-arrow-down-3:before, .icon-arrow-up-3:before, .icon-arrow-right-3:before, .icon-arrow-left-4:before, .icon-arrow-down-4:before, .icon-arrow-up-4:before, .icon-untitled:before, .icon-locked:before, .icon-unlocked:before, .icon-unlock-fill:before, .icon-lock-fill:before, .icon-unlocked-2:before, .icon-locked-2:before, .icon-checkmark:before {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+.icon-help:before {
+	content: "\21";
+}
+.icon-arrow-right:before {
+	content: "\40";
+}
+.icon-arrow-right-2:before {
+	content: "\23";
+}
+.icon-arrow-left:before {
+	content: "\24";
+}
+.icon-arrow-down:before {
+	content: "\25";
+}
+.icon-arrow-up:before {
+	content: "\26";
+}
+.icon-arrow-left-2:before {
+	content: "\27";
+}
+.icon-arrow-down-2:before {
+	content: "\28";
+}
+.icon-arrow-up-2:before {
+	content: "\29";
+}
+.icon-arrow-left-3:before {
+	content: "\2a";
+}
+.icon-arrow-down-3:before {
+	content: "\2b";
+}
+.icon-arrow-up-3:before {
+	content: "\2c";
+}
+.icon-arrow-right-3:before {
+	content: "\2d";
+}
+.icon-arrow-left-4:before {
+	content: "\2e";
+}
+.icon-arrow-down-4:before {
+	content: "\2f";
+}
+.icon-arrow-up-4:before {
+	content: "\30";
+}
+.icon-untitled:before {
+	content: "\31";
+}
+.icon-locked:before {
+	content: "\22";
+}
+.icon-unlocked:before {
+	content: "\32";
+}
+.icon-unlock-fill:before {
+	content: "\33";
+}
+.icon-lock-fill:before {
+	content: "\34";
+}
+.icon-unlocked-2:before {
+	content: "\35";
+}
+.icon-locked-2:before {
+	content: "\36";
+}
+.icon-checkmark:before {
+	content: "\37";
+}
