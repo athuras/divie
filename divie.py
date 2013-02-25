@@ -25,7 +25,7 @@ def logout():
 def getItems():
     # When auction is loaded request asset list
     if request.method == 'POST':# and request.headers['Content-Type'] == 'application/json':
-        data = db.get_itemsJSON();
+        data = db.get_itemsJSON(escape(session['username']));
         js = json.dumps(data)
         resp = Response(js, status=200, mimetype='application/json')
         return resp
