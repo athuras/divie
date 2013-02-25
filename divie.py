@@ -34,7 +34,7 @@ def getItems():
 def saveBids():
     # When user has completed rankings insert into database and return succesful
     if request.method == 'POST':
-        res = json.loads(request.json)
+        res = json.dumps(request.json)
         # saveResult = db.save_Bids(res, escape(session['username']))
         return res
     return "error2"
