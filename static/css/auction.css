@@ -107,6 +107,16 @@ body {
 	padding: 14px;
 }
 
+.leftNav li #remIndicator {
+	width: 1.7em;
+	max-width: 100%;
+	font-size: 14pt;
+	color: #993d3d;
+	text-align: right;
+	vertical-align: text-bottom;
+	margin-top: 6px;
+}
+
 .links #remBudget {
 	color: #fff;
 	padding: 14px 35px 14px 35px;
@@ -143,7 +153,7 @@ body {
 
 .leftNav ul {
 	width: 100%;
-	height: 100%;
+	height: 94%;
 	position: absolute;
 	top: 64px;
 	font-weight: 100;
@@ -172,11 +182,15 @@ body {
 
 .leftNav li #valueBar {
 	width: 0;
+	max-width: 92%;
 	height: 7px;
 	background-color: #933d3d;
 	border-radius: 10px;
 	position: relative;
 	top: 21px;
+	font-size: 14pt;
+	color: #993d3d;
+	text-align: right;
 }
 
 .leftNav li #assignText {
@@ -379,6 +393,9 @@ a {
 #finished {
 	background-image: url('../img/bg-fuzz.png');
 	background-color: #2ff62a;
+	margin: -325px 0 0 -6em;
+	position: absolute;
+	left: 50%;
 }
 
 #finished:hover {
@@ -408,12 +425,6 @@ a {
 	width: 60%;
 	visibility: visible;
 	font-weight: 100;
-}
-
-#finished {
-	margin: -325px 0 0 -330px;
-	position: absolute;
-	left: 50%;
 }
 
 
