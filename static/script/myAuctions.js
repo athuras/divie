@@ -3,13 +3,13 @@ AuctionList.push(new Auction(1, 1, "Grandma's Belongings", "Splittin her shit up
 AuctionList.push(new Auction(1, 1, "Uncle Ken's Shit Needs Divie", "Splittin her shit up", "April 23, 2013", "April 30, 2013"));
 
 
-$(document).ready(function(){
+function loaded(){
 	// wait for document to be loaded before binding click event
 	$('#gAuction').click(function()
 	{
 		window.location = 'http://divie.herokuapp.com/static/auction.html'
 	})	
-});
+};
 
 function loadAuctions()
 {
