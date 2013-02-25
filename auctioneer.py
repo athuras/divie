@@ -71,14 +71,6 @@ class Auction(object):
     def __repr__(self):
         return '<Auction %s>: of %s' % (self.id, [a.id for a in self.agents])
 
-    def is_finished(self):
-        if (self.complete or
-            all(map(lambda x: x is not None, self.allocs.itervalues()))):
-            self.complete = True
-            return True
-        else:
-            return False
-
     # TODO: keep track of these dynamically which should be dramatically
     #       faster for larger auctions, but as it is, this is a prototype
 
@@ -102,8 +94,6 @@ class Auction(object):
             if agent_id is not None and A == agent_id:
                 f += self.bid_table[item_id][A]
         return f
-
-
 
     # Core aggregate metrics
     def regret(self):
@@ -169,16 +159,27 @@ class Auction(object):
         return sum(v for v in master.itervalues())
 
     # Decision Engines - all return the agent who should be awarded the item
-    # TODO: handle situations when they result in deadlock or ties.
+    # All methods return a (agent, strength) tuple, where strength is a percent
+    # value. High strength means the selector distinguishes well between the
+    # best values (1 is perfect), (0 is a tie)
 
     def bb_selector(self, item):
         '''Best-bid selector:
         Item is awarded to the agent with the highest bid. This is the
         traditional auction model.
+
+        Strength:
+        0: Tie, 1: otherwise
         '''
         assert item in self.bid_table
-        return max(((a, b) for a, b in self.bid_table[item].iteritems()),
-                key=lambda x: x[1])[0]
+        bids = sorted(((a, b) for a, b in self.bid_table[item].iteritems()),
+                                            key=lambda x: x[1], reverse=True)
+        if len(bids) == 1:
+            return (bids[0][0], 1)
+        else:
+            if bids[0][1] == bids[1][1]: # it was a tie
+                return (bids[0][0], 0)
+            return (bids[0][0], 1)
 
     def lmbb_selector(self, item, ZETA=0.2):
         '''Loss-Modified Best Bid Selector:
@@ -186,16 +187,29 @@ class Auction(object):
         LMB = bid + loss(Agent) * ZETA
 
         This method biases decisions towards agents who have lost a lot
+        Strength:
+        tie: 0.5
+        singular: 1
+        otherwise: lmbid1 / (lmbid1 + lmbid2)
         '''
         assert item in self.bid_table
-        lm_bids = self.lmb_table(item, ZETA)
-        return max(lm_bids, key=lambda x: x[1])[0]
+        lm_bids = sorted(self.lmb_table(item, ZETA), key=lambda x: x[1], reverse=True)
+        if len(lm_bids) == 1:
+            return (lm_bids[0][0], 1)
+        else:
+            S = lm_bids[0][1] / float(lm_bids[0][1] + lm_bids[1][1])
+            return (lm_bids[0][0], S)
+
 
     def mf_selector(self, item):
         '''Marginal fulfillment selector:
         Item is awarded to the agent who would have the most relative
         fulfillment. This biases decisions towards agents who have not
         been awarded much.
+
+        Strength:
+        singular = 1
+        otherwise  (f1 / (f1 + f2))
         '''
 
         assert item in self.bid_table
@@ -204,18 +218,17 @@ class Auction(object):
             f0 = self.fulfillment(p)
             f1 = f0 + self.bid_table[item][p]
             Fs.append((p, float(f0) / f1))
-        return min(Fs, key=lambda x: x[1])[0]
 
-    def mr_selector(self, item):
-        '''Marginal Regret selector:
-        Item is awarded to and agent such that the marginal regret is
-        minimised.
-
-        Biases decisions in favor of 'not rocking the boat', in the hopes
-        that it reduces envy.
-        '''
-        marginals = self.marginal_regret_table(item)
-        return min(marginals, key=lambda x: x[1])[0]
+        Fs.sort(key=lambda x: x[1], reverse=True)
+        if len(Fs) == 1:
+            return (Fs[0][0], float(1))
+        else:
+            print 'THIS ->', item, Fs
+            if Fs[0][1] == Fs[1][1]:
+                S = 0.5
+            else:
+                S = Fs[0][1] / float(Fs[0][1] + Fs[1][1])
+            return (Fs[0][0], S)
 
     def ma_selector(self, item):
         '''Degenerates to marginal fulfillment selector'''
@@ -230,6 +243,24 @@ class Auction(object):
                 self.allocs[item_id] = keys[0]
         return
 
+    def priority_selector(self, item, KAPPA=20):
+        '''Looks at system state and determines the best strongest selector'''
+
+        # mf is stronger early on (when regret is low)
+        # lmbb is stronger later on (to recover)
+
+        # I'm going to arbitrarily use MF when self.regret < 30 * len(agents)
+        # This is a general 1/3 of the way through the item list when we switch
+        # to lmbb
+        if self.regret() == 0:
+            return self.mf_selector(item)[0]
+        lmbb_victor, lmbb_S = self.lmbb_selector(item)
+        mf_victor, mf_S = self.mf_selector(item)
+        if self.regret() < KAPPA * len(self.agents):
+            return mf_victor
+        else:
+            return lmbb_victor
+
     def resolve(self, **kwargs):
         '''Resolve the auction. After the initial allocation of uncontested
         items, items are awarded in order of descending rank values.
@@ -237,26 +268,19 @@ class Auction(object):
 
         # TODO: Arbiter function is not necessary if we only use one decision
         #       engine
-        rank = self.allure
-        arbiter = None
-        if 'rank' in kwargs:
-            rank = kwargs['rank']
-        if 'arbiter' in kwargs:
-            arbiter = kwargs['arbiter']
 
         self.resolve_uncontested()
         allocations = []
         remaining_items = [k for k in self.bid_table
                              if self.allocs[k] is None]
-        remaining_items.sort(key=rank)
+        remaining_items.sort(key=self.allure)
 
         while len(remaining_items) > 0:
             item = remaining_items.pop()
-            # loss modifier method
-            lmbb_victor = self.lmbb_selector(item)
-            self.allocs[item] = lmbb_victor
-            allocations.append((item, lmbb_victor))
-
+            victor = self.priority_selector(item)
+            self.allocs[item] = victor
+            allocations.append((item, victor))
+            remaining_items.sort(key=self.allure)
         self.complete = True
         return allocations
 
