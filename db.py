@@ -67,8 +67,9 @@ def query_template(query, args=()):
         conn.close()
     return vals
 
-def get_itemsJSON():
-    query = "SELECT * FROM item;"
+def get_itemsJSON(userID):
+    query = "SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" \
+        " as value FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = " + userID + ";"
     vals = query_template(query)
     return vals
 
@@ -114,3 +115,18 @@ def user_auc_rel(): #find which users are associated with the current auction
     query = "SELECT agent_id FROM item WHERE auction_id = " + auction_id + ";"
     vals = query_template(query)
     return str(vals)
+
+def save_Bids(results, userID):
+    auction_id = 1
+
+    for curResult in results:
+        if curResult['rank'] != 0: #look for better way
+            query = "INSERT INTO bid VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % \
+                {"aucID": auction_id, "itemID": curResult['id'], "uID": userID, \
+                "bidVal": curResult['rank'], "dTime": 1}
+            vals = query_template(query)
+    else:
+        return "successful"
+
+    #figure out what to do here
+    return "successful"

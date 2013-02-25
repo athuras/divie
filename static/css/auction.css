@@ -100,15 +100,21 @@ body {
 	font-weight: 100;
 }
 
-.main {
-	height: 100%;
-}
-
 .links li {
 	list-style-type: none;
 	display: inline;
 	border-left: 1px solid #315286;
 	padding: 14px;
+}
+
+.leftNav li #remIndicator {
+	width: 1.7em;
+	max-width: 100%;
+	font-size: 14pt;
+	color: #993d3d;
+	text-align: right;
+	vertical-align: text-bottom;
+	margin-top: 6px;
 }
 
 .links #remBudget {
@@ -129,11 +135,7 @@ body {
 	top: 50px;
 	bottom: 0;
 	z-index: -3;
-<<<<<<< HEAD
 	height: auto !important;
-	min-height: 100%;
-=======
->>>>>>> a1f2c3b7f9500df3ca865dae109af4ea17f533d8
 	height: 100%;
 }
 
@@ -189,16 +191,6 @@ body {
 	font-size: 14pt;
 	color: #993d3d;
 	text-align: right;
-}
-
-.leftNav li #remIndicator {
-	width: 1.7em;
-	max-width: 100%;
-	font-size: 14pt;
-	color: #993d3d;
-	text-align: right;
-	vertical-align: text-bottom;
-	margin-top: 6px;
 }
 
 .leftNav li #assignText {
@@ -315,7 +307,6 @@ body {
 	position: absolute;
 	bottom: -1.5em;
 	left: 50%;
-
 	z-index: 300;
 }
 

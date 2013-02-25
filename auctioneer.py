@@ -211,7 +211,6 @@ class Auction(object):
         singular = 1
         otherwise  (f1 / (f1 + f2))
         '''
-
         assert item in self.bid_table
         Fs = []
         for p in self.bid_table[item].iterkeys():

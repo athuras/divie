@@ -1,3 +1,32 @@
+@font-face {
+	font-family: 'icomoon';
+	src:url('icomoon/fonts/icomoon.eot');
+	src:url('icomoon/fonts/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('icomoon/fonts/icomoon.woff') format('woff'),
+		url('icomoon/fonts/icomoon.ttf') format('truetype'),
+		url('icomoon/fonts/icomoon.svg#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.icon-checkmark:before {
+	font-family: 'icomoon';
+	-webkit-font-smoothing: antialiased;
+	content: "\37";
+	color: #62ca66;
+	font-size: 24pt;
+}
+
+.icon-cancel:before {
+	font-family: 'icomoon';
+	-webkit-font-smoothing: antialiased;
+	content: "\39";
+	color: #cb6464;
+	font-size: 17pt;
+}
+
+/* --- end of icomoon font declaration --- */
+
 html {
 	background: url('../img/bg-4.jpg') no-repeat center center fixed; 
 	-webkit-background-size: cover;
@@ -28,9 +57,14 @@ html {
 	font-weight: 300;
 }
 
-.displayBox {
+table, td, th {
+	text-align: center;
+	vertical-align: middle;
+}
+
+#displayTable {
 	height: 65%;
-	width: 20%;
+	width: 70%;
 	background-color: #fff;
 	border-radius: 10px;
 	position: absolute;
@@ -38,29 +72,41 @@ html {
 	left: 15%;
 }
 
+table td {
+	border-right: 2px solid #e7e7e7;
+}
+
+table th {
+	border-right: 2px solid #6488b4;
+}
+
+table td:last-child, th:last-child {
+	border: none;
+}
+
+th {
+	font-size: 20pt;
+}
+
+th:first-child {
+	border-top-left-radius: 10px;
+}
+
 .head {
 	background-color: #719cd0;
-	height: 20%;
 	color: #fff;
-	border-top-left-radius: 10px;
+	height: 75px;
+}
+
+#right {
+	background-color: #719cd0;
+	color: #fff;
 	border-top-right-radius: 10px;
 }
 
-#listNum {
-	font-size: 24pt;
-	font-weight: 300;
-	position: absolute;
-	top: 10%;
-	left: 50%;
-	margin: -12px 0 0 -12px;
-}
-
 .assetRow {
-	position: relative;
-	display: inline-block;
 	height: 60px;
-	padding: 10px 0 0 0;
-	width: 100%;
+	padding: 10px;
 	border-bottom: 2px solid #e7e7e7;
 }
 
@@ -76,13 +122,10 @@ html {
 	color: #858585;
 	font-family: 'Myriad Pro', 'Museo Sans', 'Helvetica Neue', sans-serif;
 	font-size: 15pt;
-	position: relative;
-	display: inline-block;
-	width: 100%;
-	text-align: center;
-	margin: 20px 0 0 0;
-	overflow: hidden;
 }
 
+tfoot td {
+	padding: 1em;
+}
 
 
