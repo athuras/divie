@@ -21,14 +21,12 @@ function loaded()
 	$.ajax({
 		type: "POST",
 		datatype: "json",
-		url: 'http://divie.herokuapp.com/static/auction.html/request',
+		url: 'http://divie.herokuapp.com/static/auction.html/requestAssets',
 		async: false,
 		success: function(data){ 
 			$.each(data, function(i, at){
-				AssetList.push(new Asset(at.item_id, at.item_name, at.item_value, at.description, at.img_url));
+				AssetList.push(new Asset(at.item_id, at.item_name, at.value, at.description, at.img_url));
 			});
-			alert("made it")
-			//addAssets();
 		},
 		error: function(){
 			alert("failed to load assets.")
@@ -41,18 +39,14 @@ function finishAuction()
 	$.ajax({
 		type: "POST",
 		datatype: "json",
-		url: 'http://divie.herokuapp.com/static/auction.html',
+		url: 'http://divie.herokuapp.com/static/auction.html/submitBids',
 		async: false,
 		data: JSON.stringify(AssetList),
-		success: function(assets){ 
-			$.each(assets, function(i, at){
-				AssetList.push(new Asset(at.item_id, at.item_name, at.item_value, at.description, at.img_url));
-			});
-
-			//addAssets();
+		success: function(msg){ 
+				alert(msg)
 		},
 		error: function(){
-			//alert("failed to load assets.")
+			alert("failed to load assets.")
 		}
 	})
 }
