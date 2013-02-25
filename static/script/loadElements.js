@@ -1,16 +1,16 @@
 var AssetList = [];
-// AssetList.push(new Asset(101, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(2, "Car", 0, '', "img/car.jpg"));
-// AssetList.push(new Asset(3, "Lamp", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(4, "Family Portrait", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(5, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(6, "Everything Else", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(1031, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(23, "Car", 0, '', "img/car.jpg"));
-// AssetList.push(new Asset(33, "Lamp", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(43, "Family Portrait", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(53, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(36, "Everything Else", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(101, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(2, "Car", 0, '', "img/car.jpg"));
+AssetList.push(new Asset(3, "Lamp", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(4, "Family Portrait", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(5, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(6, "Everything Else", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(1031, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(23, "Car", 0, '', "img/car.jpg"));
+AssetList.push(new Asset(33, "Lamp", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(43, "Family Portrait", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(53, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(36, "Everything Else", 0, '', "img/sailboat.png"));
 
 var init = true;
 var MAX_BUDGET_VALUE = 100;
@@ -21,12 +21,14 @@ function loaded()
 	$.ajax({
 		type: "POST",
 		datatype: "json",
-		url: 'http://divie.herokuapp.com/static/auction.html/requestAssets',
+		url: 'http://divie.herokuapp.com/static/auction.html/request',
 		async: false,
 		success: function(data){ 
 			$.each(data, function(i, at){
-				AssetList.push(new Asset(at.item_id, at.item_name, at.value, at.description, at.img_url));
+				AssetList.push(new Asset(at.item_id, at.item_name, at.item_value, at.description, at.img_url));
 			});
+			alert("made it")
+			//addAssets();
 		},
 		error: function(){
 			alert("failed to load assets.")
@@ -39,24 +41,25 @@ function finishAuction()
 	$.ajax({
 		type: "POST",
 		datatype: "json",
-		url: 'http://divie.herokuapp.com/static/auction.html/submitBids',
+		url: 'http://divie.herokuapp.com/static/auction.html',
 		async: false,
 		data: JSON.stringify(AssetList),
-		success: function(result){ 
-			alert(result)
+		success: function(assets){ 
+			$.each(assets, function(i, at){
+				AssetList.push(new Asset(at.item_id, at.item_name, at.item_value, at.description, at.img_url));
+			});
+
+			//addAssets();
 		},
 		error: function(){
-			alert("failed to load submit bids.")
+			//alert("failed to load assets.")
 		}
 	})
-};
+}
 
 function addAssets()
 {
-	var leftNavHeight = $(".leftNav").height();
-	var headerHeight = $(".header").height()
-	var assetTitleHeight = $(".assetTitle").height();
-	$(".leftNav").height(leftNavHeight - headerHeight - 50);
+
 	var list = document.getElementById("assetList"); //change ID to whatever is used in html
 	for(var i=0; i<AssetList.length; i++)
 	{
@@ -119,20 +122,8 @@ function loadAsset(idTag)
 			var list = document.getElementById(AssetList[findArrLoc(idTag)].id);
 			if (list.childNodes.length > 2)
 			{
-				if(list.childNodes[2].id == "assignText")
-				{
-					list.removeChild(list.childNodes[2]);
-					list.style.height = "70.5px";
-				}
-				if(list.childNodes.length == 2)
-				{
-					var remIndicator = document.createElement("div");
-					remIndicator.setAttribute("id", "remIndicator");
-					var remIndicatorValue = document.createTextNode("");
-					remIndicator.appendChild(remIndicatorValue);
-					remIndicator.innerHTML ='<img src = "img/heart-red.png"/> ' + 0;
-					list.appendChild(remIndicator);
-				}
+				list.removeChild(list.childNodes[2]);
+				list.style.height = "70.5px";
 			}
 			if (init)
 			{
@@ -211,7 +202,7 @@ function loadAsset(idTag)
 				nextButton.setAttribute("class", formatButton(nextPos, "next"));
 				nextButton.setAttribute("id", "next");
 				nextButton.setAttribute("onclick", 'loadAsset(' + nextID + ');');
-				var nextButtonValue = document.createTextNode("next Item");
+				var nextButtonValue = document.createTextNode("Next Item");
 				nextButton.appendChild(nextButtonValue);
 
 				var prevButton = document.createElement("div");
@@ -220,24 +211,16 @@ function loadAsset(idTag)
 				prevButton.setAttribute("onclick", 'loadAsset(' + prevID + ');');
 				var prevButtonValue = document.createTextNode("Previous Item");
 				prevButton.appendChild(prevButtonValue);		
-
-				var finishedButton = document.createElement("div");
-				finishedButton.setAttribute("class", "lowerBtn");
-				finishedButton.setAttribute("id", "finished");
-				finishedButton.setAttribute("onClick", "finishAuction();")
-				var finishedButtonValue = document.createTextNode("Finished!");
-				finishedButton.appendChild(finishedButtonValue);
 				
 
 				newDiv.appendChild(newTopBoxDiv);
 				newDiv.appendChild(newSliderClass);
 				newDiv.appendChild(prevButton);
 				newDiv.appendChild(nextButton);
-				newDiv.appendChild(finishedButton);
 				//newDiv.appendChild(newSliderFill);
 
 				mainDiv.appendChild(newDiv);
-				document.getElementById("finished").style.visibility = "hidden";
+
 
 			}
 
@@ -277,7 +260,7 @@ function loadAsset(idTag)
 
 		        stop: function(event, ui){
 		        	AssetList[findArrLoc(idTag)].rank = document.getElementById("slider-result").innerHTML;
-		        	adjustBudget(idTag);
+		        	adjustBudget();
 		        }
 
 		     });
@@ -324,37 +307,21 @@ function formatButton(idTag, order)
 
 var currBudget = 100;
 
-function adjustBudget(idTag)
+function adjustBudget()
 {
 	var tempBudget = MAX_BUDGET_VALUE;
 	var runningSum = 0;
 	for(var i=0; i<AssetList.length;i++)
 	{
 		runningSum += parseInt(AssetList[i].rank);
-		var listItem = document.getElementById(AssetList[i].id);
-		listItem.childNodes[1].style.width = parseInt(AssetList[i].rank) / MAX_BUDGET_VALUE * 100  + "%";
+			var listItem = document.getElementById(AssetList[i].id);
+			listItem.childNodes[1].style.width = parseInt(AssetList[i].rank) / MAX_BUDGET_VALUE * 100  + "%";
 
 	}
 	var remBudget = document.getElementById("remBudget");
 	currBudget = parseInt(tempBudget) - parseInt(runningSum);
 	remBudget.innerHTML = "Remaining Budget:  " + '<img src = "img/heart-white.png"/> ' + currBudget;
 	document.getElementById("slider-remaining").innerHTML = '<img src = "img/heart-red.png"/> ' + getRemainingBudget() + '<br> remaining';
-	document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[2].style.width = (parseInt(AssetList[findArrLoc(idTag)].rank) / MAX_BUDGET_VALUE * 100) + 6  + "%";
-	document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[2].innerHTML = '<img src = "img/heart-red.png"/> ' + AssetList[findArrLoc(idTag)].rank;
-
-	if (currBudget == 0)
-	{
-		document.getElementById("next").style.visibility = "hidden";
-		document.getElementById("previous").style.visibility = "hidden";	
-		document.getElementById("finished").style.visibility = "";
-		console.log(currBudget);
-	}
-	else if(currBudget > 0)
-	{
-		document.getElementById("next").style.visibility = "";
-		document.getElementById("previous").style.visibility = "";	
-		document.getElementById("finished").style.visibility= "hidden";
-	}
 };
 
 

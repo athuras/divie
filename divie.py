@@ -13,7 +13,6 @@ def home():
 @app.route('/static/login.html', methods=['POST'])
 def login():
     if request.method == 'POST':
-        # creates a new session for the user
         session['username'] = request.form['username']
         return redirect(url_for('static', filename='myAuctions.html'))
 
@@ -25,8 +24,8 @@ def logout():
 @app.route('/static/auction.html/requestAssets', methods=['POST'])
 def getItems():
     # When auction is loaded request asset list
-    if request.method == 'POST':
-        data = db.get_itemsJSON(escape(session['username']));
+    if request.method == 'POST':# and request.headers['Content-Type'] == 'application/json':
+        data = db.get_itemsJSON();
         js = json.dumps(data)
         resp = Response(js, status=200, mimetype='application/json')
         return resp
@@ -38,7 +37,6 @@ def saveBids():
         res = json.dumps(request.json)
         # saveResult = db.save_Bids(res, escape(session['username']))
         return res
-
     return "error2"
 
 if __name__ == '__main__':

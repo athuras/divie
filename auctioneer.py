@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-def main():
-    pass
 
 def mean(iterable, key=lambda x: x):
     s, n = 0, 0
@@ -26,17 +24,17 @@ def variance(iterable, key=lambda x: x):
 
 class Agent(object):
     '''Each agent has a list of bids, and some identification information'''
-    def __init__(self, index, bids):
+    def __init__(self, index, name, bids):
         '''
-        index: the Agent_id from the db
+        index: the Agent_id from the db, name: 'Bob Win'
         bids: an iterable of (item_id, bid_value) tuples
         '''
         self.id = index
-        bids = filter(lambda x: x[1] != 0, bids)  # We cannot have zero-value
+        self.name = name
         self.bids = dict(bids)
 
     def __repr__(self):
-        return '<Agent %s>' % (self.id)
+        return '<Agent %s>: %s' % (self.index, self.name)
 
 
 class Auction(object):
@@ -51,13 +49,12 @@ class Auction(object):
     NOT min(regret)
     '''
 
-    def __init__(self, auction_id, agents, **kwargs):
-        self.id = auction_id
+    def __init__(self, agents, **kwargs):
         self.agents = agents
         self.complete = False
 
         # Generate a single table containing all items and participants
-        items = {k for A in agents for k in A.bids}  # unique item_id
+        items = {k[0] for A in agents for k in A.bids}  # unique item_id
         bid_table = {}
         for item_id in items:
             a_bids = {}
@@ -69,15 +66,14 @@ class Auction(object):
         self.allocs = dict((k, None) for k in items)
 
     def __repr__(self):
-        return '<Auction %s>: of %s' % (self.id, [a.id for a in self.agents])
+        return '<Auction %s>: of %s' % (id(self), [a.name for a in self.agents])
 
     def is_finished(self):
-        if (self.complete or
-            all(map(lambda x: x is not None, self.allocs.itervalues()))):
+        if self.complete:
+            return True
+        if all(map(lambda x: x is not None, self.allocs.itervalues())):
             self.complete = True
             return True
-        else:
-            return False
 
     # TODO: keep track of these dynamically which should be dramatically
     #       faster for larger auctions, but as it is, this is a prototype
@@ -102,8 +98,6 @@ class Auction(object):
             if agent_id is not None and A == agent_id:
                 f += self.bid_table[item_id][A]
         return f
-
-
 
     # Core aggregate metrics
     def regret(self):
@@ -145,9 +139,9 @@ class Auction(object):
         '''Return the marginal regret table for each agent'''
         assert item in self.bid_table
         marginals = None
-        R_gross = sum(v for v in self.bid_table[item].itervalues())
-        marginals = [(a, R_gross - self.bid_table[item][a])
-                     for a in self.bid_table[item]]
+        with self.bid_table[item] as ba:
+            R_gross = sum(v for v in ba.values())
+            marginals = [(a, R_gross - ba[a]) for a in ba]
         return marginals
 
     def lmb_table(self, item, ZETA=0.2):
@@ -197,7 +191,6 @@ class Auction(object):
         fulfillment. This biases decisions towards agents who have not
         been awarded much.
         '''
-
         assert item in self.bid_table
         Fs = []
         for p in self.bid_table[item].iterkeys():
@@ -219,47 +212,30 @@ class Auction(object):
 
     def ma_selector(self, item):
         '''Degenerates to marginal fulfillment selector'''
-        return self.mf_selector(item)
+        return self.mf_selector(self, item)
 
     # Optimization
-    def resolve_uncontested(self):
-        '''Pre-allocate all items that are not contested'''
+    def resolve(self):
+        '''First step is to pre-allocate all items that are not contested,
+        and resolve conflicts based on marginal loss'''
+        iterations = []
+        remaining_items = self.items.copy()
+
+        # Allocate uncontested items
         for item_id in self.bid_table:
             keys = self.bid_table[item_id].keys()
             if len(keys) == 1:  # Item is uncontested
-                self.allocs[item_id] = keys[0]
-        return
+                self.allocs[item_id] = self.bid_table[item_id][keys[0]]
+                remaining_items.remove(item_id)
+        iterations.append(self.allocs.copy())
 
-    def resolve(self, **kwargs):
-        '''Resolve the auction. After the initial allocation of uncontested
-        items, items are awarded in order of descending rank values.
-        i.e. map(rank, items).sort(reverse=True)'''
+        # Incrementally allocate items until deadlock or completion
+        deadlock = False
+        remaining_items = list(remaining_items)
+        remaining_items.sort(key=self.demand)
 
-        # TODO: Arbiter function is not necessary if we only use one decision
-        #       engine
-        rank = self.allure
-        arbiter = None
-        if 'rank' in kwargs:
-            rank = kwargs['rank']
-        if 'arbiter' in kwargs:
-            arbiter = kwargs['arbiter']
-
-        self.resolve_uncontested()
-        allocations = []
-        remaining_items = [k for k in self.bid_table
-                             if self.allocs[k] is None]
-        remaining_items.sort(key=rank)
-
-        while len(remaining_items) > 0:
+        while len(remaining_items) > 0 and not deadlock:
             item = remaining_items.pop()
             # loss modifier method
-            lmbb_victor = self.lmbb_selector(item)
-            self.allocs[item] = lmbb_victor
-            allocations.append((item, lmbb_victor))
-
-        self.complete = True
-        return allocations
-
-
-if __name__ == '__main__':
-    main()
+            # TODO: This
+            pass

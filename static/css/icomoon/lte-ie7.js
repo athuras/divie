@@ -29,7 +29,9 @@ window.onload = function() {
 			'icon-lock-fill' : '&#x34;',
 			'icon-unlocked-2' : '&#x35;',
 			'icon-locked-2' : '&#x36;',
-			'icon-checkmark' : '&#x37;'
+			'icon-checkmark' : '&#x37;',
+			'icon-close' : '&#x38;',
+			'icon-cancel' : '&#x39;'
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;
