@@ -63,7 +63,7 @@ table, td, th {
 }
 
 #displayTable {
-	height: 65%;
+	height: 60%;
 	width: 70%;
 	background-color: #fff;
 	border-radius: 10px;
@@ -132,6 +132,13 @@ th:first-child {
 
 tfoot td {
 	padding: 1em;
+}
+
+.submitBtn {
+	position: absolute;
+	bottom: 5.5%;
+	left: 50%;
+	margin-left: -165px;
 }
 
 
