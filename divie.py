@@ -21,6 +21,10 @@ def logout():
     session.pop('userID', None)
     return redirect(url_for('static', filename='login.html'))
 
+@app.route('/bids')
+def bids():
+    return db.get_bidJSON(escape(session['username']))
+
 @app.route('/static/auction.html/requestAssets', methods=['POST'])
 def getItems():
     # When auction is loaded request asset list
@@ -36,8 +40,8 @@ def saveBids():
     if request.method == 'POST':
         try:
             res = json.dumps(request.json)
-            # saveResult = db.save_Bids(res, escape(session['username']))
-            return Response(res, status=200, mimetype='application/json')
+            saveResult = db.save_Bids(res, escape(session['username']))
+            return saveResult
         except (ValueError, KeyError, TypeError) as e:
             return str(e)
     return "error2"

@@ -101,7 +101,7 @@ def get_users(): #gets users for given auction & their id for use to decide if e
 def get_bidJSON(username):
     auction_id = 1
     query = "SELECT * FROM item WHERE auction_id = " + auction_id + "AND agent_id = " + username + ";"
-    vals = query_template(query)
+    vals = to_dict(query_template(query))
     return vals
 
 def get_bid():
@@ -121,10 +121,13 @@ def save_Bids(results, userID):
 
     for curResult in results:
         if curResult['rank'] != 0: #look for better way
-            query = "INSERT INTO bid VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % \
-                {"aucID": auction_id, "itemID": curResult['id'], "uID": userID, \
-                "bidVal": curResult['rank'], "dTime": 1}
-            vals = query_template(query)
+            try:
+                query = "INSERT INTO bid VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % \
+                    {"aucID": auction_id, "itemID": int(curResult['id']), "uID": userID, \
+                    "bidVal": int(curResult['rank']), "dTime": 1}
+                vals = query_template(query)
+            except psycopg2.Error:
+                return vals;
     else:
         return "successful"
 

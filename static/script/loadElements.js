@@ -45,15 +45,14 @@ function loaded()
 
 function finishAuction()
 {
-	alert(JSON.stringify(AssetList, jsonReplacer))
 	$.ajax({
 		type: "POST",
-		datatype: "json",
+		datatype: "text",
 		url: 'http://divie.herokuapp.com/static/auction.html/submitBids',
 		async: false,
 		data: JSON.stringify(AssetList, jsonReplacer),
 		success: function(msg){ 
-				alert(JSON.parse(msg))
+				alert(msg)
 		},
 		error: function(){
 			alert("failed to load assets.")
