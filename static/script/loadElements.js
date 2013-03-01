@@ -36,12 +36,13 @@ function loaded()
 
 function finishAuction()
 {
+	alert(JSON.stringify(AssetList))
 	$.ajax({
 		type: "POST",
 		datatype: "json",
 		url: 'http://divie.herokuapp.com/static/auction.html/submitBids',
 		async: false,
-		data: AssetList,
+		data: JSON.stringify(AssetList),
 		success: function(msg){ 
 				alert(msg)
 		},
