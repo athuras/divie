@@ -4,15 +4,26 @@
 <head>
 	<title>divie | The simple asset divider</title>
 	<link rel='stylesheet' type='text/css' href='css/auction.css'/>
+	<link rel='stylesheet' type='text/css' href='css/myAuctions.css'>
 	<link type="text/css" rel="stylesheet" href="css/loader.css" />
 	<link type="text/css" rel="stylesheet" href="css/terms.css" />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script>
+	function loaded(){
+		$('#myAuction').click(function()
+		{
+			window.location = 'http://divie.herokuapp.com/static/myAuctions.html'
+		})
+	};
+	</script>
 </head>
 
-<body>
+<body onLoad="loaded();">
 	<div class='header'>
 		<img class='logo' src='img/divie-logo.png'>
 		<div class='links'>
 			<ul>
+				<li>
 				My Auctions</li><li>
 				Profile</li><li id='logOut'>
 				Log Out</li>
@@ -20,13 +31,14 @@
 		</div>
 	</div>
 	<div class='panel'>
+		<div class='myAuct'>Terms and Conditions</div>
 		<div class='boxnav'>
-			<div class='title'>
+<!-- 			<div class='title'>
 				<p> Terms and Conditions </p>
 				<br>
-			</div>
+			</div> -->
 			<div class='textwrap'>
-				<div class='text'>
+				<div class='text' style='padding-left:0'>
 					<p>
 					These Terms of Use apply to any services provided by Divie. These Terms of Use apply not only to you, but also to any person or entity who obtains access by your actions or your username and password, whether intended or not (together &quotCustomer&quot).
 					<br><br>
@@ -85,8 +97,11 @@
 				</div>
 			</div>
 		</div>
+
 		<div class='accept'>
-			<img src='img/approve-btn.png'>
+			<div id='myAuction'>
+				<img src='img/approve-btn.png'>
+			</div>
 		</div>
 	</div>
 </body>
