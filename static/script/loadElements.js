@@ -4,13 +4,13 @@ AssetList.push(new Asset(2, "Car", 0, '', "img/car.jpg"));
 AssetList.push(new Asset(3, "Lamp", 32, '', "img/sailboat.png"));
 AssetList.push(new Asset(4, "Family Portrait", 0, '', "img/sailboat.png"));
 AssetList.push(new Asset(5, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(6, "Everything Else", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(1031, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(23, "Car", 0, '', "img/car.jpg"));
-// AssetList.push(new Asset(33, "Lamp", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(43, "Family Portrait", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(53, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(36, "Everything Else", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(6, "Everything Else", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(1031, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(23, "Car", 0, '', "img/car.jpg"));
+AssetList.push(new Asset(33, "Lamp", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(43, "Family Portrait", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(53, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(36, "Everything Else", 0, '', "img/sailboat.png"));
 
 var init = true;
 var MAX_BUDGET_VALUE = 100;
@@ -68,7 +68,7 @@ function addAssets()
 	var headerHeight = $(".header").height()
 	console.log(leftNavHeight);
 	console.log(headerHeight);
-	$(".leftNav").height(leftNavHeight - headerHeight - 5);
+	//$(".leftNav").height(leftNavHeight - headerHeight - 5); // this is shitty programming
 	var list = document.getElementById("assetList"); //change ID to whatever is used in html
 	for(var i=0; i<AssetList.length; i++)
 	{

@@ -154,6 +154,10 @@ tfoot td {
 	background: url('../img/approve-btn-pushed.png');
 }
 
+.approvePushed {
+	background: url('../img/approved.png')
+}
+
 .submitBtn {
 	position: relative;
 	width: 329px;

@@ -18,6 +18,11 @@ ResultList.push(new Result(36,"Lamp", "img/sailboat.png", [0,0,1]));
 
 var NUM_OF_LOTS = 0;
 
+var lotList = [];
+for (var i = 0; i < NUM_OF_LOTS.length; i++) {
+	lotList.push(false);	
+};
+
 function getNumOfLots(resultList) {
 	if (resultList.length == 0)
 		alert("Err: No Results");
@@ -112,10 +117,13 @@ function createFooter(){
 	for (var i = 0; i < NUM_OF_LOTS+2; i++) {
 
 		var newTd = document.createElement("td");
-		var newImg = document.createElement("div");
-		newImg.setAttribute("class", "approveBtn");
+
 		if (i != 0 && i != 1)
 		{
+			var newImg = document.createElement("div");
+			newImg.setAttribute("class", "approveBtn");
+			newImg.setAttribute("id", i-1);
+			newImg.setAttribute("onclick", 'approve(' + (i-1) + ');');
 			newTd.appendChild(newImg);
 		}
 
@@ -123,6 +131,15 @@ function createFooter(){
 	};
 
 	foot.appendChild(newRow);
+};
+
+function approve(lotNum){
+	if (!lotList[lotNum])
+	{
+		lotList[lotNum] = true;
+		var approveBtn = document.getElementById(lotNum);
+		approveBtn.setAttribute("class", "approvePushed")
+	}
 };
 
 function getIcon(value)
