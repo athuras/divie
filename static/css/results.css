@@ -63,29 +63,26 @@ table, td, th {
 }
 
 #displayTable {
-	height: 60%;
+	max-height: 60%;
 	width: 70%;
 	background-color: #fff;
 	border-radius: 10px;
-	position: absolute;
-	top: 13em;
+	position: relative;
+	top: 10em;
 	left: 15%;
+	margin-bottom: 15em;
 }
 
 table td {
 	border-right: 2px solid #e7e7e7;
 }
 
-table td:first-child {
+table td:first-child, th:first-child {
 	border: none;
 }
 
 table th {
 	border-right: 2px solid #6488b4;
-}
-
-table td:last-child, th:last-child {
-	border: none;
 }
 
 th {
@@ -94,6 +91,10 @@ th {
 
 th:first-child {
 	border-top-left-radius: 10px;
+}
+
+#body {
+	height: 60%;
 }
 
 .head {
@@ -134,11 +135,27 @@ tfoot td {
 	padding: 1em;
 }
 
+.approveBtn {
+	display: block;
+	width: 190px;
+	height: 54px;
+	background: url('../img/approve-btn.png');
+	text-indent: -99999px;
+}
+
+.approveBtn:active {
+	display: block;
+	width: 190px;
+	height: 54px;
+	background: url('../img/approve-btn-pushed.png');
+	text-indent: -99999px;
+}
+
 .submitBtn {
-	position: absolute;
+	position: relative;
 	bottom: 5.5%;
 	left: 50%;
-	margin-left: -165px;
+	margin: 0 0 3em -165px;
 }
 
 
