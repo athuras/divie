@@ -60,10 +60,17 @@
 
 .textwrap{
 	position: relative;
-	height: 89%;
+	height: 85%;
 	width: 98%;
 	top: 2%;
 	left: 2%;
 	cursor: auto;
 	overflow: auto;
+}
+
+.accept{
+	position: absolute;
+	bottom: 2%;
+	margin-left: -95.5px;
+	left: 50%;
 }
