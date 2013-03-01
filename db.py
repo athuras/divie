@@ -17,6 +17,9 @@ Version: Python 2.7
 import os
 import psycopg2
 
+#--------------------
+# DATABASE 
+#--------------------
 
 def connect_db():
     conn = psycopg2.connect(**{
@@ -83,6 +86,10 @@ def query_template_dict(query, args=()):
         conn.close()
     return vals
 
+#--------------------
+# SELECT QUERIES
+#--------------------
+
 def get_itemsJSON(userID):
     query = ("SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" + 
         " as value FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = " + userID + ";")
@@ -132,20 +139,35 @@ def user_auc_rel(): #find which users are associated with the current auction
     vals = query_template(query)
     return str(vals)
 
-def save_Bids(results, userID):
+def get_resultsJSON(userID):
+    auction_id = 1
+    query = "SELECT * FROM results WHERE auction_id = " + auction_id + " AND agent_id = " + userID + ";"
+    vals = query_template_dict(query)
+    return vals
+
+
+#--------------------
+# SAVING METHODS
+#--------------------
+
+def save_Bids(bids, userID):
     auction_id = 1
 
-    for curResult in results:
+    # Clear bids for user and auction
+    query = "DELETE FROM bid WHERE agent_id = " + userID + " and auction_id = " + auction_id + ";"
+    query_template(query)
+
+    for curBid in bids:
         # curResult : {'id': 1, "rank": 2}
-        if int(curResult['rank']) != 0: #look for better way
+        if int(curBid['rank']) != 0: #look for better way
             try:
                 query = ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time) " + 
                     "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % 
                     {
                         "aucID": auction_id, 
-                        "itemID": int(curResult['id']), 
+                        "itemID": int(curBid['id']), 
                         "uID": userID, 
-                        "bidVal": int(curResult['rank']), 
+                        "bidVal": int(curBid['rank']), 
                         "dTime": 1
                     })
                 vals = query_template(query)
