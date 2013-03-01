@@ -1,7 +1,20 @@
 #!/usr/bin/env python
 
+# Machinery for holding auctions
+
 def main():
     pass
+
+
+def unique_groups(allocs):
+    '''Strip out the duplicates in the allocs'''
+    # Hash each allocation.
+    # Not as dynamic as it could be, but I'm still a little proud of this one
+    condensed = set((frozenset({(k, v) for k, v in Z.iteritems()})
+                     for i, Z in enumerate(allocs)))
+    reduced = [dict(i for i in A) for A in condensed]
+    return reduced
+
 
 def mean(iterable, key=lambda x: x):
     s, n = 0, 0
@@ -23,6 +36,19 @@ def variance(iterable, key=lambda x: x):
         raise ValueError('Empty iterable')
     return s / float(n)
 
+def mean_variance(iterable, key=lambda x: x):
+    '''
+    Returns (mean, variance) tuple.
+    WARNING: not accurate for large scale differences.
+    '''
+    s, s2, n = 0, 0, 0
+
+    for i in iterable:
+        s += key(i)
+        s2 += key(i) ** 2
+        n += 1
+    mean = float(s) / n
+    return mean, float(s2) / n - (mean / n) ** 2
 
 class Agent(object):
     '''Each agent has a list of bids, and some identification information'''
@@ -71,6 +97,12 @@ class Auction(object):
     def __repr__(self):
         return '<Auction %s>: of %s' % (self.id, [a.id for a in self.agents])
 
+    def reset_allocs(self):
+        items = {k for A in self.agents for k in A.bids}
+        self.allocs = dict((k, None) for k in items)
+        return None
+
+
     # TODO: keep track of these dynamically which should be dramatically
     #       faster for larger auctions, but as it is, this is a prototype
 
@@ -105,20 +137,7 @@ class Auction(object):
         return sum(self.fulfillment(a.id) for a in self.agents)
 
     def demand(self, item):
-        '''Designed to rank the extent to which a single-item multi-participant
-        scenario will dramatically effect the core metrics.
-
-        Illustration:  Which Item has the most allure?
-                item A     item B
-        User    |  bid  ||   Bid
-        0       |   10  ||   25
-        1       |   10  ||   25
-        2       |   15  ||  None
-        3       |   15  ||  None
-
-        Current metric treats them as equivalent, although a given auction
-        result for each item has different effects on regret, fulfillment etc.
-        '''
+        '''Sum of all bids for an auction'''
         assert item in self.bid_table
         return sum(bid for bid in self.bid_table[item].itervalues())
 
@@ -139,6 +158,13 @@ class Auction(object):
         marginals = [(a, R_gross - self.bid_table[item][a])
                      for a in self.bid_table[item]]
         return marginals
+
+    def loss_table(self):
+        '''Returns current loss for each agent'''
+        return dict((k.id, self.loss(k.id)) for k in self.agents)
+
+    def fulfillment_table(self):
+        return dict((k.id, self.fulfillment(k.id)) for k in self.agents)
 
     def lmb_table(self, item, ZETA=0.2):
         '''Return the loss-modified bid table for each agent'''
@@ -200,7 +226,6 @@ class Auction(object):
             S = lm_bids[0][1] / float(lm_bids[0][1] + lm_bids[1][1])
             return (lm_bids[0][0], S)
 
-
     def mf_selector(self, item):
         '''Marginal fulfillment selector:
         Item is awarded to the agent who would have the most relative
@@ -222,7 +247,6 @@ class Auction(object):
         if len(Fs) == 1:
             return (Fs[0][0], float(1))
         else:
-            print 'THIS ->', item, Fs
             if Fs[0][1] == Fs[1][1]:
                 S = 0.5
             else:
@@ -242,7 +266,7 @@ class Auction(object):
                 self.allocs[item_id] = keys[0]
         return
 
-    def priority_selector(self, item, KAPPA=20):
+    def hybrid_selector(self, item, KAPPA=20):
         '''Looks at system state and determines the best strongest selector'''
 
         # mf is stronger early on (when regret is low)
@@ -260,11 +284,10 @@ class Auction(object):
         else:
             return lmbb_victor
 
-    def resolve(self, **kwargs):
+    def resolve(self, selector, **kwargs):
         '''Resolve the auction. After the initial allocation of uncontested
         items, items are awarded in order of descending rank values.
         i.e. map(rank, items).sort(reverse=True)'''
-
         # TODO: Arbiter function is not necessary if we only use one decision
         #       engine
 
@@ -276,12 +299,45 @@ class Auction(object):
 
         while len(remaining_items) > 0:
             item = remaining_items.pop()
-            victor = self.priority_selector(item)
+            victor = selector(item)
             self.allocs[item] = victor
             allocations.append((item, victor))
             remaining_items.sort(key=self.allure)
         self.complete = True
         return allocations
+
+    def loss_metric(self, fn=mean_variance):
+        '''Returns the result of fn(self.loss_table.itervalues())'''
+        return fn(self.loss_table().itervalues())
+
+    def fulfillment_metric(self, fn=mean_variance):
+        return fn(self.fulfillment_table().itervalues())
+
+    def is_imba(self):
+        '''Did someone get totally screwed, and not win a single bid'''
+        agents = {i.id for i in self.agents}
+        for v in self.allocs.itervalues():
+            if v in agents:
+                agents.remove(v)
+        if len(agents) > 0:
+            return True
+        else:
+            return False
+
+    def multi_resolve(self):
+        '''returns a list of (allocations, scores) tuples'''
+        # Lambdas necessary as to strip out the weights
+        selectors = [lambda x: self.bb_selector(x)[0],
+                     lambda x: self.lmbb_selector(x)[0],
+                     lambda x: self.mf_selector(x)[0],
+                     self.hybrid_selector]
+        results = []
+        for sel in selectors:
+            self.resolve(sel)
+            score = (self.loss_metric(), self.fulfillment_metric())
+            results.append((self.allocs.copy(), score))
+            self.reset_allocs()
+        return results
 
 
 if __name__ == '__main__':

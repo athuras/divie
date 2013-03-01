@@ -54,6 +54,10 @@ def db_test():
         conn.close()
     return 'SUCCESS!:\n' + str(vals)
 
+def to_dict(vals):
+    retVals = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in vals]
+    return retVals
+
 def query_template(query, args=()):
     conn = None
     try:
@@ -91,9 +95,9 @@ def query_template_dict(query, args=()):
 #--------------------
 
 def get_itemsJSON(userID):
-    query = ("SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" + 
-        " as value FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = " + userID + ";")
-    vals = query_template_dict(query)
+    query = "SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" \
+        " as value FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = " + userID + ";"
+    vals = to_dict(query_template(query))
     return vals
 
 def get_items(): #gets item list, description, image url and value
@@ -103,7 +107,7 @@ def get_items(): #gets item list, description, image url and value
 
 def get_auctionJSON():
     query = "SELECT * FROM auction;"
-    vals = query_template(query)
+    vals = to_dict(query_template(query))
     return vals
 
 def get_auction(): #gets executor, auction name and start and end date
@@ -113,7 +117,7 @@ def get_auction(): #gets executor, auction name and start and end date
 
 def get_usersJSON(): #gets users for given auction & their id for use to decide if executor
     query = "SELECT * FROM agent;"
-    vals = query_template(query)
+    vals = to_dict(query_template(query))
     return vals
 
 def get_users(): #gets users for given auction & their id for use to decide if executor
@@ -178,3 +182,33 @@ def save_Bids(bids, userID):
 
     #figure out what to do here
     return "successful"
+
+def reload_bids(auction=1):
+    query = ("TRUNCATE TABLE bid RESTART IDENTITY CASCADE;" +
+             "INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time)" +
+                "SELECT auction_id, item_id, agent_id, value, bid_time" +
+                "FROM bid_base " +
+                "WHERE auction_id = auction;")
+    query_template(query)
+
+def save_results(results, userID, auction_id=1):
+    for r in results:
+        query = ("INSERT INTO results (auction_id, item_id, agent_id, lot_id) " + 
+                 "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(lot)s);" % 
+                    {"aucID": auction_id, 
+                     "itemID": r['id'], 
+                     "uID": userID,
+                     "lot": r['lot']})
+        query_template(query)
+    return "Inserted"
+
+def get_results(auction=1):
+    query = ("SELECT item_id, agent_id, lot_id FROM results" +
+             "WHERE auction_id = auction;")
+    vals = query_template(query)
+
+    return vals
+
+def clear_results(auction=1):
+    query = ("TRUNCATE TABLE results;")
+    query_template(query)

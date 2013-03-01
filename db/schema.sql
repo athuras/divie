@@ -66,3 +66,14 @@ CREATE TABLE item (
 	img_url varchar NULL,
 	item_value float DEFAULT 0.00
 );
+
+/*
+results from optimization
+*/
+DROP TABLE if exists results;
+CREATE TABLE results (
+	auction_id INT NULL,
+	item_id INT NULL,
+	agent_id INT NULL,
+	lot_id INT NULL
+);

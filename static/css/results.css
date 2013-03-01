@@ -57,31 +57,40 @@ html {
 	font-weight: 300;
 }
 
-table, td, th {
+table {
+	border-radius: 10px
+}
+
+table, td, th, tr {
 	text-align: center;
 	vertical-align: middle;
 }
 
 #displayTable {
-	height: 65%;
+	max-height: 60%;
 	width: 70%;
 	background-color: #fff;
 	border-radius: 10px;
-	position: absolute;
-	top: 13em;
+	position: relative;
+	top: 10em;
 	left: 15%;
+	margin-bottom: 15em;
 }
 
 table td {
 	border-right: 2px solid #e7e7e7;
 }
 
+table td:first-child, td:last-child, th:first-child, th:last-child {
+	border: none;
+}
+
 table th {
 	border-right: 2px solid #6488b4;
 }
 
-table td:last-child, th:last-child {
-	border: none;
+table th:first-child, td:first-child{
+	border:none;
 }
 
 th {
@@ -92,14 +101,30 @@ th:first-child {
 	border-top-left-radius: 10px;
 }
 
+#body {
+	height: 60%;
+}
+
 .head {
-	background-color: #719cd0;
+	/*background-color: #719cd0;*/
 	color: #fff;
 	height: 75px;
+	background-image: linear-gradient(bottom, rgb(95,141,201) 49%, rgb(130,171,215) 88%);
+	background-image: -o-linear-gradient(bottom, rgb(95,141,201) 49%, rgb(130,171,215) 88%);
+	background-image: -moz-linear-gradient(bottom, rgb(95,141,201) 49%, rgb(130,171,215) 88%);
+	background-image: -webkit-linear-gradient(bottom, rgb(95,141,201) 49%, rgb(130,171,215) 88%);
+	background-image: -ms-linear-gradient(bottom, rgb(95,141,201) 49%, rgb(130,171,215) 88%);
+
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.49, rgb(95,141,201)),
+		color-stop(0.88, rgb(130,171,215))
+	);
 }
 
 #right {
-	background-color: #719cd0;
 	color: #fff;
 	border-top-right-radius: 10px;
 }
@@ -114,8 +139,11 @@ th:first-child {
 	height: 50px;
 	width: 50px;
 	border-radius: 25px;
-	position: fixed;
-	margin: 0 0 0 0.6em;
+	margin: 0.5em;
+}
+
+.imgContainer {
+	width: 75px;
 }
 
 .assetName {
@@ -126,6 +154,46 @@ th:first-child {
 
 tfoot td {
 	padding: 1em;
+}
+
+.approveBtn {
+	display: block;
+	width: 190px;
+	height: 54px;
+	background: url('../img/approve-btn.png');
+	position: relative;
+	left: 50%;
+	margin-left: -95px;
+}
+
+.approveBtn:active {
+	background: url('../img/approve-btn-pushed.png');
+}
+
+.approvePushed {
+	background: url('../img/approved.png');
+	display: block;
+	width: 190px;
+	height: 54px;
+	position: relative;
+	left: 50%;
+	margin-left: -95px;
+}
+
+.submitBtn {
+	position: relative;
+	width: 329px;
+	height: 52px;
+	bottom: 5.5%;
+	left: 50%;
+	margin: 0 0 3em -165px;
+	background: url('../img/submit.png');
+	left: 50%;
+	margin-left: -164.5px;
+}
+
+.submitBtn:active {
+	background: url('../img/submit-pressed.png');
 }
 
 

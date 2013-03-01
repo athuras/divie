@@ -4,20 +4,104 @@
 <head>
 	<title>divie | The simple asset divider</title>
 	<link rel='stylesheet' type='text/css' href='css/auction.css'/>
+	<link rel='stylesheet' type='text/css' href='css/myAuctions.css'>
 	<link type="text/css" rel="stylesheet" href="css/loader.css" />
+	<link type="text/css" rel="stylesheet" href="css/terms.css" />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script>
+	function loaded(){
+		$('#myAuction').click(function()
+		{
+			window.location = 'http://divie.herokuapp.com/static/myAuctions.html'
+		})
+	};
+	</script>
 </head>
 
-<body>
+<body onLoad="loaded();">
 	<div class='header'>
 		<img class='logo' src='img/divie-logo.png'>
 		<div class='links'>
 			<ul>
-				<li id='remBudget'>
-				Remaining Budget: <img src = "img/heart-white.png"/> 100</li><li>
+				<li>
 				My Auctions</li><li>
 				Profile</li><li id='logOut'>
 				Log Out</li>
 			</ul>
+		</div>
+	</div>
+	<div class='panel'>
+		<div class='myAuct'>Terms and Conditions</div>
+		<div class='boxnav'>
+<!-- 			<div class='title'>
+				<p> Terms and Conditions </p>
+				<br>
+			</div> -->
+			<div class='textwrap'>
+				<div class='text' style='padding-left:0'>
+					<p>
+					These Terms of Use apply to any services provided by Divie. These Terms of Use apply not only to you, but also to any person or entity who obtains access by your actions or your username and password, whether intended or not (together &quotCustomer&quot).
+					<br><br>
+					By using any portion of the Application or by clicking your consent, Customer agrees to these Terms and Conditions.
+					</p>
+				</div>
+				
+				<div class='heading'>
+					<p><br>1. Customer Data Submissions</p>
+				</div>
+				
+				<div class='text'>
+					<p><br>
+					The Application permits the submission of data, including names, titles, descriptions and photographs (&quotUser Submissions&quot) to accomplish its purpose. Although Divie provides commercially reasonable security, Divie does not guarantee confidentiality with respect to any User Submissions. By submitting the User Submissions to Divie, Customer grants Divie a license to use display the User Submissions to the other Customer(s) tied to auction.
+					</p>
+				</div>
+
+				<div class='heading'>
+					<p><br>2. Deadlines</p>
+				</div>
+
+				<div class='text'>
+					<p><br>
+					The use of the Application involves deadlines for the submission of bids on items of the estate. Customer agrees to comply with such deadlines, and understands that the Application will cut off auctions and take take most recent entered values, if the Customer does not complete his/her bidding by the deadlines.
+					</p>
+				</div>
+
+				<div class='heading'>
+					<p><br>3. Taxes</p>
+				</div>
+
+				<div class='text'>
+					<p><br>
+					Customer agrees that there may be taxes associated with the division of an estate from a will. Taxes are of the responsibility of the beneficiaries associated with the estate.
+					</p>
+				</div>
+
+				<div class='heading'>
+					<p><br>4. Ability to Accept Terms</p>
+				</div>
+
+				<div class='text'>
+					<p><br>
+					Customer affirms that he or she is 18 years or older and is fully able and competent to abide by these Terms and Conditions.
+					</p>
+				</div>
+
+				<div class='heading'>
+					<p><br>5. Intent of Application with No Legal Advice<br></p>
+				</div>
+
+				<div class='text' style="font-weight:bold;">
+					<p><br><b>
+					Divie is designed to help beneficiaries in an estate efficiently divide some or all of the assets, but is not a substitute for the services of an attorney. At no time does Divie claim that the results from this Application are legally binding. Although Divie strives to create an optimized division of assets, free of competition between beneficiaries (users), there are always alternative asset divisions. If the Customer is not happy with any of the suggested divisions, he or she has the choice to work with other beneficiaries linked to the auction and come up with a different allocation.Any advice from the Application is not legal advice and therefore, if you need legal advice for your specific problem you should consult a licensed attorney in your area. This Application is not intended to replace an attorney, but is instead intended to aid a group of beneficiaries and an executor in dividing assets of an estate.</b>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<div class='accept'>
+			<div id='myAuction'>
+				<img src='img/approve-btn.png'>
+			</div>
 		</div>
 	</div>
 </body>
