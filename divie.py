@@ -37,7 +37,7 @@ def saveBids():
         try:
             res = json.dumps(request.json)
             # saveResult = db.save_Bids(res, escape(session['username']))
-            return res
+            return Response(res, status=200, mimetype='application/json')
         except (ValueError, KeyError, TypeError) as e:
             return str(e)
     return "error2"
