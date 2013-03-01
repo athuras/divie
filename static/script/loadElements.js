@@ -15,6 +15,14 @@ var AssetList = [];
 var init = true;
 var MAX_BUDGET_VALUE = 100;
 
+// creates a restricted set to be returned in stringification process
+function jsonReplacer(key, value)
+{
+	if(key=="img") return undefined;
+	else if(key=="description") return undefined;
+	else if(key=="name") return undefined;
+}
+
 //this loads assets from server
 function loaded()
 {
@@ -36,13 +44,13 @@ function loaded()
 
 function finishAuction()
 {
-	alert(JSON.stringify(AssetList))
+	alert(JSON.stringify(AssetList, jsonReplacer))
 	$.ajax({
 		type: "POST",
 		datatype: "json",
 		url: 'http://divie.herokuapp.com/static/auction.html/submitBids',
 		async: false,
-		data: JSON.stringify(AssetList),
+		data: JSON.stringify(AssetList, jsonReplacer),
 		success: function(msg){ 
 				alert(msg)
 		},
