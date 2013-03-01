@@ -120,6 +120,7 @@ def save_Bids(results, userID):
     auction_id = 1
 
     for curResult in results:
+        # curResult : {'id': 1, "rank": 2}
         return curResult
         # if int(curResult['rank']) != 0: #look for better way
         #     try:
