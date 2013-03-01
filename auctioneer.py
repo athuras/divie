@@ -105,20 +105,7 @@ class Auction(object):
         return sum(self.fulfillment(a.id) for a in self.agents)
 
     def demand(self, item):
-        '''Designed to rank the extent to which a single-item multi-participant
-        scenario will dramatically effect the core metrics.
-
-        Illustration:  Which Item has the most allure?
-                item A     item B
-        User    |  bid  ||   Bid
-        0       |   10  ||   25
-        1       |   10  ||   25
-        2       |   15  ||  None
-        3       |   15  ||  None
-
-        Current metric treats them as equivalent, although a given auction
-        result for each item has different effects on regret, fulfillment etc.
-        '''
+        '''Sum of all bids for an auction'''
         assert item in self.bid_table
         return sum(bid for bid in self.bid_table[item].itervalues())
 
@@ -200,7 +187,6 @@ class Auction(object):
             S = lm_bids[0][1] / float(lm_bids[0][1] + lm_bids[1][1])
             return (lm_bids[0][0], S)
 
-
     def mf_selector(self, item):
         '''Marginal fulfillment selector:
         Item is awarded to the agent who would have the most relative
@@ -264,10 +250,8 @@ class Auction(object):
         '''Resolve the auction. After the initial allocation of uncontested
         items, items are awarded in order of descending rank values.
         i.e. map(rank, items).sort(reverse=True)'''
-
         # TODO: Arbiter function is not necessary if we only use one decision
         #       engine
-
         self.resolve_uncontested()
         allocations = []
         remaining_items = [k for k in self.bid_table
