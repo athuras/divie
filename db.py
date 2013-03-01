@@ -97,7 +97,7 @@ def query_template_dict(query, args=()):
 def get_itemsJSON(userID):
     query = "SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" \
         " as value FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = " + userID + ";"
-    vals = to_dict(query_template(query))
+    vals = query_template_dict(query)
     return vals
 
 def get_items(): #gets item list, description, image url and value
@@ -107,7 +107,7 @@ def get_items(): #gets item list, description, image url and value
 
 def get_auctionJSON():
     query = "SELECT * FROM auction;"
-    vals = to_dict(query_template(query))
+    vals = query_template_dict(query)
     return vals
 
 def get_auction(): #gets executor, auction name and start and end date
@@ -117,7 +117,7 @@ def get_auction(): #gets executor, auction name and start and end date
 
 def get_usersJSON(): #gets users for given auction & their id for use to decide if executor
     query = "SELECT * FROM agent;"
-    vals = to_dict(query_template(query))
+    vals = query_template_dict(query)
     return vals
 
 def get_users(): #gets users for given auction & their id for use to decide if executor
