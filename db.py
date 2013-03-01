@@ -51,9 +51,6 @@ def db_test():
         conn.close()
     return 'SUCCESS!:\n' + str(vals)
 
-def to_dict(vals):
-    return [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in vals]
-
 def query_template(query, args=()):
     conn = None
     try:
@@ -70,10 +67,26 @@ def query_template(query, args=()):
         conn.close()
     return vals
 
+def query_template_dict(query, args=()):
+    conn = None
+    try:
+        conn = connect_db()
+        cur = conn.cursor()
+        cur.execute(query, args)
+        vals = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in cur.fetchall()]
+        conn.commit()
+    except psycopg2.Error as e:
+        return 'DB Error: ' + str(e)
+
+    finally:
+        cur.close()
+        conn.close()
+    return vals
+
 def get_itemsJSON(userID):
-    query = "SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" \
-        " as bVal FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = " + userID + ";"
-    vals = to_dict(query_template(query))
+    query = ("SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" + 
+        " as bVal FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = " + userID + ";")
+    vals = query_template_dict(query)
     return vals
 
 def get_items(): #gets item list, description, image url and value
@@ -104,7 +117,7 @@ def get_users(): #gets users for given auction & their id for use to decide if e
 def get_bidJSON(username):
     auction_id = 1
     query = "SELECT * FROM item WHERE auction_id = " + auction_id + "AND agent_id = " + username + ";"
-    vals = to_dict(query_template(query))
+    vals = query_template_dict(query)
     return vals
 
 def get_bid():
@@ -128,11 +141,13 @@ def save_Bids(results, userID):
             try:
                 query = ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time) " + 
                     "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % 
-                    {"aucID": auction_id, 
-                    "itemID": int(curResult['id']), 
-                    "uID": userID, 
-                    "bidVal": int(curResult['rank']), 
-                    "dTime": 1})
+                    {
+                        "aucID": auction_id, 
+                        "itemID": int(curResult['id']), 
+                        "uID": userID, 
+                        "bidVal": int(curResult['rank']), 
+                        "dTime": 1
+                    })
                 vals = query_template(query)
             except psycopg2.Error:
                 return vals;
