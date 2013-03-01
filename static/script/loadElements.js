@@ -34,7 +34,7 @@ function loaded()
 		async: false,
 		success: function(data){ 
 			$.each(data, function(i, at){
-				AssetList.push(new Asset(at.item_id, at.item_name, at.value, at.description, at.img_url));
+				AssetList.push(new Asset(at.item_id, at.item_name, at.bVal, at.description, at.img_url));
 			});
 		},
 		error: function(){
