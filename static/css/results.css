@@ -63,7 +63,7 @@ table, td, th {
 }
 
 #displayTable {
-	height: 65%;
+	height: 60%;
 	width: 70%;
 	background-color: #fff;
 	border-radius: 10px;
@@ -74,6 +74,10 @@ table, td, th {
 
 table td {
 	border-right: 2px solid #e7e7e7;
+}
+
+table td:first-child {
+	border: none;
 }
 
 table th {
@@ -114,8 +118,10 @@ th:first-child {
 	height: 50px;
 	width: 50px;
 	border-radius: 25px;
-	position: fixed;
-	margin: 0 0 0 0.6em;
+}
+
+.imgContainer {
+	width: 75px;
 }
 
 .assetName {
@@ -126,6 +132,13 @@ th:first-child {
 
 tfoot td {
 	padding: 1em;
+}
+
+.submitBtn {
+	position: absolute;
+	bottom: 5.5%;
+	left: 50%;
+	margin-left: -165px;
 }
 
 
