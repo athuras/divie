@@ -135,6 +135,14 @@ def save_Bids(results, userID):
     #figure out what to do here
     return "successful"
 
+def reload_bids(auction=1):
+    query = ("TRUNCATE TABLE bid RESTART IDENTITY CASCADE;" +
+             "INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time)" +
+                "SELECT auction_id, item_id, agent_id, value, bid_time" +
+                "FROM bid_base " +
+                "WHERE auction_id = auction;")
+    query_template(query)
+
 def save_results(results, userID, auction_id=1):
     for r in results:
         query = ("INSERT INTO results (auction_id, item_id, agent_id, lot_id) " + 
@@ -154,5 +162,5 @@ def get_results(auction=1):
     return vals
 
 def clear_results(auction=1):
-    query = ("TRUNCATE TABLE bid RESTART IDENTITY CASCADE;")
+    query = ("TRUNCATE TABLE results;")
     query_template(query)
