@@ -161,10 +161,12 @@ body {
 }
 
 .leftNav ul {
+	/*margin-top: 50px;*/
 	width: 100%;
-	height: 94%;
+	height: 89.5%;
+	bottom:0;
 	position: absolute;
-	top: 64px;
+	/*top: 64px;*/
 	font-weight: 100;
 	cursor: pointer;
 	overflow: auto;
