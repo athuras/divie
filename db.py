@@ -121,15 +121,14 @@ def save_Bids(results, userID):
 
     for curResult in results:
         # curResult : {'id': 1, "rank": 2}
-        return curResult['rank']
-        # if int(curResult['rank']) != 0: #look for better way
-            # try:
-            #     query = "INSERT INTO bid VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % \
-            #         {"aucID": auction_id, "itemID": int(curResult['id']), "uID": userID, \
-            #         "bidVal": int(curResult['rank']), "dTime": 1}
-            #     vals = query_template(query)
-            # except psycopg2.Error:
-            #     return vals;
+        if int(curResult['rank']) != 0: #look for better way
+            try:
+                query = "INSERT INTO bid VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % \
+                    {"aucID": auction_id, "itemID": int(curResult['id']), "uID": userID, \
+                    "bidVal": int(curResult['rank']), "dTime": 1}
+                vals = query_template(query)
+            except psycopg2.Error:
+                return vals;
     else:
         return "successful"
 
