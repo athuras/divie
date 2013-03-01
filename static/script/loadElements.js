@@ -39,7 +39,7 @@ function finishAuction()
 	alert(JSON.stringify(AssetList))
 	$.ajax({
 		type: "POST",
-		datatype: "json",
+		datatype: "text",
 		url: 'http://divie.herokuapp.com/static/auction.html/submitBids',
 		async: false,
 		data: JSON.stringify(AssetList),
@@ -278,7 +278,7 @@ function loadAsset(idTag)
 		        },
 
 		        stop: function(event, ui){
-		        	AssetList[findArrLoc(idTag)].rank = document.getElementById("slider-result").innerHTML;
+		        	AssetList[findArrLoc(idTag)].rank = parseInt(document.getElementById("slider-result").innerHTML);
 		        	adjustBudget(idTag);
 		        }
 
