@@ -120,7 +120,7 @@ def save_Bids(results, userID):
     auction_id = 1
 
     for curResult in results:
-        if curResult['rank'] != 0: #look for better way
+        if int(curResult['rank']) != 0: #look for better way
             try:
                 query = "INSERT INTO bid VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % \
                     {"aucID": auction_id, "itemID": int(curResult['id']), "uID": userID, \
