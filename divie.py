@@ -40,7 +40,7 @@ def saveBids():
     if request.method == 'POST':
         try:
             res = json.dumps(request.json)
-            saveResult = db.save_Bids(res, escape(session['username']))
+            saveResult = db.save_Bids(json.loads(res), escape(session['username']))
             return saveResult
         except (ValueError, KeyError, TypeError) as e:
             return str(e)
