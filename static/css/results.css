@@ -85,6 +85,10 @@ table th {
 	border-right: 2px solid #6488b4;
 }
 
+table th:first-child, td:first-child{
+	border:none;
+}
+
 th {
 	font-size: 20pt;
 }
