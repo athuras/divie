@@ -43,7 +43,7 @@ def saveBids():
     # When user has completed rankings insert into database and return succesful
     if request.method == 'POST':
         try:
-            res = json.dumps(request.json)
+            res = json.loads(request.json)
             saveResult = db.save_Bids(res, 1)#escape(session['username']))
             return saveResult
         except (ValueError, KeyError, TypeError) as e:
