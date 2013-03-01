@@ -53,7 +53,7 @@ function finishAuction()
 		async: false,
 		data: JSON.stringify(AssetList, jsonReplacer),
 		success: function(msg){ 
-				alert(msg)
+				alert(JSON.stringify(msg))
 		},
 		error: function(){
 			alert("failed to load assets.")
