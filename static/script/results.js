@@ -17,7 +17,6 @@ ResultList.push(new Result(36,"Lamp", "img/sailboat.png", [0,0,1]));
 // Initialization stuff ------------------------------------------------------------------------------
 
 var NUM_OF_LOTS = 0;
-var APPROVE_BTN = "img/approve-btn.png";
 
 function getNumOfLots(resultList) {
 	if (resultList.length == 0)
@@ -113,8 +112,8 @@ function createFooter(){
 	for (var i = 0; i < NUM_OF_LOTS+2; i++) {
 
 		var newTd = document.createElement("td");
-		var newImg = document.createElement("img");
-		newImg.setAttribute("src", APPROVE_BTN)
+		var newImg = document.createElement("div");
+		newImg.setAttribute("class", "approveBtn");
 		if (i != 0 && i != 1)
 		{
 			newTd.appendChild(newImg);
