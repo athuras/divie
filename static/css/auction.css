@@ -128,7 +128,7 @@ body {
 }
 
 .leftNav {
-	background-image: url('../img/bg-fuzz.png');
+	background-image: url('../img/mini-fuzz.png');
 	background-color: #fff;
 	position: absolute;
 	width: 33.3%;
@@ -140,7 +140,7 @@ body {
 }
 
 .leftNav #leftTitle {
-	background-image: url('../img/bg-fuzz.png');
+	background-image: url('../img/mini-fuzz.png');
 	background-color: #c6d1d6;
 	position: absolute;
 	font-size: 28pt;
@@ -203,7 +203,7 @@ body {
 }
 
 .rightBg {
-	background-image: url('../img/bg-fuzz.png');
+	background-image: url('../img/mini-fuzz.png');
 	background-color: #646769;
 	position: absolute;
 	width: 66.7%;
@@ -215,7 +215,7 @@ body {
 
 .assetOverlay {
 	background-color: #171717;
-	background-image: url('../img/bg-fuzz.png');
+	background-image: url('../img/mini-fuzz.png');
 	position: absolute;
 	top: 50px;
 	bottom: 0;
@@ -391,7 +391,7 @@ a {
 }
 
 #finished {
-	background-image: url('../img/bg-fuzz.png');
+	background-image: url('../img/mini-fuzz.png');
 	background-color: #2ff62a;
 	margin: -325px 0 0 -6em;
 	position: absolute;
