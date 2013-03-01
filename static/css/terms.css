@@ -13,10 +13,10 @@
 .boxnav {
 	background-color: #FFFFFF;
 	position: relative;
-	height: 75%;
+	height: 60%;
 	width: 80%;
-	border-radius: 15px;
-	top: 12%;
+	border-radius: 10px;
+	top: 4%;
 	left: 10%;
 	z-index: -3;
 
@@ -36,7 +36,7 @@
 	color: #000000;
 	font-size: 14pt;
 	font-weight: bold;
-	top: 2%;
+	top: 3%;
 	text-align: center;
 }
 .heading {
@@ -46,11 +46,16 @@
 }
 
 .text {
+
+	position:relative;
 	color: #000000;
 	font-size: 10pt;
 	font-weight: 100;
 	text-align:justify;
-	width: 98%;
+	top:2%;
+	width: 97%;
+	padding-left:1em;
+
 /*	text-align: center;
 	margin-top: 50px;
 	padding: 0.4em 0 0.4em 0;
@@ -60,17 +65,20 @@
 
 .textwrap{
 	position: relative;
-	height: 85%;
+	height: 93% !important;
 	width: 98%;
 	top: 2%;
 	left: 2%;
+	z-index: -2;
+	margin-bottom:10px;
 	cursor: auto;
 	overflow: auto;
 }
 
 .accept{
-	position: absolute;
-	bottom: 2%;
-	margin-left: -95.5px;
+	position: relative;
+	margin: 0 0 0 -95.5px;
 	left: 50%;
+	width: 191px;
+	top: 7%;
 }
