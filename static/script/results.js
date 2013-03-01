@@ -134,11 +134,17 @@ function createFooter(){
 };
 
 function approve(lotNum){
+	var approveBtn = document.getElementById(lotNum);
+	
 	if (!lotList[lotNum])
 	{
 		lotList[lotNum] = true;
-		var approveBtn = document.getElementById(lotNum);
-		approveBtn.setAttribute("class", "approvePushed")
+		approveBtn.setAttribute("class", "approvePushed");
+	}
+	else
+	{
+		lotList[lotNum] = false;
+		approveBtn.setAttribute("class", "approveBtn")
 	}
 };
 
