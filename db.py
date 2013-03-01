@@ -51,13 +51,17 @@ def db_test():
         conn.close()
     return 'SUCCESS!:\n' + str(vals)
 
+def to_dict(vals):
+    retVals = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in vals]
+    return retVals
+
 def query_template(query, args=()):
     conn = None
     try:
         conn = connect_db()
         cur = conn.cursor()
         cur.execute(query, args)
-        vals = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in cur.fetchall()]
+        vals = cur.fetchall()
         conn.commit()
     except psycopg2.Error as e:
         return 'DB Error: ' + str(e)
@@ -70,7 +74,7 @@ def query_template(query, args=()):
 def get_itemsJSON(userID):
     query = "SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" \
         " as value FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = " + userID + ";"
-    vals = query_template(query)
+    vals = to_dict(query_template(query))
     return vals
 
 def get_items(): #gets item list, description, image url and value
@@ -80,7 +84,7 @@ def get_items(): #gets item list, description, image url and value
 
 def get_auctionJSON():
     query = "SELECT * FROM auction;"
-    vals = query_template(query)
+    vals = to_dict(query_template(query))
     return vals
 
 def get_auction(): #gets executor, auction name and start and end date
@@ -90,7 +94,7 @@ def get_auction(): #gets executor, auction name and start and end date
 
 def get_usersJSON(): #gets users for given auction & their id for use to decide if executor
     query = "SELECT * FROM agent;"
-    vals = query_template(query)
+    vals = to_dict(query_template(query))
     return vals
 
 def get_users(): #gets users for given auction & their id for use to decide if executor
@@ -101,7 +105,7 @@ def get_users(): #gets users for given auction & their id for use to decide if e
 def get_bidJSON(username):
     auction_id = 1
     query = "SELECT * FROM item WHERE auction_id = " + auction_id + "AND agent_id = " + username + ";"
-    vals = query_template(query)
+    vals = to_dict(query_template_dict(query))
     return vals
 
 def get_bid():
@@ -120,10 +124,10 @@ def save_Bids(results, userID):
     auction_id = 1
 
     for curResult in results:
-        if curResult["rank"] != 0: #look for better way
+        if curResult['rank'] != 0: #look for better way
             query = "INSERT INTO bid VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % \
-                {"aucID": auction_id, "itemID": curResult["id"], "uID": userID, \
-                "bidVal": curResult["rank"], "dTime": 1}
+                {"aucID": auction_id, "itemID": curResult['id'], "uID": userID, \
+                "bidVal": curResult['rank'], "dTime": 1}
             vals = query_template(query)
     else:
         return "successful"

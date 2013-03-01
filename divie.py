@@ -25,7 +25,7 @@ def logout():
 def getItems():
     # When auction is loaded request asset list
     if request.method == 'POST':# and request.headers['Content-Type'] == 'application/json':
-        data = db.get_itemsJSON();
+        data = db.get_itemsJSON(escape(session['username']));
         js = json.dumps(data)
         resp = Response(js, status=200, mimetype='application/json')
         return resp
@@ -35,8 +35,8 @@ def saveBids():
     # When user has completed rankings insert into database and return succesful
     if request.method == 'POST':
         res = json.dumps(request.json)
-        saveResult = db.save_Bids(res, escape(session['username']))
-        return saveResult
+        # saveResult = db.save_Bids(res, escape(session['username']))
+        return res
     return "error2"
 
 if __name__ == '__main__':
