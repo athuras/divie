@@ -156,9 +156,18 @@ tfoot td {
 
 .submitBtn {
 	position: relative;
+	width: 329px;
+	height: 52px;
 	bottom: 5.5%;
 	left: 50%;
 	margin: 0 0 3em -165px;
+	background: url('../img/submit.png');
+	left: 50%;
+	margin-left: -164.5px;
+}
+
+.submitBtn:active {
+	background: url('../img/submit-pressed.png');
 }
 
 
