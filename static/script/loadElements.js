@@ -1,9 +1,9 @@
 var AssetList = [];
-// AssetList.push(new Asset(101, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(2, "Car", 0, '', "img/car.jpg"));
-// AssetList.push(new Asset(3, "Lamp", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(4, "Family Portrait", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(5, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(101, "Sailboat Painting", 45, '', "img/sailboat.png"));
+AssetList.push(new Asset(2, "Car", 10, '', "img/car.jpg"));
+AssetList.push(new Asset(3, "Lamp", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(4, "Family Portrait", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(5, "Sailboat Painting", 25, '', "img/sailboat.png"));
 // AssetList.push(new Asset(6, "Everything Else", 0, '', "img/sailboat.png"));
 // AssetList.push(new Asset(1031, "Sailboat Painting", 0, '', "img/sailboat.png"));
 // AssetList.push(new Asset(23, "Car", 0, '', "img/car.jpg"));
@@ -14,6 +14,13 @@ var AssetList = [];
 
 var init = true;
 var MAX_BUDGET_VALUE = 100;
+for (var i = 0; i < AssetList.length; i++) {
+	MAX_BUDGET_VALUE -= AssetList[i].rank;
+	console.log(MAX_BUDGET_VALUE);
+};
+				var remBudget = document.getElementById("remBudget");
+				console.log( + "yrdy");
+	remBudget.innerHTML = MAX_BUDGET_VALUE;
 
 //this loads assets from server
 function loaded()
@@ -26,6 +33,7 @@ function loaded()
 		success: function(data){ 
 			$.each(data, function(i, at){
 				AssetList.push(new Asset(at.item_id, at.item_name, at.value, at.description, at.img_url));
+				MAX_BUDGET_VALUE -= at.value;
 			});
 		},
 		error: function(){
@@ -212,7 +220,7 @@ function loadAsset(idTag)
 				nextButton.setAttribute("class", formatButton(nextPos, "next"));
 				nextButton.setAttribute("id", "next");
 				nextButton.setAttribute("onclick", 'loadAsset(' + nextID + ');');
-				var nextButtonValue = document.createTextNode("next Item");
+				var nextButtonValue = document.createTextNode("Next Item");
 				nextButton.appendChild(nextButtonValue);
 
 				var prevButton = document.createElement("div");

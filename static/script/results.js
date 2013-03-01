@@ -75,8 +75,8 @@ function loadResults()
 		var newAssetRow = document.createElement("tr");
 		newAssetRow.setAttribute("class", "assetRow");
 
-		var newImgCont = document.createElement("class");
-		newImgCont.setAttribute("imgContainer");
+		var newImgCont = document.createElement("td");
+		newImgCont.setAttribute("class","imgContainer")
 
 		var newAssetImg = document.createElement("img");
 		newAssetImg.setAttribute("class", "pic");
