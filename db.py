@@ -51,13 +51,16 @@ def db_test():
         conn.close()
     return 'SUCCESS!:\n' + str(vals)
 
+def to_dict(vals):
+    return [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in vals]
+
 def query_template(query, args=()):
     conn = None
     try:
         conn = connect_db()
         cur = conn.cursor()
         cur.execute(query, args)
-        vals = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in cur.fetchall()]
+        vals = cur.fetchall()
         conn.commit()
     except psycopg2.Error as e:
         return 'DB Error: ' + str(e)
@@ -123,7 +126,8 @@ def save_Bids(results, userID):
         # curResult : {'id': 1, "rank": 2}
         if int(curResult['rank']) != 0: #look for better way
             try:
-                query = "INSERT INTO bid VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % \
+                query = "INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time)" + \
+                "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % \
                     {"aucID": auction_id, "itemID": int(curResult['id']), "uID": userID, \
                     "bidVal": int(curResult['rank']), "dTime": 1}
                 vals = query_template(query)
