@@ -76,6 +76,10 @@ table td {
 	border-right: 2px solid #e7e7e7;
 }
 
+table td:first-child {
+	border: none;
+}
+
 table th {
 	border-right: 2px solid #6488b4;
 }
@@ -114,8 +118,10 @@ th:first-child {
 	height: 50px;
 	width: 50px;
 	border-radius: 25px;
-	position: fixed;
-	margin: 0 0 0 0.6em;
+}
+
+.imgContainer {
+	width: 75px;
 }
 
 .assetName {
