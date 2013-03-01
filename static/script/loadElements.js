@@ -21,7 +21,8 @@ function jsonReplacer(key, value)
 	if(key=="img") return undefined;
 	else if(key=="description") return undefined;
 	else if(key=="name") return undefined;
-}
+	else return value;
+};
 
 //this loads assets from server
 function loaded()
