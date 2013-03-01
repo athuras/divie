@@ -18,6 +18,8 @@ var MAX_BUDGET_VALUE = 100;
 //this loads assets from server
 function loaded()
 {
+	currBudget = MAX_BUDGET_VALUE;
+	
 	$.ajax({
 		type: "POST",
 		datatype: "json",
@@ -26,7 +28,7 @@ function loaded()
 		success: function(data){ 
 			$.each(data, function(i, at){
 				AssetList.push(new Asset(at.item_id, at.item_name, at.value, at.description, at.img_url));
-				//currBudget -= at.value;
+				currBudget -= at.value;
 			});
 		},
 		error: function(){
@@ -34,11 +36,11 @@ function loaded()
 		}
 	})
 
-	currBudget = MAX_BUDGET_VALUE;
-	//temporary for loop
-	for (var i = 0; i < AssetList.length; i++) {
-		currBudget -= AssetList[i].rank;
-	};
+
+	// //temporary for loop
+	// for (var i = 0; i < AssetList.length; i++) {
+	// 	currBudget -= AssetList[i].rank;
+	// };
 
 	var remBudget = document.getElementById("remBudget");
 	remBudget.innerHTML = "Remaining Budget:  " + '<img src = "img/heart-white.png"/> ' + currBudget; 
