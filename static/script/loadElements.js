@@ -34,6 +34,7 @@ function loaded()
 		async: false,
 		success: function(data){ 
 			$.each(data, function(i, at){
+				alert(at)
 				AssetList.push(new Asset(at.item_id, at.item_name, at.bVal, at.description, at.img_url));
 			});
 		},
