@@ -34,7 +34,7 @@ function loaded()
 		async: false,
 		success: function(data){ 
 			$.each(data, function(i, at){
-				AssetList.push(new Asset(at.item_id, at.item_name, at.bVal, at.description, at.img_url));
+				AssetList.push(new Asset(at.item_id, at.item_name, at.value, at.description, at.img_url));
 			});
 		},
 		error: function(){
@@ -287,7 +287,7 @@ function loadAsset(idTag)
 		        },
 
 		        stop: function(event, ui){
-		        	AssetList[findArrLoc(idTag)].rank = parseInt(document.getElementById("slider-result").innerHTML);
+		        	AssetList[findArrLoc(idTag)].rank = document.getElementById("slider-result").innerHTML;
 		        	adjustBudget(idTag);
 		        }
 
