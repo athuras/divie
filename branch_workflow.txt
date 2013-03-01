@@ -1,0 +1,72 @@
+# See your current local branches:
+>>git branch
+*master
+some_local_branch
+
+# See all branches, local can be differentiated from remote branches based on path
+>>git branch -a
+*master
+remotes/heroku/master
+remotes/origin/HEAD -> origin/master
+remotes/origin/master
+
+## The branching process
+
+# 1. navigate to the current branch you want to diverge from (typically master)
+git checkout master
+
+# 2. create a local branch
+>>git checkout -b NEW_BRANCH_NAME
+Switched to a new branch 'NEW_BRANCH_NAME'
+
+# 4. commit some things
+>> echo "Some data" >> new_file
+>> git add new_file
+>> git commit -m 'Appended some data to new_file'
+
+# At this point our local branch is up to date.
+
+## If you want the local branch to also be on the server (i.e. Github).
+# Here we push the entire branch (not just a commit) to origin
+>> git push origin NEW_BRANCH_NAME
+To git@github.com:athuras/divie.
+ * [new branch]		NEW_BRANCH_NAME -> NEW_BRANCH_NAME
+
+# You can use this new branch as you would the master, adding files, committing/pushing etc.
+
+## The merging process
+# We've had our fun, now we want to merge NEW_BRANCH_NAME with master.
+
+# 1. Make sure master is up to date.
+>> git checkout master
+Switched to branch 'master'
+>> git pull
+
+# 2. From the master branch, merge NEW_BRANCH_NAME
+>> git merge NEW_BRANCH_NAME
+Updating f123456..f123456
+Fast-forward
+ new_file | 1 +
+ 1 files changes, 1 insertions(+), 0 deletions(-)
+ create mode 100644 new_file
+
+## if there are conflicts
+>> git mergetool (not as much fun on windows)
+
+# 2. Git treats the merge as a commit, so you'll see your local branch ahead of master by x commits.
+>> git status
+etc.
+
+# 3. Push to master.
+>> git push origin
+
+## Deleting a branch
+
+# Locally
+>> git branch -d BRANCH_NAME
+Deleted branch new (was fc94f9a)
+
+# Remotely (be careful here, we don't want to lose master)
+>> git push origin :BRANCH_NAME
+
+# fin
