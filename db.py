@@ -58,7 +58,7 @@ def to_dict(vals):
     retVals = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in vals]
     return retVals
 
-def query_template(query, args=()):
+def query_template(query, args={}):
     conn = None
     try:
         conn = connect_db()
@@ -74,7 +74,7 @@ def query_template(query, args=()):
         conn.close()
     return vals
 
-def query_template_dict(query, args=()):
+def query_template_dict(query, args={}):
     conn = None
     try:
         conn = connect_db()
@@ -170,42 +170,41 @@ def get_resultsJSON(userID):
 
 def save_Bids(bids, userID):
     auction_id = 1
-    conn = None
-    conn = connect_db()
-    cur = conn.cursor()
+    # conn = None
+    # conn = connect_db()
+    # cur = conn.cursor()
 
     # Clear bids for user and auction
-    try:
-        query = "DELETE FROM bid WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;"
-        data =  {
-                    "uID": int(userID),
-                    "aucID": int(auction_id)
-                }
-        cur.execute(query, data)
-        conn.commit()
-    except psycopg2.Error as e:
-        return 'DB Error: ' + str(e)
+    # try:
+    query = "DELETE FROM bid WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;"
+    data =  {
+                "uID": int(userID),
+                "aucID": int(auction_id)
+            }
+    query_template(query, data)
+    #     conn.commit()
+    # except psycopg2.Error as e:
+    #     return 'DB Error: ' + str(e)
 
     for curBid in bids:
         if int(curBid['rank']) != 0:
-            try:
-                query = ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time) " + 
-                    "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);")
-                data = {
-                            "aucID": auction_id, 
-                            "itemID": int(curBid['id']), 
-                            "uID": userID, 
-                            "bidVal": int(curBid['rank']), 
-                            "dTime": 1
-                        }
-                cur.execute(query, data)
-                conn.commit()
-            except psycopg2.Error as e:
-                return 'DB Error: ' + str(e)
-      
+            # try:
+            query = ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time) " + 
+                "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);")
+            data = {
+                        "aucID": auction_id, 
+                        "itemID": int(curBid['id']), 
+                        "uID": userID, 
+                        "bidVal": int(curBid['rank']), 
+                        "dTime": 1
+                    }
+            query_template(query, data)
+            #     conn.commit()
+            # except psycopg2.Error as e:
+            #     return 'DB Error: ' + str(e)
 
-    cur.close()
-    conn.close()
+    # cur.close()
+    # conn.close()
     return "successful"
 
 def reload_bids(auction_id=1):
