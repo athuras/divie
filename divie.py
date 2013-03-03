@@ -7,6 +7,7 @@ from flask import request, Response
 from flask import session, escape
 from flask import url_for
 import auctioneer as AUC
+from collections import defaultdict
 
 
 app = Flask(__name__)
@@ -17,7 +18,12 @@ def execute_auction(auction_id):
     '''Executes the Auction, writes results to the db'''
     def get_agent_info(auction_id):
         '''Returns {agent_id: [(item_id, bid_value)]} for agents in auction_id'''
-        pass
+        res = db.query_template("SELECT item_id, agent_id, value from bid where auction_id = %(a_id)s", {'a_id': auction_id})
+        master = defaultdict(lambda: [])
+        for record in res:
+            i_id, a_id, v = res
+            master[a_id].append((i_id, v))
+        return master
 
     def write_results(res):
         '''
