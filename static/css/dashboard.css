@@ -23,6 +23,7 @@ tr:last-child, td:first-child, td:last-child, th:first-child, th:last-child {
 th {
 	text-align: center;
 	font-size: 18pt;
+	font-weight: 100;
 	border: none !important;
 }
 
@@ -32,6 +33,7 @@ th:first-child {
 
 th:last-child {
 	border-top-right-radius: 10px;
+	width: 56px;
 }
 
 .assetRow {
