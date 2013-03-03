@@ -127,7 +127,7 @@ def get_users(): #gets users for given auction & their id for use to decide if e
 
 def get_bidJSON(userID):
     auction_id = 1
-    query = ("SELECT * FROM item WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;" %
+    query = ("SELECT * FROM bid WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;" %
             {
                 "uID": int(userID),
                 "aucID": int(auction_id)
@@ -137,7 +137,7 @@ def get_bidJSON(userID):
 
 def get_bid():
     auction_id = 1
-    query = ("SELECT * FROM item WHERE auction_id = %(aucID)s;" %
+    query = ("SELECT * FROM bid WHERE auction_id = %(aucID)s;" %
             {
                 "aucID": int(auction_id)
             })
@@ -170,31 +170,38 @@ def get_resultsJSON(userID):
 
 def save_Bids(bids, userID):
     auction_id = 1
+    conn = None
+    conn = connect_db()
+    cur = conn.cursor()
 
     # Clear bids for user and auction
-    query = "DELETE FROM bid WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;"
-    data =  {
-                "uID": int(userID),
-                "aucID": int(auction_id)
-            }
-    query_template(query, data)
+    # query = "DELETE FROM bid WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;"
+    # data =  {
+    #             "uID": int(userID),
+    #             "aucID": int(auction_id)
+    #         }
+    # query_template(query, data)
 
     for curBid in bids:
         if int(curBid['rank']) != 0:
-            # try:
-            query = ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time) " + 
-                "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);")
-            data = {
-                        "aucID": auction_id, 
-                        "itemID": int(curBid['id']), 
-                        "uID": userID, 
-                        "bidVal": int(curBid['rank']), 
-                        "dTime": 1
-                    }
-            vals = query_template(query, data)
-            # except:
-            #     return vals;
-    
+            try:
+                query = ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time) " + 
+                    "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);")
+                data = {
+                            "aucID": auction_id, 
+                            "itemID": int(curBid['id']), 
+                            "uID": userID, 
+                            "bidVal": int(curBid['rank']), 
+                            "dTime": 1
+                        }
+                cur.execute(query, data)
+                conn.commit()
+            except psycopg2.Error as e:
+                return 'DB Error: ' + str(e)
+      
+
+    cur.close()
+    conn.close()
     return "successful"
 
 def reload_bids(auction_id=1):
