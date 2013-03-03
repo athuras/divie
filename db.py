@@ -64,7 +64,7 @@ def query_template(query, args={}):
         conn = connect_db()
         cur = conn.cursor()
         cur.execute(query, args)
-        vals = cur.fetchall()
+        # vals = cur.fetchall()
         conn.commit()
     except psycopg2.Error as e:
         return 'DB Error: ' + str(e)
@@ -72,7 +72,7 @@ def query_template(query, args={}):
     finally:
         cur.close()
         conn.close()
-    return vals
+    return "u"
 
 def query_template_dict(query, args={}):
     conn = None
@@ -127,21 +127,21 @@ def get_users(): #gets users for given auction & their id for use to decide if e
 
 def get_bidJSON(userID):
     auction_id = 1
-    query = ("SELECT * FROM bid WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;" %
-            {
+    query = "SELECT * FROM bid WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;"
+    data =  {
                 "uID": int(userID),
                 "aucID": int(auction_id)
-            })
-    vals = query_template_dict(query)
+            }
+    vals = query_template_dict(query, data)
     return vals
 
 def get_bid():
     auction_id = 1
-    query = ("SELECT * FROM bid WHERE auction_id = %(aucID)s;" %
-            {
+    query = "SELECT * FROM bid WHERE auction_id = %(aucID)s;"
+    data =  {
                 "aucID": int(auction_id)
-            })
-    vals = query_template(query)
+            }
+    vals = query_template(query, data)
     return str(vals)
 
 def user_auc_rel(): #find which users are associated with the current auction
