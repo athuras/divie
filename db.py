@@ -181,19 +181,19 @@ def save_Bids(bids, userID):
 
     for curBid in bids:
         if int(curBid['rank']) != 0:
-            try:
-                query = ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time) " + 
-                    "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % 
-                    {
-                        "aucID": auction_id, 
-                        "itemID": int(curBid['id']), 
-                        "uID": userID, 
-                        "bidVal": int(curBid['rank']), 
-                        "dTime": 1
-                    })
-                vals = query_template(query)
-            except:
-                return vals;
+            # try:
+            query = ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time) " + 
+                "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % 
+                {
+                    "aucID": auction_id, 
+                    "itemID": int(curBid['id']), 
+                    "uID": userID, 
+                    "bidVal": int(curBid['rank']), 
+                    "dTime": 1
+                })
+            vals = query_template(query)
+            # except:
+            #     return vals;
     
     return "successful"
 
