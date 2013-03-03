@@ -172,26 +172,26 @@ def save_Bids(bids, userID):
     auction_id = 1
 
     # Clear bids for user and auction
-    query = ("DELETE FROM bid WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;" %
-            {
+    query = "DELETE FROM bid WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;"
+    data =  {
                 "uID": int(userID),
                 "aucID": int(auction_id)
-            })
-    query_template(query)
+            }
+    query_template(query, data)
 
     for curBid in bids:
         if int(curBid['rank']) != 0:
             # try:
             query = ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time) " + 
-                "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % 
-                {
-                    "aucID": auction_id, 
-                    "itemID": int(curBid['id']), 
-                    "uID": userID, 
-                    "bidVal": int(curBid['rank']), 
-                    "dTime": 1
-                })
-            vals = query_template(query)
+                "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);")
+            data = {
+                        "aucID": auction_id, 
+                        "itemID": int(curBid['id']), 
+                        "uID": userID, 
+                        "bidVal": int(curBid['rank']), 
+                        "dTime": 1
+                    }
+            vals = query_template(query, data)
             # except:
             #     return vals;
     
