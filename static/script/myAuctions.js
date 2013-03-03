@@ -1,13 +1,27 @@
 var AuctionList = [];
-AuctionList.push(new Auction(1, 1, "Grandma's Belongings", "Splittin her shit up", "February 23, 2013", "March 2, 2013"));
+AuctionList.push(new Auction(1, 1, "Grandma's Belongings", "Splittin her shit up", "February 23, 2013", "March 15, 2013", "active"));
 AuctionList.push(new Auction(1, 1, "Uncle Ken's Shit Needs Divie", "Splittin her shit up", "April 23, 2013", "April 30, 2013"));
 
+var StatusText = {
+	auctionCompleted: "view your items!",
+	resultsCompleted: "view results!",
+	active: "active now!",
+	adminCompleted: "approve results!"
+}
 
 function loaded(){
 	// wait for document to be loaded before binding click event
 	$('#gAuction').click(function()
 	{
-		window.location = 'http://divie.herokuapp.com/static/auction.html'
+		var dest = $(".statusText").html();
+		if (dest == StatusText.active)
+			window.location = 'http://divie.herokuapp.com/static/auction.html';
+		else if (dest == StatusText.auctionCompleted)
+			window.location = 'http://divie.herokuapp.com/static/results.html';
+		else if (dest == StatusText.resultsCompleted)
+			window.location = 'http://divie.herokuapp.com/static/results.html';
+		else if (dest == StatusText.adminCompleted)
+			window.location = 'http://divie.herokuapp.com/static/admin.html';
 	})	
 };
 
@@ -47,14 +61,14 @@ function loadAuctions()
 
 		newAuc.appendChild(newInfo);
 
-		if (AuctionList[i].active)
+		if (AuctionList[i].status == "active")
 		{
 			var newActive = document.createElement("div");
 			newActive.setAttribute("class", "statusBox");
 
 			var newStatusText = document.createElement("div");
 			newStatusText.setAttribute("class", "statusText");
-			var newStatusValue = document.createTextNode("active now!");
+			var newStatusValue = document.createTextNode(StatusText.active);
 			newStatusText.appendChild(newStatusValue);
 
 			newActive.appendChild(newStatusText);
@@ -67,10 +81,68 @@ function loadAuctions()
 			newAuc.appendChild(actInd);
 			newAuc.setAttribute("id", "gAuction");
 		} 
-		else
+		else if (AuctionList[i].status == "auctionCompleted")
 		{
-			newAuc.setAttribute("id", "idle");
+			var newActive = document.createElement("div");
+			newActive.setAttribute("class", "statusBox");
+
+			var newStatusText = document.createElement("div");
+			newStatusText.setAttribute("class", "statusText");
+			var newStatusValue = document.createTextNode(StatusText.auctionCompleted);
+			newStatusText.appendChild(newStatusValue);
+
+			newActive.appendChild(newStatusText);
+
+			actInd = document.createElement("img");
+			actInd.setAttribute("class", "activityIndicator");
+			actInd.setAttribute("src", "img/chevron.png");
+
+			newAuc.appendChild(newActive);
+			newAuc.appendChild(actInd);
+			newAuc.setAttribute("id", "gAuction");
 		}
+		else if (AuctionList[i].status == "adminCompleted")
+		{
+			var newActive = document.createElement("div");
+			newActive.setAttribute("class", "statusBox");
+
+			var newStatusText = document.createElement("div");
+			newStatusText.setAttribute("class", "statusText");
+			var newStatusValue = document.createTextNode(StatusText.adminCompleted);
+			newStatusText.appendChild(newStatusValue);
+
+			newActive.appendChild(newStatusText);
+
+			actInd = document.createElement("img");
+			actInd.setAttribute("class", "activityIndicator");
+			actInd.setAttribute("src", "img/chevron.png");
+
+			newAuc.appendChild(newActive);
+			newAuc.appendChild(actInd);
+			newAuc.setAttribute("id", "gAuction");
+		}
+		else if (AuctionList[i].status == "resultsCompleted")
+		{
+			var newActive = document.createElement("div");
+			newActive.setAttribute("class", "statusBox");
+
+			var newStatusText = document.createElement("div");
+			newStatusText.setAttribute("class", "statusText");
+			var newStatusValue = document.createTextNode(StatusText.resultsCompleted);
+			newStatusText.appendChild(newStatusValue);
+
+			newActive.appendChild(newStatusText);
+
+			actInd = document.createElement("img");
+			actInd.setAttribute("class", "activityIndicator");
+			actInd.setAttribute("src", "img/chevron.png");
+
+			newAuc.appendChild(newActive);
+			newAuc.appendChild(actInd);
+			newAuc.setAttribute("id", "gAuction");
+		}
+		else
+			newAuc.setAttribute("id", "idle");
 
 
 
@@ -79,25 +151,26 @@ function loadAuctions()
 	}
 };
 
-function Auction(id, execId, name, desc, startDate, endDate){
+function Auction(id, execId, name, desc, startDate, endDate, status){
 	this.id = id;
 	this.execId = execId;
 	this.name = name;
 	this.description = desc;
 	this.startDate = startDate;
 	this.endDate = endDate;
-	var date = new Date();	
-	var sDate = Date.parse(startDate);
-	var eDate = Date.parse(endDate);
-	var cDate = Date.parse(date);
-	if ((cDate <= eDate && cDate >= sDate))
-	{
-		this.active = true;
-	}
-	else
-	{
-		this.active = false;
-	}
+	this.status = status;
+	// var date = new Date();	
+	// var sDate = Date.parse(startDate);
+	// var eDate = Date.parse(endDate);
+	// var cDate = Date.parse(date);
+	// if ((cDate <= eDate && cDate >= sDate))
+	// {
+	// 	this.status = "active";
+	// }
+	// else
+	// {
+	// 	this.status = "inactive";
+	// }
 };
 
 function findArrLoc(idTag)

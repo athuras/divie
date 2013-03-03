@@ -9,6 +9,15 @@
 	font-style: normal;
 }
 
+#logOut {
+	cursor: pointer;
+}
+
+#myAuctions
+{
+	cursor: pointer;
+}
+
 .icon-checkmark:before {
 	font-family: 'icomoon';
 	-webkit-font-smoothing: antialiased;
@@ -72,9 +81,9 @@ table, td, th, tr {
 	background-color: #fff;
 	border-radius: 10px;
 	position: relative;
-	top: 10em;
+	top: 14em;
 	left: 15%;
-	margin-bottom: 15em;
+	margin-bottom: 17em;
 }
 
 table td {
@@ -184,11 +193,9 @@ tfoot td {
 	position: relative;
 	width: 329px;
 	height: 52px;
-	bottom: 5.5%;
 	left: 50%;
 	margin: 0 0 3em -165px;
 	background: url('../img/submit.png');
-	left: 50%;
 	margin-left: -164.5px;
 }
 
