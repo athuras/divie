@@ -130,7 +130,7 @@ def get_bidJSON(userID):
     query = ("SELECT * FROM item WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;" %
             {
                 "uID": int(userID),
-                "aucID": int(auctionID)
+                "aucID": int(auction_id)
             })
     vals = query_template_dict(query)
     return vals
@@ -139,7 +139,7 @@ def get_bid():
     auction_id = 1
     query = ("SELECT * FROM item WHERE auction_id = %(aucID)s;" %
             {
-                "aucID": int(auctionID)
+                "aucID": int(auction_id)
             })
     vals = query_template(query)
     return str(vals)
@@ -148,7 +148,7 @@ def user_auc_rel(): #find which users are associated with the current auction
     auction_id = 1
     query = ("SELECT agent_id FROM item WHERE auction_id = %(aucID)s;" %
             {
-                "aucID": int(auctionID)
+                "aucID": int(auction_id)
             })
     vals = query_template(query)
     return str(vals)
@@ -158,7 +158,7 @@ def get_resultsJSON(userID):
     query = ("SELECT * FROM results WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;" %
             {
                 "uID": int(userID),
-                "aucID": int(auctionID)
+                "aucID": int(auction_id)
             })
     vals = query_template_dict(query)
     return vals
@@ -175,7 +175,7 @@ def save_Bids(bids, userID):
     query = ("DELETE FROM bid WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;" %
             {
                 "uID": int(userID),
-                "aucID": int(auctionID)
+                "aucID": int(auction_id)
             })
     query_template(query)
 
@@ -197,12 +197,12 @@ def save_Bids(bids, userID):
     
     return "successful"
 
-def reload_bids(auction=1):
+def reload_bids(auction_id=1):
     query = ("TRUNCATE TABLE bid RESTART IDENTITY CASCADE;" +
              "INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time)" +
                 "SELECT auction_id, item_id, agent_id, value, bid_time" +
                 "FROM bid_base " +
-                "WHERE auction_id = auction;")
+                "WHERE auction_id = %(aucID)s;" % {"aucID": auction_id})
     query_template(query)
 
 def save_results(results, userID, auction_id=1):
@@ -216,10 +216,10 @@ def save_results(results, userID, auction_id=1):
         query_template(query)
     return "Inserted"
 
-def get_results(auction=1):
+def get_results(auction_id=1):
     query = ("SELECT item_id, agent_id, lot_id FROM results WHERE auction_id = %(aucID)s;" %
             {
-                "aucID": int(auctionID)
+                "aucID": int(auction_id)
             })
     vals = query_template(query)
 
