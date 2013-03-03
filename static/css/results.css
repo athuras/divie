@@ -9,6 +9,15 @@
 	font-style: normal;
 }
 
+#logOut {
+	cursor: pointer;
+}
+
+#myAuctions
+{
+	cursor: pointer;
+}
+
 .icon-checkmark:before {
 	font-family: 'icomoon';
 	-webkit-font-smoothing: antialiased;

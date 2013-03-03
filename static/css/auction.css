@@ -84,6 +84,14 @@ body {
 	z-index: 500;
 }
 
+#logOut {
+	cursor: pointer;
+}
+
+#myAuctions
+{
+	cursor: pointer;
+}
 .logo {
 	padding: 10px;
 	margin-left: 3%;
