@@ -1,5 +1,5 @@
 var AuctionList = [];
-AuctionList.push(new Auction(1, 1, "Grandma's Belongings", "Splittin her shit up", "February 23, 2013", "March 15, 2013", "resultsCompleted"));
+AuctionList.push(new Auction(1, 1, "Grandma's Belongings", "Splittin her shit up", "February 23, 2013", "March 15, 2013", "active"));
 AuctionList.push(new Auction(1, 1, "Uncle Ken's Shit Needs Divie", "Splittin her shit up", "April 23, 2013", "April 30, 2013"));
 
 var StatusText = {
