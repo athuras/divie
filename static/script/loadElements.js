@@ -68,8 +68,8 @@ function finishAuction()
 		success: function(msg){ 
 				alert(msg)
 		},
-		error: function(){
-			alert("failed to load assets.")
+		error: function(msg){
+			alert("Error! " + msg)
 		}
 	})
 };

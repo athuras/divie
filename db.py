@@ -151,7 +151,7 @@ def get_resultsJSON(userID):
 
 
 #--------------------
-# SAVING METHODS
+# SAVING QUERIES
 #--------------------
 
 def save_Bids(bids, userID):
@@ -166,8 +166,7 @@ def save_Bids(bids, userID):
     query_template(query)
 
     for curBid in bids:
-        # curResult : {'id': 1, "rank": 2}
-        if int(curBid['rank']) != 0: #look for better way
+        if int(curBid['rank']) != 0:
             try:
                 query = ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time) " + 
                     "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % 
@@ -181,8 +180,8 @@ def save_Bids(bids, userID):
                 vals = query_template(query)
             except psycopg2.Error:
                 return vals;
-    else:
-        return "successful"
+    
+    return "successful"
 
 def reload_bids(auction=1):
     query = ("TRUNCATE TABLE bid RESTART IDENTITY CASCADE;" +
