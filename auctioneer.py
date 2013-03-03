@@ -266,7 +266,7 @@ class Auction(object):
                 self.allocs[item_id] = keys[0]
         return
 
-    def hybrid_selector(self, item, KAPPA=20):
+    def hybrid_selector(self, item, KAPPA=15):
         '''Looks at system state and determines the best strongest selector'''
 
         # mf is stronger early on (when regret is low)
@@ -327,7 +327,7 @@ class Auction(object):
     def multi_resolve(self):
         '''returns a list of (allocations, scores) tuples'''
         # Lambdas necessary as to strip out the weights
-        selectors = [lambda x: self.bb_selector(x)[0],
+        selectors = [#lambda x: self.bb_selector(x)[0],
                      lambda x: self.lmbb_selector(x)[0],
                      lambda x: self.mf_selector(x)[0],
                      self.hybrid_selector]
