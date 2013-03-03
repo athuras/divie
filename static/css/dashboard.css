@@ -5,18 +5,18 @@ table, td, th, tr {
 
 #displayTable {
 	top: 6em;
+	margin-bottom: 10%;
 }
 
 td {
 	border-right: none !important;
 }
 
-
 td:first-child {
 	width: 30px;
 }
 
-td:first-child, td:last-child, th:first-child, th:last-child {
+tr:last-child, td:first-child, td:last-child, th:first-child, th:last-child {
 	border: none;
 }
 
@@ -58,50 +58,26 @@ th:last-child {
 
 #rating {
 	text-align: center;
+	border-bottom: 1px solid #e7e7e7;
 }
 
-.rateRow {
-
+.rateRow td {
+	background-color: #eee;
+	padding: 0.8em;
+	border-bottom: 1px solid #e7e7e7;
 }
 
-
-
-.approveBtn {
-	display: block;
-	width: 190px;
-	height: 54px;
-	background: url('../img/approve-btn.png');
-	position: relative;
-	left: 50%;
-	margin-left: -95px;
-}
-
-.approveBtn:active {
-	background: url('../img/approve-btn-pushed.png');
-}
-
-.approvePushed {
-	background: url('../img/approved.png');
-	display: block;
-	width: 190px;
-	height: 54px;
-	position: relative;
-	left: 50%;
-	margin-left: -95px;
-}
-
-.submitBtn {
+.divieBtn {
 	position: relative;
 	width: 329px;
 	height: 52px;
 	left: 50%;
-	margin: 0 0 3em -165px;
-	background: url('../img/submit.png');
-	margin-left: -164.5px;
+	margin: 0 0 0 -165px;
+	background: url('../img/divie-assets.png');
 }
 
-.submitBtn:active {
-	background: url('../img/submit-pressed.png');
+.divieBtn:active {
+	background: url('../img/divie-pushed.png');
 }
 
 
