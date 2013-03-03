@@ -1,0 +1,29 @@
+#displayTable {
+	top: 6em;
+	margin-bottom: 10%
+}
+
+.selectBtn {
+	width: 159px;
+	height: 23px;
+	background: url('../img/approve-btn.png');
+	position: relative;
+	margin-left: -95px;
+}
+
+.selectBtn:active {
+	background: url('../img/approve-btn-pushed.png');
+}
+
+.finalizeBtn {
+	position: relative;
+	width: 329px;
+	height: 52px;
+	left: 50%;
+	background: url('../img/submit.png');
+	margin-left: -164.5px;
+}
+
+.finalizeBtn:active {
+	background: url('../img/submit-pressed.png');
+}
