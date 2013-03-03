@@ -158,30 +158,28 @@ def save_Bids(bids, userID):
     auction_id = 1
 
     # Clear bids for user and auction
-    query = "DELETE FROM bid WHERE agent_id = " + userID + " and auction_id = " + auction_id + ";"
+    query = "DELETE FROM bid WHERE agent_id = " + userID + " AND auction_id = " + auction_id + ";"
     query_template(query)
+    return "test"
 
-    for curBid in bids:
-        # curResult : {'id': 1, "rank": 2}
-        if int(curBid['rank']) != 0: #look for better way
-            try:
-                query = ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time) " + 
-                    "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % 
-                    {
-                        "aucID": auction_id, 
-                        "itemID": int(curBid['id']), 
-                        "uID": userID, 
-                        "bidVal": int(curBid['rank']), 
-                        "dTime": 1
-                    })
-                vals = query_template(query)
-            except psycopg2.Error:
-                return vals;
-    else:
-        return "successful"
-
-    #figure out what to do here
-    return "successful"
+    # for curBid in bids:
+    #     # curResult : {'id': 1, "rank": 2}
+    #     if int(curBid['rank']) != 0: #look for better way
+    #         try:
+    #             query = ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time) " + 
+    #                 "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);" % 
+    #                 {
+    #                     "aucID": auction_id, 
+    #                     "itemID": int(curBid['id']), 
+    #                     "uID": userID, 
+    #                     "bidVal": int(curBid['rank']), 
+    #                     "dTime": 1
+    #                 })
+    #             vals = query_template(query)
+    #         except psycopg2.Error:
+    #             return vals;
+    # else:
+    #     return "successful"
 
 def reload_bids(auction=1):
     query = ("TRUNCATE TABLE bid RESTART IDENTITY CASCADE;" +
