@@ -8,15 +8,16 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="script/myAuctions.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.js"></script>
+	<script type="text/javascript" src="script/utils.js"></script>
 
 	<!--<link href="css/ui-lightness/jquery-ui-1.10.1.custom.css" rel="stylesheet">-->
 </head>
-<body onLoad="loaded(); loadAuctions();">
+<body onLoad=" loadAuctions(); loaded();">
 	<div class='header'>
 		<img class='logo' src='img/divie-logo.png'>
 		<div class='links'>
 			<ul>
-				<li style="color: #fff; background-color: #6582b0;">
+				<li style="color: #fff; background-color: #6582b0;" id='myAuctions'>
 				My Auctions</li><li>
 				Profile</li><li id='logOut'>
 				Log Out</li>

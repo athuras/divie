@@ -95,7 +95,7 @@ function addAssets()
 			remInd = document.createTextNode();
 			newRemIndicator.appendChild(remInd);
 			newRemIndicator.innerHTML = '<img src = "img/heart-red.png"/> ' + AssetList[i].rank;
-			newRemIndicator.style.width = (parseInt(AssetList[i].rank) / MAX_BUDGET_VALUE * 100) + 6 + "%";
+			newRemIndicator.style.width = (parseInt(AssetList[i].rank) / MAX_BUDGET_VALUE * 100) + 11 + "%";
 			hasRank = true;
 		}
 		else
@@ -378,7 +378,7 @@ function adjustBudget(idTag)
 	currBudget = parseInt(tempBudget) - parseInt(runningSum);
 	remBudget.innerHTML = "Remaining Budget:  " + '<img src = "img/heart-white.png"/> ' + currBudget;
 	document.getElementById("slider-remaining").innerHTML = '<img src = "img/heart-red.png"/> ' + getRemainingBudget() + '<br> remaining';
-	document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[2].style.width = (parseInt(AssetList[findArrLoc(idTag)].rank) / MAX_BUDGET_VALUE * 100) + 6  + "%";
+	document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[2].style.width = (parseInt(AssetList[findArrLoc(idTag)].rank) / MAX_BUDGET_VALUE * 100) + 11  + "%";
 	document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[2].innerHTML = '<img src = "img/heart-red.png"/> ' + AssetList[findArrLoc(idTag)].rank;
 
 	if (currBudget == 0)

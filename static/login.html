@@ -1,4 +1,18 @@
-<form action="http://divie.herokuapp.com/static/login.html" method="post">
-  username/userid: <input type="text" name="username"/><br/>
-  <input type="submit" value="Submit"/>
-</form>
+<!doctype html>
+
+<html>
+<head>
+	<title>divie | The simple asset divider</title>
+	<link rel='stylesheet' type='text/css' href='css/auction.css'>
+	<link rel='stylesheet' type='text/css' href='css/login.css'>
+</head>
+<body>
+	<div class='loginContainer'>
+		<span id='title'>Log In</span>
+		<form action="http://divie.herokuapp.com/static/login.html" method="post">
+		  Username: <input type="text" name="username"/><br/>
+		  <input id='submitBtn' type="submit" value="Submit"/>
+		</form>
+	</div>
+</body>
+</html>
