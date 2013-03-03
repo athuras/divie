@@ -1,10 +1,22 @@
-import os
-import psycopg2
 import db
-from flask import Flask, url_for, redirect, request, json, Response, jsonify, session, escape
+import os
+from flask import Flask
+from flask import json
+from flask import redirect
+from flask import request, Response
+from flask import session, escape
+from flask import url_for
+import auctioneer as AUC
+
 
 app = Flask(__name__)
 app.secret_key = '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1\xa8'
+
+
+def execute_auction(auction_id):
+    '''Executes the Auction, writes results to the db'''
+    pass
+
 
 @app.route('/')
 def home():
