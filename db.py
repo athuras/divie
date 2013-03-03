@@ -146,19 +146,24 @@ def reload_bids(auction=1):
 def save_results(results, userID, auction_id=1):
     for r in results:
         query = ("INSERT INTO results (auction_id, item_id, agent_id, lot_id) " + 
-                 "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(lot)s);" % 
-                    {"aucID": auction_id, 
+                 "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(lot)s);") 
+        diction =  ({"aucID": auction_id, 
                      "itemID": r['id'], 
                      "uID": userID,
                      "lot": r['lot']})
-        query_template(query)
+        query_template(query, diction)
     return "Inserted"
+
+def save_results_test():
+    list_ = [1,1,1,1]
+    query = ("INSERT INTO results (list_) VALUES (%::list_[]);")
+    query_template(query)
+    return "success"
 
 def get_results(auction=1):
     query = ("SELECT item_id, agent_id, lot_id FROM results" +
              "WHERE auction_id = auction;")
     vals = query_template(query)
-
     return vals
 
 def clear_results(auction=1):
