@@ -15,8 +15,22 @@ app.secret_key = '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1
 
 def execute_auction(auction_id):
     '''Executes the Auction, writes results to the db'''
-    pass
+    def get_agent_info(auction_id):
+        '''Returns {agent_id: [(item_id, bid_value)]} for agents in auction_id'''
+        pass
 
+    def write_results(res):
+        '''
+        Transform the resolution table into group_id/result records for db.
+        Then commite to db.
+        '''
+        pass
+
+    agents = [AUC.Agent(k, v) for k, v in get_agent_info().iteritems()]
+    Auction = AUC.Auction(auction_id, agents)
+    resolution = AUC.unique_groups(i[0] for i in Auction.multi_resolve())
+    write_results(resolution)
+    return None
 
 @app.route('/')
 def home():
