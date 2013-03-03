@@ -58,13 +58,12 @@ def to_dict(vals):
     retVals = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in vals]
     return retVals
 
-def query_template(query, args={}):
+def query_DelIns(query, args={}):
     conn = None
     try:
         conn = connect_db()
         cur = conn.cursor()
         cur.execute(query, args)
-        # vals = cur.fetchall()
         conn.commit()
     except psycopg2.Error as e:
         return 'DB Error: ' + str(e)
@@ -72,7 +71,23 @@ def query_template(query, args={}):
     finally:
         cur.close()
         conn.close()
-    return "u"
+    return "Successful query"
+
+def query_template(query, args={}):
+    conn = None
+    try:
+        conn = connect_db()
+        cur = conn.cursor()
+        cur.execute(query, args)
+        vals = cur.fetchall()
+        conn.commit()
+    except psycopg2.Error as e:
+        return 'DB Error: ' + str(e)
+
+    finally:
+        cur.close()
+        conn.close()
+    return vals
 
 def query_template_dict(query, args={}):
     conn = None
@@ -170,25 +185,17 @@ def get_resultsJSON(userID):
 
 def save_Bids(bids, userID):
     auction_id = 1
-    # conn = None
-    # conn = connect_db()
-    # cur = conn.cursor()
 
     # Clear bids for user and auction
-    # try:
     query = "DELETE FROM bid WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;"
     data =  {
                 "uID": int(userID),
                 "aucID": int(auction_id)
             }
-    query_template(query, data)
-    #     conn.commit()
-    # except psycopg2.Error as e:
-    #     return 'DB Error: ' + str(e)
+    msg1 = query_DelIns(query, data)
 
     for curBid in bids:
         if int(curBid['rank']) != 0:
-            # try:
             query = ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time) " + 
                 "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);")
             data = {
@@ -198,14 +205,17 @@ def save_Bids(bids, userID):
                         "bidVal": int(curBid['rank']), 
                         "dTime": 1
                     }
-            query_template(query, data)
-            #     conn.commit()
-            # except psycopg2.Error as e:
-            #     return 'DB Error: ' + str(e)
+            msg2 = query_DelIns(query, data)
 
-    # cur.close()
-    # conn.close()
-    return "successful"
+    # Update user-Auction Relationship table
+    query = "UPDATE relationship SET rank_complete = 1 WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;"
+    data =  {
+                "uID": int(userID),
+                "aucID": int(auction_id)
+            }
+    msg3 = query_DelIns(query, data)
+
+    return "Delete: " + msg1 + " || Insert: " + msg2 + " || Relationship: " + msg3
 
 def reload_bids(auction_id=1):
     query = ("TRUNCATE TABLE bid RESTART IDENTITY CASCADE;" +
