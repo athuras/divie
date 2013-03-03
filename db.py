@@ -125,7 +125,7 @@ def get_users(): #gets users for given auction & their id for use to decide if e
     vals = query_template(query)
     return str(vals)
 
-def get_bidJSON(username):
+def get_bidJSON(userID):
     auction_id = 1
     query = ("SELECT * FROM item WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;" %
             {
