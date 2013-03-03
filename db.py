@@ -127,25 +127,39 @@ def get_users(): #gets users for given auction & their id for use to decide if e
 
 def get_bidJSON(username):
     auction_id = 1
-    query = "SELECT * FROM item WHERE auction_id = " + auction_id + "AND agent_id = " + username + ";"
+    query = ("SELECT * FROM item WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;" %
+            {
+                "uID": int(userID),
+                "aucID": int(auctionID)
+            })
     vals = query_template_dict(query)
     return vals
 
 def get_bid():
     auction_id = 1
-    query = "SELECT * FROM item WHERE auction_id = " + auction_id + ";"
+    query = ("SELECT * FROM item WHERE auction_id = %(aucID)s;" %
+            {
+                "aucID": int(auctionID)
+            })
     vals = query_template(query)
     return str(vals)
 
 def user_auc_rel(): #find which users are associated with the current auction
     auction_id = 1
-    query = "SELECT agent_id FROM item WHERE auction_id = " + auction_id + ";"
+    query = ("SELECT agent_id FROM item WHERE auction_id = %(aucID)s;" %
+            {
+                "aucID": int(auctionID)
+            })
     vals = query_template(query)
     return str(vals)
 
 def get_resultsJSON(userID):
     auction_id = 1
-    query = "SELECT * FROM results WHERE auction_id = " + auction_id + " AND agent_id = " + userID + ";"
+    query = ("SELECT * FROM results WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;" %
+            {
+                "uID": int(userID),
+                "aucID": int(auctionID)
+            })
     vals = query_template_dict(query)
     return vals
 
@@ -203,8 +217,10 @@ def save_results(results, userID, auction_id=1):
     return "Inserted"
 
 def get_results(auction=1):
-    query = ("SELECT item_id, agent_id, lot_id FROM results" +
-             "WHERE auction_id = auction;")
+    query = ("SELECT item_id, agent_id, lot_id FROM results WHERE auction_id = %(aucID)s;" %
+            {
+                "aucID": int(auctionID)
+            })
     vals = query_template(query)
 
     return vals

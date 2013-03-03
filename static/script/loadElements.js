@@ -70,6 +70,7 @@ function finishAuction()
 		},
 		error: function(msg){
 			alert("Error! " + msg)
+			console.log(msg)
 		}
 	})
 };
