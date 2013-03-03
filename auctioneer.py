@@ -266,7 +266,7 @@ class Auction(object):
                 self.allocs[item_id] = keys[0]
         return
 
-    def hybrid_selector(self, item, KAPPA=20):
+    def hybrid_selector(self, item, KAPPA=15):
         '''Looks at system state and determines the best strongest selector'''
 
         # mf is stronger early on (when regret is low)
