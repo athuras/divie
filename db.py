@@ -192,7 +192,7 @@ def save_Bids(bids, userID):
                         "dTime": 1
                     })
                 vals = query_template(query)
-            except psycopg2.Error:
+            except:
                 return vals;
     
     return "successful"
