@@ -1,6 +1,5 @@
 import db
 import os
-import results
 from flask import Flask
 from flask import json
 from flask import redirect
@@ -106,16 +105,16 @@ def requestAuctions():
         resp = Response(js, status=200, mimetype='application/json')
         return resp
 
-@app.route('/divieResults', methods=['POST'])
-def divieResults():
-    if request.method == 'POST':
-        try:
-            db.query_template("UPDATE auction SET active = 2 WHERE auction_id = %(auction_id)s",
-                          {"auction_id": 1})
-        except Exception as e:
-            return "Error: " + str(e)
+# @app.route('/divieResults', methods=['POST'])
+# def divieResults():
+#     if request.method == 'POST':
+#         try:
+#             db.query_template("UPDATE auction SET active = 2 WHERE auction_id = %(auction_id)s",
+#                           {"auction_id": 1})
+#         except Exception as e:
+#             return "Error: " + str(e)
 
-    return "succesful"
+#     return "succesful"
 
 # @app.route('/populateResults', methods=['POST'])
 # def popResults():

@@ -188,8 +188,8 @@ function Auction(id, userId, execId, name, desc, startDate, endDate, status){
 	this.execId = execId;
 	this.name = name;
 	this.description = desc;
-	this.startDate = Date(startDate).toString("dddd, MMMM, yyyy");
-	this.endDate = Date(endDate).toString("dddd, MMMM, yyyy");
+	this.startDate = Date(startDate);//.toString("dddd, MMMM, yyyy");
+	this.endDate = Date(endDate);//.toString("dddd, MMMM, yyyy");
 	this.status = status;
 };
 
