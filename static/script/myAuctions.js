@@ -157,11 +157,12 @@ function loadAuctions()
 
 		// 	newActive.appendChild(newStatusText);
 		// }
-		else if (AuctionList[i].status == Status.Inactive.value)
+		else if (AuctionList[i].status == Status.Inactive.value) {
 			newAuc.setAttribute("id", "idle");
+			newAuc.setAttribute("class", "Inactive")
+		}
 
 		panel.appendChild(newAuc);
-
 	}
 
 	bindRedirections();
@@ -169,7 +170,7 @@ function loadAuctions()
 
 function bindRedirections(){
 	// wait for document to be loaded before binding click event
-	$('#Auction').click(function()
+	$('.Auction').click(function()
 	{
 		var Auction = AuctionList[findArrLoc(event.target.id)];
 		console.log(event.target.id);
