@@ -266,11 +266,11 @@ def save_results_test(): #this works
     query_template(query, list_)
     return "success"
 
-def get_results(auction=1):
-    query = ("SELECT item_id, agent_id, lot_id FROM results" +
-             "WHERE auction_id = auction;")
-    vals = query_template(query)
-    return vals
+# def get_results(auction=1):
+#     query = ("SELECT item_id, agent_id, lot_id FROM results" +
+#              "WHERE auction_id = auction;")
+#     vals = query_template(query)
+#     return vals
 
 def clear_results(auction=1):
     query = ("TRUNCATE TABLE results;")

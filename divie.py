@@ -56,7 +56,7 @@ def execute_auction(auction_id):
 
 @app.route('/')
 def home():
-    return redirect(url_for('static', filename='terms.html'))
+    return redirect(url_for('static', filename='login.html'))
 
 @app.route('/static/login.html', methods=['POST'])
 def login():
@@ -71,11 +71,11 @@ def logout():
 
 @app.route('/bidsT')
 def bidsT():
-    return db.get_bidJSON(1)
+    return db.get_bidsJSON(1)
 
 @app.route('/bids')
 def bids():
-    return db.get_bidJSON(escape(session['username']))
+    return db.get_bidsJSON(escape(session['username']))
 
 @app.route('/static/auction.html/requestAssets', methods=['POST'])
 def getItems():
