@@ -40,7 +40,7 @@ function loaded()
 						v.auction_name,
 						v.description,
 						v.start_date,
-						v.end_date
+						v.end_date,
 						v.active
 					)
 				);
