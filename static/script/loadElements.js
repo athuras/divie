@@ -145,7 +145,7 @@ function Asset (id, name, rank, description, imgSrc){
 	this.rank = rank;
 	this.description = "Now that we know who you are, I know who I am. I'm not a mistake! It all makes sense! In a comic, you know how you can tell who the arch-villain's going to be? He's the exact opposite of the hero. And most times they're friends, like you and me! I should've known way back when... You know why, David? Because of the kids. They called me Mr Glass.";
 	// this.description = description;
-	this.img = "img/sailboat.png";//imgSrc;
+	this.img = "imgSrc";//imgSrc;
 };
 
 function loadAsset(idTag)
