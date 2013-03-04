@@ -148,7 +148,7 @@ def get_users(): #gets users for given auction & their id for use to decide if e
     vals = query_template(query)
     return str(vals)
 
-def get_bidJSON(userID, auction_id=1):
+def get_bidsJSON(userID, auction_id=1):
     query = "SELECT * FROM bid WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;"
     data =  {
                 "uID": int(userID),
@@ -157,13 +157,19 @@ def get_bidJSON(userID, auction_id=1):
     vals = query_template_dict(query, data)
     return vals
 
-def get_bid(auction_id=1):
+def get_bids(auction_id=1):
     query = "SELECT * FROM bid WHERE auction_id = %(aucID)s;"
     data =  {
                 "aucID": int(auction_id)
             }
     vals = query_template(query, data)
-    return str(vals)
+    return vals
+
+def get_lots(auction_id=1):
+    query = "SELECT DISTINCT lot_id FROM results WHERE auction_id = %(aucId)s;"
+    data = {"aucId": auction_id}
+    vals = query_template(query, data)
+    return vals
 
 def user_auc_rel(auction_id=1): #find which users are associated with the current auction
     query = ("SELECT agent_id FROM item WHERE auction_id = %(aucID)s;" %
@@ -173,17 +179,26 @@ def user_auc_rel(auction_id=1): #find which users are associated with the curren
     vals = query_template(query)
     return str(vals)
 
-def get_resultsJSON(userID, auction_id=1):
-    query = ("SELECT * FROM results WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;")
+def get_resultsJSON(userID, auction_id=1, ordered=False):
+    query = ("SELECT results.*, item.name, item.img_url FROM results INNER JOIN item ON" +
+            " results.item_id = item.item_id WHERE results.agent_id = %(uID)s AND results.auction_id = %(aucID)s")
+    if ordered:
+        query += " ORDER BY auction_id, agent_id, item_id"
+    query += ";"
     data =  {
                 "uID": int(userID),
                 "aucID": int(auction_id)
             }
     vals = query_template_dict(query, data)
+
     return vals
 
-def get_results(userID, auction_id=1):
-    query = ("SELECT * FROM results WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;")
+def get_results(userID, auction_id=1, ordered=False):
+    query = ("SELECT results.*, item.item_name, item.img_url FROM results INNER JOIN item ON" +
+            " results.item_id = item.item_id WHERE results.agent_id = %(uID)s AND results.auction_id = %(aucID)s")
+    if ordered:
+        query += " ORDER BY auction_id, agent_id, item_id"
+    query += ";"
     data =  {
                 "uID": int(userID),
                 "aucID": int(auction_id)

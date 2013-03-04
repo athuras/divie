@@ -1,5 +1,6 @@
 import db
 import os
+import results
 from flask import Flask
 from flask import json
 from flask import redirect
@@ -53,7 +54,7 @@ def execute_auction(auction_id):
 
 @app.route('/')
 def home():
-    return redirect(url_for('static', filename='login.html'))
+    return redirect(url_for('static', filename='terms.html'))
 
 @app.route('/static/login.html', methods=['POST'])
 def login():
@@ -100,6 +101,25 @@ def requestAuctions():
     if request.method == 'POST':
         data = db.get_auctionsJSON(escape(session['username']));
         js = json.dumps(data)
+        resp = Response(js, status=200, mimetype='application/json')
+        return resp
+
+@app.route('/divieResults', methods=['POST'])
+def divieResults():
+    if request.method == 'POST':
+        try:
+            execute_auction(1)
+        except Exception as e:
+            return "Error: " + str(e)
+
+    return "succesful"
+
+@app.route('/populateResults', methods=['POST'])
+def popResults():
+    if request.method == 'POST':
+        res = db.get_resultsJSON(escape(session['username']),auction_id=1, ordered=True)
+        procRes = results.processResults(res)
+        js = json.dumps(procRes)
         resp = Response(js, status=200, mimetype='application/json')
         return resp
 
