@@ -52,7 +52,7 @@ function buildResultsTable()
 		var colTitleVal = "";
 		if (i != 0 && i != 1)
 		{
-			colTitleVal = i - 1;
+			colTitleVal = "Package " + (i - 1);
 		}
 
 		var colTitle = document.createTextNode(colTitleVal);
