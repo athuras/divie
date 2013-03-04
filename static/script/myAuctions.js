@@ -9,13 +9,6 @@ var Status = {
 	AuctionComplete : {value: 3, txt: "View you items!", txtExec: "View results!"}
 };
 
-var StatusText = {
-	auctionCompleted: "view your items!",
-	resultsCompleted: "view results!",
-	active: "active now!",
-	adminCompleted: "approve results!"
-};
-
 // Auction Information:
 // -- Status --
 //	1 = Active
