@@ -262,10 +262,14 @@ def save_results(results, userID, auction_id=1):
         query_template(query, diction)
     return "Inserted"
 
-def save_results_test():
-    list_ = [1,1,1,1]
-    query = ("INSERT INTO results (list_) VALUES (%::list_[]);")
-    query_template(query)
+def save_results_test(): #this works
+    list_ = (1,1,1,1)
+#    diction =  ({"aucID": 1, 
+#             "itemID": 1, 
+#             "uID": 1,
+#             "lot": 1})
+    query = ("INSERT INTO results (auction_id, item_id, agent_id, lot_id) VALUES (%s, %s, %s, %s);")
+    query_template(query, list_)
     return "success"
 
 def get_results(auction=1):

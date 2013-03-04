@@ -45,6 +45,8 @@ def execute_auction(auction_id):
                 item, agent = sub_record
                 master.append(record_factory(item, agent, i))
         status = db.query_template("INSERT INTO results(auction_id, item_id, agent_id, lot_id) VALUES (%(auction_id)s, %(item_id)s, %(agent_id)s, %(lot_id)s)", master, many=True)
+        db.query_template("UPDATE auction SET active = 2 WHERE auction_id = %(auction_id)s",
+                          {"auction_id": auction_id})
         return status
 
     agents = [AUC.Agent(k, v) for k, v in get_agent_info().iteritems()]

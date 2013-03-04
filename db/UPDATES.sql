@@ -40,3 +40,21 @@ ALTER TABLE auction
 ALTER TABLE relationship
 	ADD COLUMN rank_complete integer DEFAULT 0,
 	ADD COLUMN lot_complete integer DEFAULT 0;
+
+/*example item inserts*/
+INSERT INTO "item" (item_name, description, img_url, item_value)
+	VALUES ('Sailboat Painting', '' , 'sailboat.png', 0), 
+		('Antique Lamp', '' , 'antique-lamp.jpeg', 0), 
+		('City Painting', '' , 'city-painting.jpeg', 0),
+		('Bike Painting', '' , 'bike-painting.jpeg', 0),
+		('Antique Clock', '' , 'antique-clock.jpeg', 0),
+		('Hand Wood Planer', '' , 'wood-planer.jpeg', 0),
+		('Cross-Country Skis', '' , 'xcountry-skis.jpeg', 0),
+		('Hunting Lodge', '' , 'hunting-lodge.jpeg', 0),
+		('Encyclopedia Britannica', '' , 'encyclopedia.jpeg', 0),
+		('Wood Stove', '' , 'wood-stove.jpeg', 0),
+		('Armoire', '' , 'armoire.jpeg', 0),
+		('Fur Coat', '' , 'fur-coat.jpeg', 0),
+		('Old Radio', '' , 'radio.jpeg', 0),
+		('Kitting Needles', '' , 'knitting.jpeg', 0),
+		('Typewritter', '' , 'typewritter.jpeg', 0);
