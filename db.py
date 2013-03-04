@@ -13,8 +13,6 @@ Version: Python 2.7
 
 
 '''
-
-import os
 import psycopg2
 
 #--------------------
@@ -53,10 +51,6 @@ def db_test():
         cur.close()
         conn.close()
     return 'SUCCESS!:\n' + str(vals)
-
-def to_dict(vals):
-    retVals = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in vals]
-    return retVals
 
 def query_DelIns(query, args={}):
     conn = None
