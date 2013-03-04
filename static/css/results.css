@@ -103,7 +103,7 @@ table th:first-child, td:first-child{
 }
 
 th {
-	font-size: 20pt;
+	font-size: 16pt;
 }
 
 th:first-child {
@@ -120,6 +120,8 @@ th:last-child {
 
 .head {
 	/*background-color: #719cd0;*/
+	font-size: 14pt;
+	font-weight: 300;
 	color: #fff;
 	height: 75px;
 	background-image: linear-gradient(bottom, rgb(95,141,201) 49%, rgb(130,171,215) 88%);

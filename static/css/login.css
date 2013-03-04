@@ -10,6 +10,15 @@ body {
 	font-family: 'Museo Sans', 'Helvetica Neue', sans-serif;
 }
 
+.terms {
+	color: #608dc9;
+	text-decoration: underline;
+	position: relative;
+	text-align: center;
+	margin: 3em 0 0 0;
+	cursor: pointer;
+}
+
 .welcome {
 	width: 400px;
 	position: absolute;
@@ -48,6 +57,7 @@ form {
 	padding: 4em 1em 0 1em;
 	color: #eee;
 	text-align: center;
+	box-shadow: 0 5px 10px #333;
 }
 
 #submitBtn {
