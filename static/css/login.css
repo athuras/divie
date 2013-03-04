@@ -10,11 +10,26 @@ body {
 	font-family: 'Museo Sans', 'Helvetica Neue', sans-serif;
 }
 
+.welcome {
+	width: 400px;
+	position: absolute;
+	left: 50%;
+	margin-left: -200px;
+	font-size: 3em;
+	font-weight: 100;
+	text-shadow: 1px 1px 1px #333;
+	color: #fff;
+	text-align: center;
+	margin-top: 0.6em;
+}
+
 #title {
 	color: #eee;
-	font-size: 3em;
+	font-size: 2em;
+	font-weight: 100;
 	text-align: center;
-	padding-bottom: 2em;
+	padding-bottom: 1em;
+	margin: 3em 0 0 0;
 }
 
 form {
@@ -28,13 +43,18 @@ form {
 	position: absolute;
 	left: 50%;
 	margin-left: -150px;
-	top: 5em;
+	top: 7.5em;
 	border-radius: 10px;
-	padding: 2em;
+	padding: 4em 1em 0 1em;
 	color: #eee;
 	text-align: center;
 }
 
 #submitBtn {
-	margin-top: 2em;
+	margin-top: 3em;
+	padding: 1em 8.5em 1em 8.5em;
+	background-color: #61c965;
+	color: #eee;
+	border-radius: 5px;
+	border: 1px solid #171717;
 }
