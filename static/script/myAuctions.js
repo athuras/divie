@@ -169,7 +169,7 @@ function bindRedirections(){
 		console.log(event.target.id);
 		//var dest = $(".statusText").html();
 		if(Auction.userId == Auction.execId) {
-			window.location = 'http://divie.herokuapp.com/static/admin.html';
+			window.location = 'http://divie.herokuapp.com/static/dashboard.html';
 		} else {
 			if (Auction.status == Status.Active.value)
 				window.location = 'http://divie.herokuapp.com/static/auction.html';
