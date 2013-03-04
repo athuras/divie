@@ -3,10 +3,10 @@ var AuctionList = [];
 // AuctionList.push(new Auction(1, 1, 1, "Uncle Ken's Shit Needs Divie", "Splittin her shit up", "April 23, 2013", "April 30, 2013"));
 
 var Status = {
-	Inactive {value: 0, txt: "Inactive.", txtExec: "Inactive."},
-	Active = {value: 1, txt: "Active now!", txtExec: "Active now!"},
-	AllocComplete = {value: 2, txt: "View results!", txtExec: "Approve results!"},
-	AuctionComplete = {value: 3, txt: "View you items!", txtExec: "View results!"}
+	Inactive : {value: 0, txt: "Inactive.", txtExec: "Inactive."},
+	Active : {value: 1, txt: "Active now!", txtExec: "Active now!"},
+	AllocComplete : {value: 2, txt: "View results!", txtExec: "Approve results!"},
+	AuctionComplete : {value: 3, txt: "View you items!", txtExec: "View results!"}
 };
 
 var StatusText = {
@@ -14,7 +14,7 @@ var StatusText = {
 	resultsCompleted: "view results!",
 	active: "active now!",
 	adminCompleted: "approve results!"
-}
+};
 
 // Auction Information:
 // -- Status --
