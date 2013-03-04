@@ -1,0 +1,88 @@
+<!doctype html>
+
+<html>
+<head>
+	<title>divie | The simple asset divider</title>
+	<link rel='stylesheet' type='text/css' href='css/auction.css'>
+	<link rel='stylesheet' type='text/css' href='css/results.css'>
+	<link rel='stylesheet' type='text/css' href='css/dashboard.css'>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="script/results.js"></script>
+	<link href="css/ui-lightness/jquery-ui-1.10.1.custom.css" rel="stylesheet">
+  	<script src="script/jquery-1.9.1.js"></script>
+  	<script src="script/jquery-ui-1.10.1.custom.js"></script>
+</head>
+<body>
+	<div class='header'>
+		<img class='logo' src='img/divie-logo.png'>
+		<div class='links'>
+			<ul>
+				<li style="color: #fff; background-color: #6582b0;">
+				Dashboard</li><li>
+				Profile</li><li id='logOut'>
+				Log Out</li>
+			</ul>
+		</div>
+	</div>
+
+	<table id="displayTable">
+		<thead>
+			<tr class='head' id='head'>
+				<th></th>
+				<th>All rankings are complete</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody id='body'>
+			<tr class='assetRow'>
+				<td><img class='arrow' src='img/arrow-left.png'></td>
+				<td class='actor'>Riley Donelson</td>
+				<td class='icon-checkmark'></td>
+			</tr>
+			<tr class='assetRow'>
+				<td><img class='arrow' src='img/arrow-down.png'></td>
+				<td class='actor'>Matt Chong</td>
+				<td class='icon-checkmark'></td>
+			</tr>
+				<tr class='rateRow'>
+					<td class='assetName' id='rating'><img src="img/heart-grey.png"/> 10</td>
+					<td class='assetName'>Lamp</td>
+					<td></td>
+				</tr>
+				<tr class='rateRow'>
+					<td class='assetName' id='rating'><img src="img/heart-grey.png"/> 25</td>
+					<td class='assetName'>Furniture</td>
+					<td></td>
+				</tr>
+				<tr class='rateRow'>
+					<td class='assetName' id='rating'><img src="img/heart-grey.png"/> 30</td>
+					<td class='assetName'>Painting</td>
+					<td></td>
+				</tr>
+				<tr class='rateRow'>
+					<td class='assetName' id='rating'><img src="img/heart-grey.png"/> 35</td>
+					<td class='assetName'>TV</td>
+					<td></td>
+				</tr>
+			<tr class='assetRow'>
+				<td><img class='arrow' src='img/arrow-left.png'></td>
+				<td class='actor'>Scott Neil</td>
+				<td class='icon-checkmark'></td>
+			</tr>
+			<tr class='assetRow'>
+				<td><img class='arrow' src='img/arrow-left.png'></td>
+				<td class='actor'>Alex Huras</td>
+				<td class='icon-checkmark'></td>
+			</tr>
+			<tr class='assetRow'>
+				<td><img class='arrow' src='img/arrow-left.png'></td>
+				<td class='actor'>Brian Sinclair</td>
+				<td class='icon-checkmark'></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div class='divieBtn'></div>
+
+</body>
+</html>

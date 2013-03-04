@@ -1,0 +1,85 @@
+table, td, th, tr {
+	text-align: left;
+	vertical-align: middle;
+}
+
+#displayTable {
+	top: 6em;
+	margin-bottom: 10%;
+}
+
+td {
+	border-right: none !important;
+}
+
+td:first-child {
+	width: 30px;
+}
+
+tr:last-child, td:first-child, td:last-child, th:first-child, th:last-child {
+	border: none;
+}
+
+th {
+	text-align: center;
+	font-size: 18pt;
+	font-weight: 100;
+	border: none !important;
+}
+
+th:first-child {
+	border-top-left-radius: 10px;
+}
+
+th:last-child {
+	border-top-right-radius: 10px;
+	width: 56px;
+}
+
+.assetRow {
+	height: 60px;
+	padding: 10px;
+	border-bottom: 2px solid #e7e7e7;
+}
+
+.arrow {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	margin-left: 15px;
+}
+
+.actor {
+	font-size: 16pt;
+	color: #171717;
+}
+
+.assetName {
+	font-size: 12pt;
+}
+
+#rating {
+	text-align: center;
+	border-bottom: 1px solid #e7e7e7;
+}
+
+.rateRow td {
+	background-color: #eee;
+	padding: 0.8em;
+	border-bottom: 1px solid #e7e7e7;
+}
+
+.divieBtn {
+	position: relative;
+	width: 329px;
+	height: 52px;
+	left: 50%;
+	margin: 0 0 0 -165px;
+	background: url('../img/divie-assets.png');
+}
+
+.divieBtn:active {
+	background: url('../img/divie-pushed.png');
+}
+
+

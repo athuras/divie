@@ -70,12 +70,20 @@ def query_DelIns(query, args={}):
         conn.close()
     return "Successful query"
 
-def query_template(query, args=()):
+
+def query_template(query, args=(), **kwargs):
     conn = None
+    many = False
+    if 'many' in kwargs:
+        many = kwargs['many']
+
     try:
         conn = connect_db()
         cur = conn.cursor()
-        cur.execute(query, args)
+        if many:
+            cur.executemany(query, args)
+        else:
+            cur.execute(query, args)
         vals = cur.fetchall()
         conn.commit()
     except psycopg2.Error as e:
@@ -160,10 +168,10 @@ def reload_bids(auction=1):
 
 def save_results(results, userID, auction_id=1):
     for r in results:
-        query = ("INSERT INTO results (auction_id, item_id, agent_id, lot_id) " + 
-                 "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(lot)s);") 
-        diction =  ({"aucID": auction_id, 
-                     "itemID": r['id'], 
+        query = ("INSERT INTO results (auction_id, item_id, agent_id, lot_id) " +
+                 "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(lot)s);")
+        diction =  ({"aucID": auction_id,
+                     "itemID": r['id'],
                      "uID": userID,
                      "lot": r['lot']})
         query_template(query, diction)
