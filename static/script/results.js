@@ -1,45 +1,45 @@
 // Initialization stuff ------------------------------------------------------------------------------
 
 var ResultList = [];
-// ResultList.push(new Result(101, "Sailboat Painting", "img/sailboat.png", [0,1,1]));
-// ResultList.push(new Result(2, "Car", "img/car.jpg", [1,1,1]));
-// ResultList.push(new Result(3, "Lamp", "img/sailboat.png", [0,1,1]));
-// ResultList.push(new Result(4, "Lamp", "img/sailboat.png",[0,0,0]));
-// ResultList.push(new Result(5, "Lamp", "img/sailboat.png",[0,1,0]));
-// ResultList.push(new Result(6, "Lamp", "img/sailboat.png",[0,1,1]));
-// ResultList.push(new Result(1031,"Lamp", "img/sailboat.png", [0,1,1]));
-// ResultList.push(new Result(23,"Lamp", "img/sailboat.png", [0,1,1]));
-// ResultList.push(new Result(33,"Lamp", "img/sailboat.png", [1,1,1]));
-// ResultList.push(new Result(43,"Lamp", "img/sailboat.png", [1,1,1]));
-// ResultList.push(new Result(53, "Lamp", "img/sailboat.png",[0,0,0]));
-// ResultList.push(new Result(36,"Lamp", "img/sailboat.png", [0,0,1]));
+ResultList.push(new Result(101, "Sailboat Painting", "img/sailboat.png", [0,1,1]));
+ResultList.push(new Result(2, "Car", "img/car.jpg", [1,1,1]));
+ResultList.push(new Result(3, "Lamp", "img/sailboat.png", [0,1,1]));
+ResultList.push(new Result(4, "Lamp", "img/sailboat.png",[0,0,0]));
+ResultList.push(new Result(5, "Lamp", "img/sailboat.png",[0,1,0]));
+ResultList.push(new Result(6, "Lamp", "img/sailboat.png",[0,1,1]));
+ResultList.push(new Result(1031,"Lamp", "img/sailboat.png", [0,1,1]));
+ResultList.push(new Result(23,"Lamp", "img/sailboat.png", [0,1,1]));
+ResultList.push(new Result(33,"Lamp", "img/sailboat.png", [1,1,1]));
+ResultList.push(new Result(43,"Lamp", "img/sailboat.png", [1,1,1]));
+ResultList.push(new Result(53, "Lamp", "img/sailboat.png",[0,0,0]));
+ResultList.push(new Result(36,"Lamp", "img/sailboat.png", [0,0,1]));
 
 // Initialization stuff ------------------------------------------------------------------------------
 
-function loaded()
-{
-	$.ajax({
-		type: "POST",
-		datatype: "json",
-		url: 'http://divie.herokuapp.com/requestAuctions',
-		async: false,
-		success: function(data){ 
-			$.each(data, function(k, v){
-				ResultList.push(
-					new Result(
-						v.item_id, 
-						v.name, 
-						v.img_url,
-						v.lots
-					)
-				);
-			});
-		},
-		error: function(){
-			alert("failed to load auctions.")
-		}
-	})
-};
+// function loaded()
+// {
+// 	$.ajax({
+// 		type: "POST",
+// 		datatype: "json",
+// 		url: 'http://divie.herokuapp.com/requestAuctions',
+// 		async: false,
+// 		success: function(data){ 
+// 			$.each(data, function(k, v){
+// 				ResultList.push(
+// 					new Result(
+// 						v.item_id, 
+// 						v.name, 
+// 						v.img_url,
+// 						v.lots
+// 					)
+// 				);
+// 			});
+// 		},
+// 		error: function(){
+// 			alert("failed to load auctions.")
+// 		}
+// 	})
+// };
 
 var NUM_OF_LOTS = 0;
 
