@@ -56,6 +56,7 @@ form {
 	padding: 4em 1em 0 1em;
 	color: #eee;
 	text-align: center;
+	box-shadow: 0 5px 10px #333;
 }
 
 #submitBtn {
