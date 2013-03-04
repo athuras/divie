@@ -55,6 +55,21 @@ def to_dict(vals):
     retVals = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in vals]
     return retVals
 
+def query_DelIns(query, args={}):
+    conn = None
+    try:
+        conn = connect_db()
+        cur = conn.cursor()
+        cur.execute(query, args)
+        conn.commit()
+    except psycopg2.Error as e:
+        return 'DB Error: ' + str(e)
+
+    finally:
+        cur.close()
+        conn.close()
+    return "Successful query"
+
 def query_template(query, args=()):
     conn = None
     try:
@@ -154,10 +169,14 @@ def save_results(results, userID, auction_id=1):
         query_template(query, diction)
     return "Inserted"
 
-def save_results_test():
-    list_ = [1,1,1,1]
-    query = ("INSERT INTO results (list_) VALUES (%::list_[]);")
-    query_template(query)
+def save_results_test(): #this works
+    list_ = (1,1,1,1)
+#    diction =  ({"aucID": 1, 
+#             "itemID": 1, 
+#             "uID": 1,
+#             "lot": 1})
+    query = ("INSERT INTO results (auction_id, item_id, agent_id, lot_id) VALUES (%s, %s, %s, %s);")
+    query_template(query, list_)
     return "success"
 
 def get_results(auction=1):
