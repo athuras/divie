@@ -3,10 +3,8 @@ import os
 from flask import Flask
 from flask import json
 from flask import redirect
-from flask import request
-from flask import Response
-from flask import session
-from flask import escape
+from flask import request, Response
+from flask import session, escape
 from flask import url_for
 import auctioneer as AUC
 from collections import defaultdict
@@ -20,8 +18,7 @@ def execute_auction(auction_id):
     '''Executes the Auction, writes results to the db'''
     def get_agent_info(auction_id):
         '''Returns {agent_id: [(item_id, bid_value)]} for agents in auction_id'''
-        res = db.query_template("SELECT item_id, agent_id, value from bid where auction_id = %(a_id)s",
-                                {'a_id': auction_id})
+        res = db.query_template("SELECT item_id, agent_id, value from bid where auction_id = %(a_id)s", {'a_id': auction_id})
         master = defaultdict(lambda: [])
         for record in res:
             i_id, a_id, v = res
@@ -33,29 +30,17 @@ def execute_auction(auction_id):
         Transform the resolution table into group_id/result records for db.
         Then commite to db.
         '''
-        # Results are in the form [[(item_id, user_id)]]
-        def record_factory(item, agent, lot):
-            return {'auction_id': auction_id, 'item_id': item,
-                    'agent_id': agent, 'lot_id': lot}
-
-        master = []
-        for i, results in enumerate(res):
-            for sub_record in results:
-                item, agent = sub_record
-                master.append(record_factory(item, agent, i))
-        status = db.query_template("INSERT INTO results(auction_id, item_id, agent_id, lot_id) VALUES (%(auction_id)s, %(item_id)s, %(agent_id)s, %(lot_id)s)", master, many=True)
-        db.query_template("UPDATE auction SET active = 2 WHERE auction_id = %(auction_id)s",
-                          {"auction_id": auction_id})
-        return status
+        pass
 
     agents = [AUC.Agent(k, v) for k, v in get_agent_info().iteritems()]
     Auction = AUC.Auction(auction_id, agents)
     resolution = AUC.unique_groups(i[0] for i in Auction.multi_resolve())
-    return write_results(resolution)
+    write_results(resolution)
+    return None
 
 @app.route('/')
 def home():
-    return redirect(url_for('static', filename='login.html'))
+    return "test"#redirect(url_for('static', filename='login.html'))
 
 @app.route('/static/login.html', methods=['POST'])
 def login():
@@ -67,14 +52,6 @@ def login():
 def logout():
     session.pop('userID', None)
     return redirect(url_for('static', filename='login.html'))
-
-@app.route('/bidsT')
-def bidsT():
-    return db.get_bidJSON(1)
-
-@app.route('/bids')
-def bids():
-    return db.get_bidJSON(escape(session['username']))
 
 @app.route('/static/auction.html/requestAssets', methods=['POST'])
 def getItems():
@@ -89,21 +66,10 @@ def getItems():
 def saveBids():
     # When user has completed rankings insert into database and return succesful
     if request.method == 'POST':
-        try:
-            res = request.json
-            saveResult = db.save_Bids(res, escape(session['username']))
-            return saveResult
-        except (ValueError, KeyError, TypeError) as e:
-            return str(e)
-
-@app.route('/requestAuctions', methods=['POST'])
-def requestAuctions():
-    # When user has completed rankings insert into database and return succesful
-    if request.method == 'POST':
-        data = db.get_auctionsJSON(escape(session['username']));
-        js = json.dumps(data)
-        resp = Response(js, status=200, mimetype='application/json')
-        return resp
+        res = json.dumps(request.json)
+        # saveResult = db.save_Bids(res, escape(session['username']))
+        return res
+    return "error2"
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
