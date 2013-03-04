@@ -1,6 +1,6 @@
 var AuctionList = [];
-// AuctionList.push(new Auction(1, 1, 1, "Grandma's Belongings", "Splittin her shit up", "February 23, 2013", "March 15, 2013", "active"));
-// AuctionList.push(new Auction(1, 1, 1, "Uncle Ken's Shit Needs Divie", "Splittin her shit up", "April 23, 2013", "April 30, 2013"));
+AuctionList.push(new Auction(1, 1, 1, "Grandma's Belongings", "Splittin her shit up", "February 23, 2013", "March 15, 2013", 1));
+AuctionList.push(new Auction(1, 1, 1, "Uncle Ken's Shit Needs Divie", "Splittin her shit up", "April 23, 2013", "April 30, 2013", 0));
 
 var Status = {
 	Inactive : {value: 0, txt: "Inactive.", txtExec: "Inactive."},
@@ -87,32 +87,68 @@ function loadAuctions()
 
 		newAuc.appendChild(newInfo);
 
-		var newActive = document.createElement("div");
-		newActive.setAttribute("class", "statusBox");
-
-		var newStatusText = document.createElement("div");
-		newStatusText.setAttribute("class", "statusText");
-
 		if (AuctionList[i].status == Status.Active.value)
 		{
+			var newActive = document.createElement("div");
+			newActive.setAttribute("class", "statusBox");
+
+			var newStatusText = document.createElement("div");
+			newStatusText.setAttribute("class", "statusText");
+
 			var newStatusValue = document.createTextNode(Status.Active.txt);
 			newStatusText.appendChild(newStatusValue);
 
 			newActive.appendChild(newStatusText);
+
+			actInd = document.createElement("img");
+			actInd.setAttribute("class", "activityIndicator");
+			actInd.setAttribute("src", "img/chevron.png");
+
+			newAuc.appendChild(newActive);
+			newAuc.appendChild(actInd);
+			newAuc.setAttribute("id", "Auction");
 		} 
 		else if (AuctionList[i].status == Status.AllocComplete.value)
 		{
+			var newActive = document.createElement("div");
+			newActive.setAttribute("class", "statusBox");
+
+			var newStatusText = document.createElement("div");
+			newStatusText.setAttribute("class", "statusText");
+			
 			var newStatusValue = document.createTextNode(Status.AllocComplete.txt);
 			newStatusText.appendChild(newStatusValue);
 
 			newActive.appendChild(newStatusText);
+
+			actInd = document.createElement("img");
+			actInd.setAttribute("class", "activityIndicator");
+			actInd.setAttribute("src", "img/chevron.png");
+
+			newAuc.appendChild(newActive);
+			newAuc.appendChild(actInd);
+			newAuc.setAttribute("id", "Auction");
 		}
 		else if (AuctionList[i].status == Status.AuctionComplete.value)
 		{
+			var newActive = document.createElement("div");
+			newActive.setAttribute("class", "statusBox");
+
+			var newStatusText = document.createElement("div");
+			newStatusText.setAttribute("class", "statusText");
+			
 			var newStatusValue = document.createTextNode(Status.AuctionComplete.txt);
 			newStatusText.appendChild(newStatusValue);
 
 			newActive.appendChild(newStatusText);
+
+			actInd = document.createElement("img");
+			actInd.setAttribute("class", "activityIndicator");
+			actInd.setAttribute("src", "img/chevron.png");
+
+			newAuc.appendChild(newActive);
+			newAuc.appendChild(actInd);
+			newAuc.setAttribute("id", "Auction");
 		}
 		// else if (AuctionList[i].status == "resultsCompleted")
 		// {
@@ -123,15 +159,6 @@ function loadAuctions()
 		// }
 		else if (AuctionList[i].status == Status.Inactive.value)
 			newAuc.setAttribute("id", "idle");
-
-
-		actInd = document.createElement("img");
-		actInd.setAttribute("class", "activityIndicator");
-		actInd.setAttribute("src", "img/chevron.png");
-
-		newAuc.appendChild(newActive);
-		newAuc.appendChild(actInd);
-		newAuc.setAttribute("id", "Auction");
 
 		panel.appendChild(newAuc);
 
