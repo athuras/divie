@@ -59,7 +59,7 @@ function loadAuctions()
 	{
 
 		var newAuc = document.createElement("div");
-		newAuc.setAttribute("class", "row")
+		newAuc.setAttribute("class", "Auction")
 		
 		var newInfo = document.createElement("div");
 		newInfo.setAttribute("class", "info");
@@ -80,7 +80,7 @@ function loadAuctions()
 		newEndDate.setAttribute("id", "end");
 		var newEndDateValue = document.createTextNode("Ends: " + AuctionList[i].endDate);
 		newEndDate.appendChild(newEndDateValue);
-			
+		
 		newInfo.appendChild(newName);
 		newInfo.appendChild(newStartDate);
 		newInfo.appendChild(newEndDate);
@@ -106,7 +106,7 @@ function loadAuctions()
 
 			newAuc.appendChild(newActive);
 			newAuc.appendChild(actInd);
-			newAuc.setAttribute("id", "Auction");
+			newAuc.setAttribute("id", AuctionList[i].id);
 		} 
 		else if (AuctionList[i].status == Status.AllocComplete.value)
 		{
@@ -127,7 +127,7 @@ function loadAuctions()
 
 			newAuc.appendChild(newActive);
 			newAuc.appendChild(actInd);
-			newAuc.setAttribute("id", "Auction");
+			newAuc.setAttribute("id", AuctionList[i].id);
 		}
 		else if (AuctionList[i].status == Status.AuctionComplete.value)
 		{
@@ -148,7 +148,7 @@ function loadAuctions()
 
 			newAuc.appendChild(newActive);
 			newAuc.appendChild(actInd);
-			newAuc.setAttribute("id", "Auction");
+			newAuc.setAttribute("id", AuctionList[i].id);
 		}
 		// else if (AuctionList[i].status == "resultsCompleted")
 		// {
@@ -172,6 +172,7 @@ function bindRedirections(){
 	$('#Auction').click(function()
 	{
 		var Auction = AuctionList[findArrLoc(event.target.id)];
+		console.log(event.target.id);
 		//var dest = $(".statusText").html();
 		if(Auction.userId == Auction.execId) {
 			window.location = 'http://divie.herokuapp.com/static/admin.html';
@@ -207,6 +208,7 @@ function findArrLoc(idTag)
 			return i;
 		}
 	}
+	return -1;
 };
 
 
