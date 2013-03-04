@@ -71,7 +71,7 @@ function loadAuctions()
 		var newEndDate = document.createElement("div");
 		newEndDate.setAttribute("class", "date");
 		newEndDate.setAttribute("id", "end");
-		var newEndDateValue = document.createTextNode("Ends: " + AuctionList[i].endDate);
+		var newEndDateValue = document.createTextNode("Ends:  " + AuctionList[i].endDate);
 		newEndDate.appendChild(newEndDateValue);
 		
 		newInfo.appendChild(newName);
@@ -169,7 +169,7 @@ function bindRedirections(){
 		console.log(event.target.id);
 		//var dest = $(".statusText").html();
 		if(Auction.userId == Auction.execId) {
-			window.location = 'http://divie.herokuapp.com/static/admin.html';
+			window.location = 'http://divie.herokuapp.com/static/dashboard.html';
 		} else {
 			if (Auction.status == Status.Active.value)
 				window.location = 'http://divie.herokuapp.com/static/auction.html';
@@ -188,8 +188,8 @@ function Auction(id, userId, execId, name, desc, startDate, endDate, status){
 	this.execId = execId;
 	this.name = name;
 	this.description = desc;
-	this.startDate = startDate;
-	this.endDate = endDate;
+	this.startDate = Date(startDate, "mm-dd-yyyy");
+	this.endDate = Date(endDate, "mm-dd-yyyy");
 	this.status = status;
 };
 

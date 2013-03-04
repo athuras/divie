@@ -1,19 +1,28 @@
 var AssetList = [];
-AssetList.push(new Asset(101, "Sailboat Painting", 45, '', "img/sailboat.png"));
-AssetList.push(new Asset(2, "Car", 0, '', "img/car.jpg"));
-AssetList.push(new Asset(3, "Lamp", 32, '', "img/sailboat.png"));
-AssetList.push(new Asset(4, "Family Portrait", 0, '', "img/sailboat.png"));
-AssetList.push(new Asset(5, "Sailboat Painting", 0, '', "img/sailboat.png"));
-AssetList.push(new Asset(6, "Everything Else", 0, '', "img/sailboat.png"));
-AssetList.push(new Asset(1031, "Sailboat Painting", 0, '', "img/sailboat.png"));
-AssetList.push(new Asset(23, "Car", 0, '', "img/car.jpg"));
-AssetList.push(new Asset(33, "Lamp", 0, '', "img/sailboat.png"));
-AssetList.push(new Asset(43, "Family Portrait", 0, '', "img/sailboat.png"));
-AssetList.push(new Asset(53, "Sailboat Painting", 0, '', "img/sailboat.png"));
-AssetList.push(new Asset(36, "Everything Else", 0, '', "img/sailboat.png"));
+// AssetList.push(new Asset(101, "Sailboat Painting", 45, '', "img/sailboat.png"));
+// AssetList.push(new Asset(2, "Car", 0, '', "img/car.jpg"));
+// AssetList.push(new Asset(3, "Lamp", 32, '', "img/sailboat.png"));
+// AssetList.push(new Asset(4, "Family Portrait", 0, '', "img/sailboat.png"));
+// AssetList.push(new Asset(5, "Sailboat Painting", 0, '', "img/sailboat.png"));
+// AssetList.push(new Asset(6, "Everything Else", 0, '', "img/sailboat.png"));
+// AssetList.push(new Asset(1031, "Sailboat Painting", 0, '', "img/sailboat.png"));
+// AssetList.push(new Asset(23, "Car", 0, '', "img/car.jpg"));
+// AssetList.push(new Asset(33, "Lamp", 0, '', "img/sailboat.png"));
+// AssetList.push(new Asset(43, "Family Portrait", 0, '', "img/sailboat.png"));
+// AssetList.push(new Asset(53, "Sailboat Painting", 0, '', "img/sailboat.png"));
+// AssetList.push(new Asset(36, "Everything Else", 0, '', "img/sailboat.png"));
 
 var init = true;
 var MAX_BUDGET_VALUE = 100;
+ 
+// creates a restricted set to be returned in stringification process
+function jsonReplacer(key, value)
+{
+	if(key=="img") return undefined;
+	else if(key=="description") return undefined;
+	else if(key=="name") return undefined;
+	else return value;
+};
 
 //this loads assets from server
 function loaded()
@@ -51,15 +60,17 @@ function finishAuction()
 {
 	$.ajax({
 		type: "POST",
-		datatype: "json",
+		dataType: "text",
+		contentType: "application/json",
 		url: 'http://divie.herokuapp.com/static/auction.html/submitBids',
 		async: false,
-		data: AssetList,
+		data: JSON.stringify(AssetList, jsonReplacer),
 		success: function(msg){ 
 				alert(msg)
 		},
-		error: function(){
-			alert("failed to load assets.")
+		error: function(msg){
+			alert("Error! " + msg)
+			console.log(msg)
 		}
 	})
 };

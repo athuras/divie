@@ -53,7 +53,7 @@ def execute_auction(auction_id):
 
 @app.route('/')
 def home():
-    return "test"#redirect(url_for('static', filename='login.html'))
+    return redirect(url_for('static', filename='login.html'))
 
 @app.route('/static/login.html', methods=['POST'])
 def login():
@@ -65,6 +65,14 @@ def login():
 def logout():
     session.pop('userID', None)
     return redirect(url_for('static', filename='login.html'))
+
+@app.route('/bidsT')
+def bidsT():
+    return db.get_bidJSON(1)
+
+@app.route('/bids')
+def bids():
+    return db.get_bidJSON(escape(session['username']))
 
 @app.route('/static/auction.html/requestAssets', methods=['POST'])
 def getItems():
@@ -79,10 +87,21 @@ def getItems():
 def saveBids():
     # When user has completed rankings insert into database and return succesful
     if request.method == 'POST':
-        res = json.dumps(request.json)
-        # saveResult = db.save_Bids(res, escape(session['username']))
-        return res
-    return "error2"
+        try:
+            res = request.json
+            saveResult = db.save_Bids(res, escape(session['username']))
+            return saveResult
+        except (ValueError, KeyError, TypeError) as e:
+            return str(e)
+
+@app.route('/requestAuctions', methods=['POST'])
+def requestAuctions():
+    # When user has completed rankings insert into database and return succesful
+    if request.method == 'POST':
+        data = db.get_auctionsJSON(escape(session['username']));
+        js = json.dumps(data)
+        resp = Response(js, status=200, mimetype='application/json')
+        return resp
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
