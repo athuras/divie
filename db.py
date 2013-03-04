@@ -179,33 +179,33 @@ def user_auc_rel(auction_id=1): #find which users are associated with the curren
     vals = query_template(query)
     return str(vals)
 
-def get_resultsJSON(userID, auction_id=1, ordered=False):
-    # query = ("SELECT results.*, item.name, item.img_url FROM results INNER JOIN item ON" +
-    #         " results.item_id = item.item_id WHERE results.agent_id = %(uID)s AND results.auction_id = %(aucID)s")
-    # if ordered:
-    #     query += " ORDER BY auction_id, agent_id, item_id"
-    # query += ";"
-    # data =  {
-    #             "uID": int(userID),
-    #             "aucID": int(auction_id)
-    #         }
-    # vals = query_template_dict(query, data)
+# def get_resultsJSON(userID, auction_id=1, ordered=False):
+#     # query = ("SELECT results.*, item.name, item.img_url FROM results INNER JOIN item ON" +
+#     #         " results.item_id = item.item_id WHERE results.agent_id = %(uID)s AND results.auction_id = %(aucID)s")
+#     # if ordered:
+#     #     query += " ORDER BY auction_id, agent_id, item_id"
+#     # query += ";"
+#     # data =  {
+#     #             "uID": int(userID),
+#     #             "aucID": int(auction_id)
+#     #         }
+#     # vals = query_template_dict(query, data)
 
-    return vals
+#     return vals
 
-def get_results(userID, auction_id=1, ordered=False):
-    # query = ("SELECT results.*, item.item_name, item.img_url FROM results INNER JOIN item ON" +
-    #         " results.item_id = item.item_id WHERE results.agent_id = %(uID)s AND results.auction_id = %(aucID)s")
-    # if ordered:
-    #     query += " ORDER BY auction_id, agent_id, item_id"
-    # query += ";"
-    # data =  {
-    #             "uID": int(userID),
-    #             "aucID": int(auction_id)
-    #         }
-    # vals = query_template(query, data)
+# def get_results(userID, auction_id=1, ordered=False):
+#     # query = ("SELECT results.*, item.item_name, item.img_url FROM results INNER JOIN item ON" +
+#     #         " results.item_id = item.item_id WHERE results.agent_id = %(uID)s AND results.auction_id = %(aucID)s")
+#     # if ordered:
+#     #     query += " ORDER BY auction_id, agent_id, item_id"
+#     # query += ";"
+#     # data =  {
+#     #             "uID": int(userID),
+#     #             "aucID": int(auction_id)
+#     #         }
+#     # vals = query_template(query, data)
 
-    return vals
+#     return vals
 
 #--------------------
 # SAVING QUERIES
