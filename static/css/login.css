@@ -10,6 +10,14 @@ body {
 	font-family: 'Museo Sans', 'Helvetica Neue', sans-serif;
 }
 
+.terms {
+	color: #608dc9;
+	text-decoration: underline;
+	position: relative;
+	text-align: center;
+	margin: 3em 0 0 0;
+}
+
 .welcome {
 	width: 400px;
 	position: absolute;
