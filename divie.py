@@ -80,7 +80,15 @@ def saveBids():
             return saveResult
         except (ValueError, KeyError, TypeError) as e:
             return str(e)
-    return "error2"
+
+@app.route('/requestAuctions', methods=['POST'])
+def requestAuctions():
+    # When user has completed rankings insert into database and return succesful
+    if request.method == 'POST':
+        data = db.get_auctionsJSON(escape(session['username']));
+        js = json.dumps(data)
+        resp = Response(js, status=200, mimetype='application/json')
+        return resp
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

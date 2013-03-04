@@ -58,6 +58,16 @@ def to_dict(vals):
     retVals = [dict((cur.description[i][0], value) for i, value in enumerate(row)) for row in vals]
     return retVals
 
+# def initConnection():
+#     conn = connect_db()
+#     cur = conn.cursor()
+
+#     return conn, cur
+
+# def closeConnection(conn, cur)
+#     curr.close()
+#     conn.close()
+
 def query_DelIns(query, args={}):
     conn = None
     try:
@@ -110,9 +120,10 @@ def query_template_dict(query, args={}):
 #--------------------
 
 def get_itemsJSON(userID):
-    query = "SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" \
-        " as value FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = " + userID + ";"
-    vals = query_template_dict(query)
+    query = ("SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" +
+        " as value FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = %(userID)s;")
+    data = {"userID": userID}
+    vals = query_template_dict(query, data)
     return vals
 
 def get_items(): #gets item list, description, image url and value
@@ -120,12 +131,12 @@ def get_items(): #gets item list, description, image url and value
     vals = query_template(query)
     return str(vals)
 
-def get_auctionJSON():
-    query = "SELECT * FROM auction;"
+def get_auctionsJSON(userID):
+    query = "SELECT *, %(uID)s as agent_id FROM auction;" % {"uID": userID}
     vals = query_template_dict(query)
     return vals
 
-def get_auction(): #gets executor, auction name and start and end date
+def get_auctions(): #gets executor, auction name, start date, end date, status
     query = "SELECT * FROM auction;"
     vals = query_template(query)
     return str(vals)
@@ -140,8 +151,7 @@ def get_users(): #gets users for given auction & their id for use to decide if e
     vals = query_template(query)
     return str(vals)
 
-def get_bidJSON(userID):
-    auction_id = 1
+def get_bidJSON(userID, auction_id=1):
     query = "SELECT * FROM bid WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;"
     data =  {
                 "uID": int(userID),
@@ -150,8 +160,7 @@ def get_bidJSON(userID):
     vals = query_template_dict(query, data)
     return vals
 
-def get_bid():
-    auction_id = 1
+def get_bid(auction_id=1):
     query = "SELECT * FROM bid WHERE auction_id = %(aucID)s;"
     data =  {
                 "aucID": int(auction_id)
@@ -159,8 +168,7 @@ def get_bid():
     vals = query_template(query, data)
     return str(vals)
 
-def user_auc_rel(): #find which users are associated with the current auction
-    auction_id = 1
+def user_auc_rel(auction_id=1): #find which users are associated with the current auction
     query = ("SELECT agent_id FROM item WHERE auction_id = %(aucID)s;" %
             {
                 "aucID": int(auction_id)
@@ -168,24 +176,30 @@ def user_auc_rel(): #find which users are associated with the current auction
     vals = query_template(query)
     return str(vals)
 
-def get_resultsJSON(userID):
-    auction_id = 1
-    query = ("SELECT * FROM results WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;" %
-            {
+def get_resultsJSON(userID, auction_id=1):
+    query = ("SELECT * FROM results WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;")
+    data =  {
                 "uID": int(userID),
                 "aucID": int(auction_id)
-            })
-    vals = query_template_dict(query)
+            }
+    vals = query_template_dict(query, data)
     return vals
 
+def get_results(userID, auction_id=1):
+    query = ("SELECT * FROM results WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;")
+    data =  {
+                "uID": int(userID),
+                "aucID": int(auction_id)
+            }
+    vals = query_template(query, data)
+
+    return vals
 
 #--------------------
 # SAVING QUERIES
 #--------------------
 
-def save_Bids(bids, userID):
-    auction_id = 1
-
+def save_Bids(bids, userID, auction_id=1):
     # Clear bids for user and auction
     query = "DELETE FROM bid WHERE agent_id = %(uID)s AND auction_id = %(aucID)s;"
     data =  {
@@ -235,15 +249,6 @@ def save_results(results, userID, auction_id=1):
                      "lot": r['lot']})
         query_template(query)
     return "Inserted"
-
-def get_results(auction_id=1):
-    query = ("SELECT item_id, agent_id, lot_id FROM results WHERE auction_id = %(aucID)s;" %
-            {
-                "aucID": int(auction_id)
-            })
-    vals = query_template(query)
-
-    return vals
 
 def clear_results(auction=1):
     query = ("TRUNCATE TABLE results;")
