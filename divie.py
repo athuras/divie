@@ -1,5 +1,6 @@
 import db
 import os
+import results
 from flask import Flask
 from flask import json
 from flask import redirect
@@ -109,21 +110,21 @@ def requestAuctions():
 # def divieResults():
 #     if request.method == 'POST':
 #         try:
-#             db.query_template("UPDATE auction SET active = 2 WHERE auction_id = %(auction_id)s",
-#                           {"auction_id": 1})
+#             # db.query_template("UPDATE auction SET active = 2 WHERE auction_id = %(auction_id)s",
+#             #               {"auction_id": 1})
 #         except Exception as e:
 #             return "Error: " + str(e)
 
 #     return "succesful"
 
-# @app.route('/populateResults', methods=['POST'])
-# def popResults():
-#     if request.method == 'POST':
-#         # res = db.get_resultsJSON(escape(session['username']),auction_id=1, ordered=True)
-#         # procRes = results.processResults(res)
-#         # js = json.dumps(procRes)
-#         # resp = Response(js, status=200, mimetype='application/json')
-#         return "successful"
+@app.route('/populateResults', methods=['POST'])
+def popResults():
+    if request.method == 'POST':
+        res = db.get_resultsJSON(escape(session['username']),auction_id=1, ordered=True)
+        procRes = results.processResults(res)
+        js = json.dumps(procRes)
+        resp = Response(js, status=200, mimetype='application/json')
+        return resp
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
