@@ -12,6 +12,28 @@ UserRankings.push(new UserRank(3, "Brian Sinclair", [1,2,3,4,5]));
 UserRankings.push(new UserRank(4, "Scott Neil", [2,4,5,6,73]));
 UserRankings.push(new UserRank(5, "Alex Huras", [34,45,0,0,0]));
 
+// $(document).ready(function()
+// {
+// 	$('.divieBtn').click(function()
+// 	{
+// 		$.ajax({
+// 			type: "POST",
+// 			dataType: "text",
+// 			contentType: "application/json",
+// 			url: 'http://divie.herokuapp.com/divieResults',
+// 			async: false,
+// 			data: JSON.stringify(AssetList, jsonReplacer),
+// 			success: function(msg){ 
+// 					alert(msg)
+// 			},
+// 			error: function(msg){
+// 				alert("Error! " + msg)
+// 				console.log(msg)
+// 			}
+// 		})
+// 	})
+// });
+
 function UserRank(userID, name, ranks)
 {
 	this.id = userID;
