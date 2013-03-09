@@ -118,9 +118,10 @@ def get_items(): #gets item list, description, image url and value
     vals = query_template(query)
     return str(vals)
 
-def get_auctionJSON():
-    query = "SELECT * FROM auction;"
-    vals = query_template_dict(query)
+def get_auctionsJSON(userID):
+    query = "SELECT *, %(uID)s as agent_id FROM auction;"
+    data =  {"uID": userID}
+    vals = query_template_dict(query, data)
     return vals
 
 def get_auction(): #gets executor, auction name and start and end date
