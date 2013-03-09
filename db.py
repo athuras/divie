@@ -193,7 +193,7 @@ def get_results(userID, auction_id=1):
     return vals
 
 #--------------------
-# SAVING QUERIES
+# SAVING and RESET QUERIES
 #--------------------
 
 def save_Bids(bids, userID, auction_id=1):
@@ -229,7 +229,7 @@ def save_Bids(bids, userID, auction_id=1):
     return "Delete: " + msg1 + " || Insert: " + msg2 + " || Relationship: " + msg3
 
 def reload_bids(auction_id=1):
-    query = ("TRUNCATE TABLE bid RESTART IDENTITY CASCADE;");
+    query = ("TRUNCATE TABLE bid RESTART IDENTITY CASCADE;")
     query_template(query)
     query =  ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time)" +
                 "SELECT auction_id, item_id, agent_id, value, bid_time" +
@@ -261,3 +261,8 @@ def save_results_test(): #this works
 def clear_results(auction=1):
     query = ("TRUNCATE TABLE results;")
     query_template(query)
+
+def reset_auction(auction_id=1):
+    clear_results(auction_id)
+    reload_bids(auction_id)
+    return "cleared"

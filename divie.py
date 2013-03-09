@@ -117,6 +117,14 @@ def popResults():
         resp = Response(js, status=200, mimetype='application/json')
         return resp
 
+@app.route('/resetAuction', methods=['POST'])
+def resetAuction():
+    if request.method == 'POST':
+        res = db.reset_auction(auction_id=1)
+        js = json.dumps(res)
+        resp = Response(js, status=200, mimetype='application/json')
+        return resp
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
