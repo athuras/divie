@@ -263,6 +263,7 @@ def clear_results(auction_id=1):
     query_template(query)
 
 def reset_auction(auction_id=1):
+<<<<<<< HEAD
     query = ("UPDATE auction SET lot_num = DEFAULT WHERE auction_id = %(aucId)s;")
     data = {"aucId": auction_id}
     query_template(query, data)
@@ -270,4 +271,8 @@ def reset_auction(auction_id=1):
     clear_results(auction_id)
     reload_bids(auction_id)
     
+=======
+    clear_results(auction_id)
+    reload_bids(auction_id)
+>>>>>>> 0fc8a3955b1138369cc998e762fbbd6f96c35d93
     return "cleared"
