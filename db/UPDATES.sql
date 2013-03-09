@@ -55,3 +55,5 @@ INSERT INTO "item" (item_name, description, img_url, item_value)
 		('Kitting Needles', '' , 'knitting.jpg', 0),
 		('Typewriter', '' , 'typewriter.jpg', 0);
 
+ALTER TABLE auction
+	ADD COLUMN lot_num int DEFAULT NULL;
