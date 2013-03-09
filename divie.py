@@ -41,7 +41,7 @@ def execute_auction(auction_id):
 
 @app.route('/')
 def home():
-    return "test"#redirect(url_for('static', filename='login.html'))
+    return redirect(url_for('static', filename='login.html'))
 
 @app.route('/static/login.html', methods=['POST'])
 def login():
