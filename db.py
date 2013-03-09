@@ -64,6 +64,8 @@ def query_DelIns(query, args=()):
         cur.close()
         conn.close()
 
+    return "successful"
+
 def query_template(query, args=(), **kwargs):
     many = False
     if 'many' in kwargs:
