@@ -19,7 +19,7 @@ def execute_auction(auction_id):
     '''Executes the Auction, writes results to the db'''
     def get_agent_info(auction_id):
         '''Returns {agent_id: [(item_id, bid_value)]} for agents in auction_id'''
-        res = db.query_template("SELECT item_id, agent_id, value from bid where auction_id = %(a_id)s", {'a_id': auction_id})
+        res = db.query_template("SELECT item_id, agent_id, value from bid where auction_id = %(a_id)s", {'a_id': auction_id}, many=True)
         master = defaultdict(lambda: [])
         for record in res:
             i_id, a_id, v = res

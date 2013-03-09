@@ -64,12 +64,19 @@ def query_DelIns(query, args=()):
         cur.close()
         conn.close()
 
-def query_template(query, args=()):
+def query_template(query, args=(), **kwargs):
+    many = False
+    if 'many' in kwargs:
+        many = kwargs['many']
+
     conn = None
     try:
         conn = connect_db()
         cur = conn.cursor()
-        cur.execute(query, args)
+        if many:
+            cur.executemany(query, args)
+        else:
+            cur.execute(query, args)
         vals = cur.fetchall()
         conn.commit()
     except psycopg2.Error as e:
@@ -200,13 +207,13 @@ def save_Bids(bids, userID, auction_id=1):
 
     for curBid in bids:
         if int(curBid['rank']) != 0:
-            query = ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time) " + 
+            query = ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time) " +
                 "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(bidVal)s, %(dTime)s);")
             data = {
-                        "aucID": auction_id, 
-                        "itemID": int(curBid['id']), 
-                        "uID": userID, 
-                        "bidVal": int(curBid['rank']), 
+                        "aucID": auction_id,
+                        "itemID": int(curBid['id']),
+                        "uID": userID,
+                        "bidVal": int(curBid['rank']),
                         "dTime": 1
                     }
             msg2 = query_DelIns(query, data)
@@ -232,10 +239,10 @@ def reload_bids(auction_id=1):
 
 def save_results(results, userID, auction_id=1):
     for r in results:
-        query = ("INSERT INTO results (auction_id, item_id, agent_id, lot_id) " + 
-                 "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(lot)s);" % 
-                    {"aucID": auction_id, 
-                     "itemID": r['id'], 
+        query = ("INSERT INTO results (auction_id, item_id, agent_id, lot_id) " +
+                 "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(lot)s);" %
+                    {"aucID": auction_id,
+                     "itemID": r['id'],
                      "uID": userID,
                      "lot": r['lot']})
         query_template(query)
@@ -243,8 +250,8 @@ def save_results(results, userID, auction_id=1):
 
 def save_results_test(): #this works
     list_ = (1,1,1,1)
-#    diction =  ({"aucID": 1, 
-#             "itemID": 1, 
+#    diction =  ({"aucID": 1,
+#             "itemID": 1,
 #             "uID": 1,
 #             "lot": 1})
     query = ("INSERT INTO results (auction_id, item_id, agent_id, lot_id) VALUES (%s, %s, %s, %s);")
