@@ -1,28 +1,19 @@
 var AssetList = [];
-// AssetList.push(new Asset(101, "Sailboat Painting", 45, '', "img/sailboat.png"));
-// AssetList.push(new Asset(2, "Car", 0, '', "img/car.jpg"));
-// AssetList.push(new Asset(3, "Lamp", 32, '', "img/sailboat.png"));
-// AssetList.push(new Asset(4, "Family Portrait", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(5, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(6, "Everything Else", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(1031, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(23, "Car", 0, '', "img/car.jpg"));
-// AssetList.push(new Asset(33, "Lamp", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(43, "Family Portrait", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(53, "Sailboat Painting", 0, '', "img/sailboat.png"));
-// AssetList.push(new Asset(36, "Everything Else", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(101, "Sailboat Painting", 45, '', "img/sailboat.png"));
+AssetList.push(new Asset(2, "Car", 0, '', "img/car.jpg"));
+AssetList.push(new Asset(3, "Lamp", 32, '', "img/sailboat.png"));
+AssetList.push(new Asset(4, "Family Portrait", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(5, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(6, "Everything Else", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(1031, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(23, "Car", 0, '', "img/car.jpg"));
+AssetList.push(new Asset(33, "Lamp", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(43, "Family Portrait", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(53, "Sailboat Painting", 0, '', "img/sailboat.png"));
+AssetList.push(new Asset(36, "Everything Else", 0, '', "img/sailboat.png"));
 
 var init = true;
 var MAX_BUDGET_VALUE = 100;
- 
-// creates a restricted set to be returned in stringification process
-function jsonReplacer(key, value)
-{
-	if(key=="img") return undefined;
-	else if(key=="description") return undefined;
-	else if(key=="name") return undefined;
-	else return value;
-};
 
 //this loads assets from server
 function loaded()
@@ -60,17 +51,15 @@ function finishAuction()
 {
 	$.ajax({
 		type: "POST",
-		dataType: "text",
-		contentType: "application/json",
+		datatype: "json",
 		url: 'http://divie.herokuapp.com/static/auction.html/submitBids',
 		async: false,
-		data: JSON.stringify(AssetList, jsonReplacer),
+		data: AssetList,
 		success: function(msg){ 
 				alert(msg)
 		},
-		error: function(msg){
-			alert("Error! " + msg)
-			console.log(msg)
+		error: function(){
+			alert("failed to load assets.")
 		}
 	})
 };
@@ -145,7 +134,7 @@ function Asset (id, name, rank, description, imgSrc){
 	this.rank = rank;
 	this.description = "Now that we know who you are, I know who I am. I'm not a mistake! It all makes sense! In a comic, you know how you can tell who the arch-villain's going to be? He's the exact opposite of the hero. And most times they're friends, like you and me! I should've known way back when... You know why, David? Because of the kids. They called me Mr Glass.";
 	// this.description = description;
-	this.img = "imgSrc";//imgSrc;
+	this.img = "img/sailboat.png";//imgSrc;
 };
 
 function loadAsset(idTag)
@@ -389,7 +378,15 @@ function adjustBudget(idTag)
 	currBudget = parseInt(tempBudget) - parseInt(runningSum);
 	remBudget.innerHTML = "Remaining Budget:  " + '<img src = "img/heart-white.png"/> ' + currBudget;
 	document.getElementById("slider-remaining").innerHTML = '<img src = "img/heart-red.png"/> ' + getRemainingBudget() + '<br> remaining';
-	document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[2].style.width = (parseInt(AssetList[findArrLoc(idTag)].rank) / MAX_BUDGET_VALUE * 100) + 11  + "%";
+	if (document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[1].style.width == 0 + "%")
+	{
+		document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[2].style.width = 8 + "%";
+	}
+	else
+	{
+		document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[2].style.width = (parseInt(AssetList[findArrLoc(idTag)].rank) / MAX_BUDGET_VALUE * 100) + 11  + "%";
+	}
+	
 	document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[2].innerHTML = '<img src = "img/heart-red.png"/> ' + AssetList[findArrLoc(idTag)].rank;
 
 	if (currBudget == 0)
