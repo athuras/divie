@@ -31,13 +31,22 @@ def execute_auction(auction_id):
         Transform the resolution table into group_id/result records for db.
         Then commite to db.
         '''
-        pass
+        def record_factory(item, agent, lot):
+            return {'auction_id': auction_id, 'item_id': item,
+                    'agent_id': agent, 'lot_id': lot}
+
+            master = []
+            for i, results in enumerate(res):
+                for sub_record in results:
+                    item, agent = sub_record
+                    master.append(record_factory(item, agent, i))
+            status = db.query_template("INSERT INTO results(auction_id, item_id, agent_id, lot_id) VALUES (%(auction_id)s, %(item_id)s, %(agent_id)s, %(lot_id)s", master, many=True)
+            return status
 
     agents = [AUC.Agent(k, v) for k, v in get_agent_info().iteritems()]
     Auction = AUC.Auction(auction_id, agents)
     resolution = AUC.unique_groups(i[0] for i in Auction.multi_resolve())
-    write_results(resolution)
-    return None
+    return write_results(resolution)
 
 @app.route('/')
 def home():
