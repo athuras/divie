@@ -185,19 +185,17 @@ def get_resultsJSON(userID, auction_id=1):
 
     return vals
 
-# def get_results(userID, auction_id=1):
-#     query = ("SELECT results.*, item.item_name, item.img_url FROM results INNER JOIN item ON" +
-#             " results.item_id = item.item_id WHERE results.agent_id = %(uID)s AND results.auction_id = %(aucID)s")
-#     if ordered:
-#         query += " ORDER BY auction_id, agent_id, item_id"
-#     query += ";"
-#     data =  {
-#                 "uID": int(userID),
-#                 "aucID": int(auction_id)
-#             }
-#     vals = query_template(query, data)
+def get_results(userID, auction_id=1):
+    query = ("SELECT results.*, item.item_name, item.img_url FROM results INNER JOIN item ON" +
+            " results.item_id = item.item_id WHERE results.agent_id = %(uID)s AND results.auction_id = %(aucID)s" +
+            " ORDER BY auction_id, agent_id, item_id;")
+    data =  {
+                "uID": int(userID),
+                "aucID": int(auction_id)
+            }
+    vals = query_template(query, data)
 
-#     return vals
+    return vals
 
 #--------------------
 # SAVING QUERIES
@@ -236,8 +234,9 @@ def save_Bids(bids, userID, auction_id=1):
     return "Delete: " + msg1 + " || Insert: " + msg2 + " || Relationship: " + msg3
 
 def reload_bids(auction_id=1):
-    query = ("TRUNCATE TABLE bid RESTART IDENTITY CASCADE;" +
-             "INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time)" +
+    query = ("TRUNCATE TABLE bid RESTART IDENTITY CASCADE;");
+    query_template(query)
+    query =  ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time)" +
                 "SELECT auction_id, item_id, agent_id, value, bid_time" +
                 "FROM bid_base " +
                 "WHERE auction_id = %(aucID)s;" % {"aucID": auction_id})
@@ -263,12 +262,6 @@ def save_results_test(): #this works
     query = ("INSERT INTO results (auction_id, item_id, agent_id, lot_id) VALUES (%s, %s, %s, %s);")
     query_template(query, list_)
     return "success"
-
-# def get_results(auction=1):
-#     query = ("SELECT item_id, agent_id, lot_id FROM results" +
-#              "WHERE auction_id = auction;")
-#     vals = query_template(query)
-#     return vals
 
 def clear_results(auction=1):
     query = ("TRUNCATE TABLE results;")

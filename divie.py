@@ -106,21 +106,20 @@ def requestAuctions():
         resp = Response(js, status=200, mimetype='application/json')
         return resp
 
-# @app.route('/divieResults', methods=['POST'])
-# def divieResults():
-#     if request.method == 'POST':
-#         try:
-#             # db.query_template("UPDATE auction SET active = 2 WHERE auction_id = %(auction_id)s",
-#             #               {"auction_id": 1})
-#         except Exception as e:
-#             return "Error: " + str(e)
+@app.route('/divieResults', methods=['POST'])
+def divieResults():
+    if request.method == 'POST':
+        try:
+            status = execute_auction(1)
+        except Exception as e:
+            return "Error: " + str(e)
 
-#     return "succesful"
+    return status
 
 @app.route('/populateResults', methods=['POST'])
 def popResults():
     if request.method == 'POST':
-        res = db.get_resultsJSON(escape(session['username']),auction_id=1, ordered=True)
+        res = db.get_resultsJSON(escape(session['username']),auction_id=1)
         procRes = results.processResults(res)
         js = json.dumps(procRes)
         resp = Response(js, status=200, mimetype='application/json')
