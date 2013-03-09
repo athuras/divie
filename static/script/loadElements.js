@@ -52,7 +52,7 @@ function finishAuction()
 	$.ajax({
 		type: "POST",
 		dataType: "json",
-		contentType: "application/json"
+		contentType: "application/json",
 		url: 'http://divie.herokuapp.com/submitBids',
 		async: false,
 		data: AssetList,
