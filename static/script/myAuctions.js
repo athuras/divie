@@ -47,6 +47,8 @@ function loaded()
 
 function loadAuctions()
 {
+	loaded();
+	
 	var panel = document.getElementById("panel");
 	for(var i=0;i<AuctionList.length;i++)
 	{
