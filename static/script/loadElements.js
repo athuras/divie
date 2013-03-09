@@ -52,14 +52,14 @@ function finishAuction()
 	$.ajax({
 		type: "POST",
 		datatype: "json",
-		url: 'http://divie.herokuapp.com/static/auction.html/submitBids',
+		url: 'http://divie.herokuapp.com/submitBids',
 		async: false,
 		data: AssetList,
 		success: function(msg){ 
 				alert(msg)
 		},
 		error: function(){
-			alert("failed to load assets.")
+			alert("failed to save bids.")
 		}
 	})
 };

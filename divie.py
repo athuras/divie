@@ -102,9 +102,9 @@ def getAuctions():
 def saveBids():
     # When user has completed rankings insert into database and return succesful
     if request.method == 'POST':
-        res = json.dumps(request.json)
-        # saveResult = db.save_Bids(res, escape(session['username']))
-        return res
+        res = request.json
+        saveResult = db.save_Bids(res, escape(session['username']))
+        return saveResult
     return "error2"
 
 @app.route('/divieResults', methods=['POST'])
