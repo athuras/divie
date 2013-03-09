@@ -15,9 +15,6 @@ Version: Python 2.7
 '''
 import psycopg2
 
-#--------------------
-# DATABASE 
-#--------------------
 
 def connect_db():
     conn = psycopg2.connect(**{
@@ -52,7 +49,8 @@ def db_test():
         conn.close()
     return 'SUCCESS!:\n' + str(vals)
 
-def query_DelIns(query, args={}):
+
+def query_DelIns(query, args=()):
     conn = None
     try:
         conn = connect_db()
@@ -65,21 +63,13 @@ def query_DelIns(query, args={}):
     finally:
         cur.close()
         conn.close()
-    return "Successful query"
 
-def query_template(query, args=(), **kwargs):
+def query_template(query, args=()):
     conn = None
-    many = False
-    if 'many' in kwargs:
-        many = kwargs['many']
-
     try:
         conn = connect_db()
         cur = conn.cursor()
-        if many:
-            cur.executemany(query, args)
-        else:
-            cur.execute(query, args)
+        cur.execute(query, args)
         vals = cur.fetchall()
         conn.commit()
     except psycopg2.Error as e:
@@ -111,10 +101,9 @@ def query_template_dict(query, args=()):
 #--------------------
 
 def get_itemsJSON(userID):
-    query = ("SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" +
-        " as value FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = %(userID)s;")
-    data = {"userID": userID}
-    vals = query_template_dict(query, data)
+    query = "SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" \
+        " as value FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = " + userID + ";"
+    vals = query_template_dict(query)
     return vals
 
 def get_items(): #gets item list, description, image url and value
@@ -122,12 +111,12 @@ def get_items(): #gets item list, description, image url and value
     vals = query_template(query)
     return str(vals)
 
-def get_auctionsJSON(userID):
-    query = "SELECT *, %(uID)s as agent_id FROM auction;" % {"uID": userID}
+def get_auctionJSON():
+    query = "SELECT * FROM auction;"
     vals = query_template_dict(query)
     return vals
 
-def get_auctions(): #gets executor, auction name, start date, end date, status
+def get_auction(): #gets executor, auction name and start and end date
     query = "SELECT * FROM auction;"
     vals = query_template(query)
     return str(vals)
@@ -165,11 +154,10 @@ def get_lots(auction_id=1):
     vals = query_template(query, data)
     return vals
 
-def user_auc_rel(auction_id=1): #find which users are associated with the current auction
-    query = ("SELECT agent_id FROM item WHERE auction_id = %(aucID)s;" %
-            {
-                "aucID": int(auction_id)
-            })
+
+def user_auc_rel(): #find which users are associated with the current auction
+    auction_id = 1
+    query = "SELECT agent_id FROM item WHERE auction_id = " + auction_id + ";"
     vals = query_template(query)
     return str(vals)
 
@@ -239,18 +227,18 @@ def reload_bids(auction_id=1):
     query =  ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time)" +
                 "SELECT auction_id, item_id, agent_id, value, bid_time" +
                 "FROM bid_base " +
-                "WHERE auction_id = %(aucID)s;" % {"aucID": auction_id})
+                "WHERE auction_id = auction;")
     query_template(query)
 
 def save_results(results, userID, auction_id=1):
     for r in results:
-        query = ("INSERT INTO results (auction_id, item_id, agent_id, lot_id) " +
-                 "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(lot)s);")
-        diction =  ({"aucID": auction_id,
-                     "itemID": r['id'],
+        query = ("INSERT INTO results (auction_id, item_id, agent_id, lot_id) " + 
+                 "VALUES (%(aucID)s, %(itemID)s, %(uID)s, %(lot)s);" % 
+                    {"aucID": auction_id, 
+                     "itemID": r['id'], 
                      "uID": userID,
                      "lot": r['lot']})
-        query_template(query, diction)
+        query_template(query)
     return "Inserted"
 
 def save_results_test(): #this works

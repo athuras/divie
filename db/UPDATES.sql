@@ -27,34 +27,3 @@ INSERT INTO "relationship" (auction_id, agent_id)
 /*example item inserts*/
 INSERT INTO "item" (item_name, description, img_url, item_value)
 	VALUES ('Painting', 'Beautiful Sailboat' , 'here', 0), ('Antique Lamp', 'Magic Lamp' , 'here', 100), ('Family Portrait', 'the fam jam' , 'here', 0);
-
-/*status for if all bids are in*/
-ALTER TABLE auction
-	ADD COLUMN active integer DEFAULT 1;
-
-/*status for if all bids are in*/
-ALTER TABLE auction
-	ADD COLUMN active integer DEFAULT 1;
-
-/*if users rankings are complete status turns to 1. if users lot preference is complete status turns to 1*/
-ALTER TABLE relationship
-	ADD COLUMN rank_complete integer DEFAULT 0,
-	ADD COLUMN lot_complete integer DEFAULT 0;
-
-/*example item inserts*/
-INSERT INTO "item" (item_name, description, img_url, item_value)
-	VALUES ('Sailboat Painting', '' , 'sailboat.png', 0), 
-		('Antique Lamp', '' , 'antique-lamp.jpeg', 0), 
-		('City Painting', '' , 'city-painting.jpeg', 0),
-		('Bike Painting', '' , 'bike-painting.jpeg', 0),
-		('Antique Clock', '' , 'antique-clock.jpeg', 0),
-		('Hand Wood Planer', '' , 'wood-planer.jpeg', 0),
-		('Cross-Country Skis', '' , 'xcountry-skis.jpeg', 0),
-		('Hunting Lodge', '' , 'hunting-lodge.jpeg', 0),
-		('Encyclopedia Britannica', '' , 'encyclopedia.jpeg', 0),
-		('Wood Stove', '' , 'wood-stove.jpeg', 0),
-		('Armoire', '' , 'armoire.jpeg', 0),
-		('Fur Coat', '' , 'fur-coat.jpeg', 0),
-		('Old Radio', '' , 'radio.jpeg', 0),
-		('Kitting Needles', '' , 'knitting.jpeg', 0),
-		('Typewritter', '' , 'typewritter.jpeg', 0);
