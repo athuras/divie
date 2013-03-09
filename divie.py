@@ -83,8 +83,17 @@ def logout():
 @app.route('/requestAssets', methods=['POST'])
 def getItems():
     # When auction is loaded request asset list
-    if request.method == 'POST':# and request.headers['Content-Type'] == 'application/json':
+    if request.method == 'POST':
         data = db.get_itemsJSON(escape(session['username']));
+        js = json.dumps(data)
+        resp = Response(js, status=200, mimetype='application/json')
+        return resp
+
+@app.route('/requestAuctions', methods=['POST'])
+def getAuctions():
+    # When auction is loaded request asset list
+    if request.method == 'POST':
+        data = db.get_auctionJSON(escape(session['username']));
         js = json.dumps(data)
         resp = Response(js, status=200, mimetype='application/json')
         return resp
