@@ -152,6 +152,6 @@ function toggleRows(id)
 
 $(document).ready(function(){
 	$('.divieBtn').click(function(){
-		// do stuff
+		window.location = "http://divie.herokuapp.com/static/loader.html"
 	});
 });

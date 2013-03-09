@@ -14,6 +14,16 @@ var ResultList = [];
 // ResultList.push(new Result(53, "Lamp", "img/sailboat.png",[0,0,0]));
 // ResultList.push(new Result(36,"Lamp", "img/sailboat.png", [0,0,1]));
 
+function compare(a, b){
+	if (a.max < b.max )
+		return 1;
+	if (a.max > b.max)
+		return -1;
+	return 0;
+};
+
+ResultList.sort(compare);
+
 // Initialization stuff ------------------------------------------------------------------------------
 
 function loaded()
@@ -61,6 +71,10 @@ function Result(id, name, img, lots)
 	this.img = img;
 	this.id = id;
 	this.lots = lots;
+	this.max = 0;
+	for (var i = 0; i < lots.length; i++) {
+		this.max += lots[i]
+	};
 };
 
 function buildResultsTable()
