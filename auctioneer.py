@@ -5,7 +5,6 @@
 def main():
     pass
 
-
 def unique_groups(allocs):
     '''Strip out the duplicates in the allocs'''
     # Hash each allocation.
@@ -15,6 +14,14 @@ def unique_groups(allocs):
     reduced = [dict(i for i in A) for A in condensed]
     return reduced
 
+def attempt_filter_imba(allocs):
+    '''Strip out duplicates, and remove imbalanced auctions from results
+    NOTE: It is possible that all results are imbalanced, in this case, returns
+    the alloc set unaltered'''
+    if all(i[1][-1] == True for i in allocs):
+        return allocs
+    else:
+        return(filter(lambda x: x[1][-1] == False, allocs))
 
 def mean(iterable, key=lambda x: x):
     s, n = 0, 0
