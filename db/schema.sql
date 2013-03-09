@@ -77,3 +77,14 @@ CREATE TABLE results (
 	agent_id INT NULL,
 	lot_id INT NULL
 );
+
+DROP TABLE if exists performance;
+CREATE TABLE performance (
+	auction_id int NOT NULL,
+	lot_id int NOT NULL,
+	loss_mean float NOT NULL,
+	loss_var float NOT NULL,
+	full_mean float NOT NULL,
+	full_var float NOT NULL,
+	imba boolean NOT NULL
+);
