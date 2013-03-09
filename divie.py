@@ -117,11 +117,12 @@ def divieResults():
 
     return status
 
-@app.route('/populateResults', methods=['POST'])
+@app.route('/requestResults', methods=['POST'])
 def popResults():
     if request.method == 'POST':
         res = db.get_resultsJSON(escape(session['username']),auction_id=1)
-        procRes = results.processResults(res)
+        lots = db.get_lots(auction_id=1)
+        procRes = results.processResults(res, lots)
         js = json.dumps(procRes)
         resp = Response(js, status=200, mimetype='application/json')
         return resp

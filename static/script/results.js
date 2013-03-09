@@ -31,7 +31,7 @@ function loaded()
 	$.ajax({
 		type: "POST",
 		datatype: "json",
-		url: 'http://divie.herokuapp.com/populateResults',
+		url: 'http://divie.herokuapp.com/requestResults',
 		async: false,
 		success: function(data){ 
 			$.each(data, function(k, v){

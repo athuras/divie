@@ -4,9 +4,9 @@ var AuctionList = [];
 
 var Status = {
 	Inactive : {value: 0, txt: "Inactive.", txtExec: "Inactive."},
-	Active : {value: 1, txt: "Active now!", txtExec: "Active now!"},
-	AllocComplete : {value: 2, txt: "View results!", txtExec: "Approve results!"},
-	AuctionComplete : {value: 3, txt: "View you items!", txtExec: "View results!"}
+	Active : {value: 1, txt: "active now!", txtExec: "active now!"},
+	AllocComplete : {value: 2, txt: "view results!", txtExec: "approve results!"},
+	AuctionComplete : {value: 3, txt: "view your items!", txtExec: "complete!"}
 };
 
 // Auction Information:
@@ -111,7 +111,12 @@ function loadAuctions()
 			var newStatusText = document.createElement("div");
 			newStatusText.setAttribute("class", "statusText");
 
-			var newStatusValue = document.createTextNode(Status.AllocComplete.txt);
+			if(AuctionList[i].agent_id == AuctionList[i].exec_id)
+				statLbl = Status.AllocComplete.txtExec;
+			else
+				statLbl = Status.AllocComplete.txt
+
+			var newStatusValue = document.createTextNode(statLbl);
 			newStatusText.appendChild(newStatusValue);
 
 			newActive.appendChild(newStatusText);
@@ -132,7 +137,12 @@ function loadAuctions()
 			var newStatusText = document.createElement("div");
 			newStatusText.setAttribute("class", "statusText");
 
-			var newStatusValue = document.createTextNode(Status.AuctionComplete.txt);
+			if(AuctionList[i].agent_id == AuctionList[i].exec_id)
+				statLbl = Status.AuctionComplete.txtExec;
+			else
+				statLbl = Status.AuctionComplete.txt
+
+			var newStatusValue = document.createTextNode(statLbl);
 			newStatusText.appendChild(newStatusValue);
 
 			newActive.appendChild(newStatusText);
@@ -171,7 +181,10 @@ function bindRedirections(){
 		console.log(event.target.id);
 		//var dest = $(".statusText").html();
 		if(Auction.userId == Auction.execId) {
-			window.location = 'http://divie.herokuapp.com/static/dashboard.html';
+			if(Auction.status == Status.AllocComplete.value)
+				window.location = 'http://divie.herokuapp.com/static/dashboard-final.html';
+			else if (Auction.status == Status.Active.value)
+				window.location = 'http://divie.herokuapp.com/static/dashboard.html';
 		} else {
 			if (Auction.status == Status.Active.value)
 				window.location = 'http://divie.herokuapp.com/static/auction.html';
