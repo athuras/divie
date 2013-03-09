@@ -258,11 +258,16 @@ def save_results_test(): #this works
     query_template(query, list_)
     return "success"
 
-def clear_results(auction=1):
+def clear_results(auction_id=1):
     query = ("TRUNCATE TABLE results;")
     query_template(query)
 
 def reset_auction(auction_id=1):
+    query = ("UPDATE auction SET lot_num = DEFAULT WHERE auction_id = %(aucId)s;")
+    data = {"aucId": auction_id}
+    query_template(query, data)
+
     clear_results(auction_id)
     reload_bids(auction_id)
+    
     return "cleared"
