@@ -24,10 +24,6 @@ INSERT INTO "auction" (exec_id, auction_name, description, start_date, end_date)
 INSERT INTO "relationship" (auction_id, agent_id)
 	VALUES (1, 1),(1, 2),(1, 3),(1, 4),(1, 5);
 	
-/*example item inserts*/
-INSERT INTO "item" (item_name, description, img_url, item_value)
-	VALUES ('Painting', 'Beautiful Sailboat' , 'here', 0), ('Antique Lamp', 'Magic Lamp' , 'here', 100), ('Family Portrait', 'the fam jam' , 'here', 0);
-
 /*status for if all bids are in*/
 ALTER TABLE auction
 	ADD COLUMN active integer DEFAULT 1;
@@ -58,3 +54,4 @@ INSERT INTO "item" (item_name, description, img_url, item_value)
 		('Old Radio', '' , 'radio.jpg', 0),
 		('Kitting Needles', '' , 'knitting.jpg', 0),
 		('Typewriter', '' , 'typewriter.jpg', 0);
+

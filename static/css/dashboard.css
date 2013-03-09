@@ -40,10 +40,11 @@ th:last-child {
 	height: 60px;
 	padding: 10px;
 	border-bottom: 2px solid #e7e7e7;
+	cursor: pointer;
 }
 
 .arrow {
-	width: 30px;
+	width: 40px;
 	height: 30px;
 	text-align: center;
 	margin-left: 15px;
@@ -76,6 +77,7 @@ th:last-child {
 	left: 50%;
 	margin: 0 0 0 -165px;
 	background: url('../img/divie-assets.png');
+	cursor: pointer;
 }
 
 .divieBtn:active {
