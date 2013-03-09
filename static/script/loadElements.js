@@ -32,7 +32,7 @@ function loaded()
 	$.ajax({
 		type: "POST",
 		datatype: "json",
-		url: 'http://divie.herokuapp.com/static/auction.html/requestAssets',
+		url: 'http://divie.herokuapp.com/requestAssets',
 		async: false,
 		success: function(data){ 
 			$.each(data, function(i, at){
@@ -62,7 +62,7 @@ function finishAuction()
 		type: "POST",
 		dataType: "text",
 		contentType: "application/json",
-		url: 'http://divie.herokuapp.com/static/auction.html/submitBids',
+		url: 'http://divie.herokuapp.com/submitBids',
 		async: false,
 		data: JSON.stringify(AssetList, jsonReplacer),
 		success: function(msg){ 
