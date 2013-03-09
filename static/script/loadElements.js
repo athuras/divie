@@ -23,7 +23,7 @@ function loaded()
 	$.ajax({
 		type: "POST",
 		datatype: "json",
-		url: 'http://divie.herokuapp.com/static/auction.html/requestAssets',
+		url: 'http://divie.herokuapp.com/requestAssets',
 		async: false,
 		success: function(data){ 
 			$.each(data, function(i, at){

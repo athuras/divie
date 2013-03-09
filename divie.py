@@ -80,7 +80,7 @@ def logout():
     session.pop('userID', None)
     return redirect(url_for('static', filename='login.html'))
 
-@app.route('/static/auction.html/requestAssets', methods=['POST'])
+@app.route('/requestAssets', methods=['POST'])
 def getItems():
     # When auction is loaded request asset list
     if request.method == 'POST':# and request.headers['Content-Type'] == 'application/json':
@@ -89,7 +89,7 @@ def getItems():
         resp = Response(js, status=200, mimetype='application/json')
         return resp
 
-@app.route('/static/auction.html/submitBids', methods=['POST'])
+@app.route('/submitBids', methods=['POST'])
 def saveBids():
     # When user has completed rankings insert into database and return succesful
     if request.method == 'POST':
