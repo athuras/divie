@@ -1,6 +1,14 @@
 #displayTable {
-	top: 6em;
-	margin-bottom: 10%
+	position: relative;
+/*	top: 6em;
+	margin-bottom: 10%*/
+	max-height: 60%;
+	width: 70%;
+	background-color: #fff;
+	border-radius: 10px;
+	top: 18em;
+	left: 15%;
+	margin-bottom: 17em;
 }
 
 .selectBtn {
@@ -20,10 +28,32 @@
 	width: 329px;
 	height: 52px;
 	left: 50%;
+	top: 3em;
 	background: url('../img/submit.png');
 	margin-left: -164.5px;
 }
 
 .finalizeBtn:active {
 	background: url('../img/submit-pressed.png');
+}
+
+.bubble {
+	background-color: rgba(0,0,0,0.6);
+	position: absolute;
+	height: 5em;
+	width: 80%;
+	border-radius: 10px;
+	top: 12em;
+	left: 10%;
+}
+
+.bubbletext {
+	position: relative;
+	color: #fff;
+	text-shadow: #171717 2px 2px 4px;
+	font-size: 14pt;
+	line-height: 32pt;
+	font-weight: 100;
+	left: 2em;
+	width: 95%;
 }
