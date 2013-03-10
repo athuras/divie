@@ -5,6 +5,20 @@
 def main():
     pass
 
+def cost_function(mean_loss, mean_full, var_loss, var_full, imba):
+    '''
+    Used to break ties, hacked together from the following empirical criteria:
+    Higher is better
+
+    Metric      Good things:        Horrible Things
+    mean_loss   Low                 High
+    mean_full   High                Low
+    var_full    meh.                meh  << IN general we want a tighter spread
+    var_loss    LOW                 HIGH
+    '''
+    return (1 - 1.5 * imba) * mean_full - mean_loss - var_loss**0.5
+
+
 def unique_groups(allocs):
     '''Strip out the duplicates in the allocs'''
     # Hash each allocation.
