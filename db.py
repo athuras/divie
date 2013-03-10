@@ -171,7 +171,6 @@ def get_lots(auction_id=1):
     vals = query_template(query, data)
     return vals
 
-
 def user_auc_rel(): #find which users are associated with the current auction
     auction_id = 1
     query = "SELECT agent_id FROM item WHERE auction_id = " + auction_id + ";"
@@ -191,18 +190,6 @@ def get_resultsJSON(userID, auction_id=1):
 
     return vals
 
-def get_results(userID, auction_id=1):
-    query = ("SELECT results.*, item.item_name, item.img_url FROM results INNER JOIN item ON" +
-            " results.item_id = item.item_id AND results.agent_id = %(uID)s AND results.auction_id = %(aucID)s" +
-            " ORDER BY results.auction_id, results.agent_id, results.item_id;")
-    data =  {
-                "uID": int(userID),
-                "aucID": int(auction_id)
-            }
-    vals = query_template(query, data)
-
-    return vals
-
 def get_preferences(auction_id=1):
     query = ("SELECT p.*, agent.agent_name, agent.profile FROM preference as p INNER JOIN agent on" +
             " p.agent_id = agent.agent_id WHERE p.auction_id=%(aucId)s ORDER BY p.agent_id;")
@@ -214,6 +201,15 @@ def get_diviePref(auction_id=1):
     query = "SELECT lot_num FROM auction WHERE auction_id = %(aucID)s;"
     data = {"aucID": auction_id}
     vals = query_template(query, data) # just want the one value in a list
+    return vals
+
+def get_finalDivision(userID, auction_id=1):
+    query = ("SELECT item.item_id, item.item_name, item.img_url from item INNER JOIN results on" +
+            " item.item_id = results.item_id AND results.auction_id=%(aucID)s AND" +
+            " results.agent_id = %(userID)s INNER JOIN auction" +
+            " ON auction.auction_id=%(aucID)s AND results.lot_id = auction.lot_num;")
+    data = {"aucId": auction_id, "userID": userID}
+    vals = query_template_dict(query, data)
     return vals
 
 #--------------------
