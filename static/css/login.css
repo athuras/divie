@@ -16,7 +16,7 @@ color: #608dc9;
 text-decoration: underline;  	
 position: relative;
 text-align: center; 	
-margin: 3em 0 0 0;  	
+margin: 2em 0 0 0;  	
 cursor: pointer;  	
 }
 
@@ -43,7 +43,7 @@ cursor: pointer;
 }
 
 form {
-	margin: 4em 0 0 0;
+	margin: 2em 0 0 0;
 }
 
 .loginContainer {
@@ -55,13 +55,21 @@ form {
 	margin-left: -150px;
 	top: 7.5em;
 	border-radius: 10px;
-	padding: 4em 1em 0 1em;
+	padding: 3em 1em 0 1em;
 	color: #eee;
 	text-align: center;
 }
 
+.textbox{
+	padding: 0.8em;
+	color: #171717;
+	border: none;
+	border-radius: 5px;
+	margin-bottom: 0.6em;
+}
+
 #submitBtn {
-	margin-top: 3em;
+	margin-top: 2em;
 	padding: 1em 8.5em 1em 8.5em;
 	background-color: #61c965;
 	color: #eee;
