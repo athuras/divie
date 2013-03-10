@@ -334,7 +334,7 @@ class Auction(object):
     def multi_resolve(self):
         '''returns a list of (allocations, scores) tuples'''
         # Lambdas necessary as to strip out the weights
-        selectors = [lambda x: self.bb_selector(x)[0],
+        selectors = [#lambda x: self.bb_selector(x)[0],
                      lambda x: self.lmbb_selector(x)[0],
                      lambda x: self.mf_selector(x)[0],
                      self.hybrid_selector]
