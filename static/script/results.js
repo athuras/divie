@@ -61,11 +61,12 @@ $(document).ready(function(){
 			data: JSON.stringify(lotList),
 			async: false,
 			success: function(data){
-				window.location = "http://divie.herokuapp.com/static/myauctions/html";
+				console.log(data);
+				//window.location = "http://divie.herokuapp.com/static/myauctions/html";
 			},
 			error: function(msg){
 				alert("failed to submit preferences. " + msg);
-				console.log(msg)
+				console.log(msg);
 			}
 		})
 	})
