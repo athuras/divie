@@ -144,6 +144,7 @@ def resetAuction():
         resp = Response(js, status=200, mimetype='application/json')
         return resp
 
+#Admin selecting final package. Update auction table and status!
 @app.route('/submitPackage', methods=['POST'])
 def submitPack():
     if request.method == 'POST':
@@ -151,6 +152,7 @@ def submitPack():
         msg = db.save_package(js, auction_id=1)
         return msg
 
+#admin requesting all user prefs to dashboard final
 @app.route('/requestPrefs', methods=['POST'])
 def requestPrefs():
     if request.method == 'POST':
@@ -161,6 +163,7 @@ def requestPrefs():
         resp = Response(js, status=200, mimetype='applicaiton/json')
         return resp
 
+#user submiting prefs from results page
 @app.route('/submitPrefs', methods=['POST'])
 def submitPrefs():
     if request.method == 'POST':

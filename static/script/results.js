@@ -63,8 +63,8 @@ $(document).ready(function(){
 		success: function(data){
 			window.location = "http://divie.herokuapp.com/static/myauctions/html";
 		},
-		error: function(){
-			alert("failed to submit preferences.")
+		error: function(msg){
+			alert("failed to submit preferences. " + msg)
 		}
 	})
 	})
