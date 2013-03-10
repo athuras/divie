@@ -185,11 +185,13 @@ def diviePref():
         pLot = db.get_diviePref(auction_id=1)
         return str(pLot[0][0]) #it's a list of tuple's
 
-@app.rout('/requestFinalDiv', methods=['POST'])
+@app.route('/requestFinalDiv', methods=['POST'])
 def requestFinDiv():
     if request.method == 'POST':
         vals = db.get_finalDivision(escape(session['username']), auction_id=1)
-        return vals
+        js = json.dumps(vals)
+        resp = Response(js, status=200, mimetype='applicaiton/json')
+        return resp
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

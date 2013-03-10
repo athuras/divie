@@ -1,46 +1,44 @@
 // Initialization stuff ------------------------------------------------------------------------------
 
 var ResultList = [];
-ResultList.push(new Result(101, "Sailboat Painting", "img/sailboat.png"));
-ResultList.push(new Result(2, "Car", "img/car.jpg"));
-ResultList.push(new Result(3, "Lamp", "img/sailboat.png"));
-ResultList.push(new Result(4, "Lamp", "img/sailboat.png"));
-ResultList.push(new Result(5, "Lamp", "img/sailboat.png"));
-ResultList.push(new Result(6, "Lamp", "img/sailboat.png"));
-ResultList.push(new Result(1031,"Lamp", "img/sailboat.png"));
-ResultList.push(new Result(23,"Lamp", "img/sailboat.png"));
-ResultList.push(new Result(33,"Lamp", "img/sailboat.png"));
-ResultList.push(new Result(43,"Lamp", "img/sailboat.png"));
-ResultList.push(new Result(53, "Lamp", "img/sailboat.png"));
-ResultList.push(new Result(36,"Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(101, "Sailboat Painting", "img/sailboat.png"));
+// ResultList.push(new Result(2, "Car", "img/car.jpg"));
+// ResultList.push(new Result(3, "Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(4, "Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(5, "Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(6, "Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(1031,"Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(23,"Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(33,"Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(43,"Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(53, "Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(36,"Lamp", "img/sailboat.png"));
 
 
 // Initialization stuff ------------------------------------------------------------------------------
 
 function loaded()
 {
-	// $.ajax({
-	// 	type: "POST",
-	// 	datatype: "json",
-	// 	url: 'http://divie.herokuapp.com/requestResults',
-	// 	async: false,
-	// 	success: function(data){ 
-	// 		$.each(data, function(k, v){
-	// 			ResultList.push(
-	// 				new Result(
-	// 					v.item_id, 
-	// 					v.item_name, 
-	// 					v.img_url,
-	// 					v.value,
-	// 					v.lots
-	// 				)
-	// 			);
-	// 		});
-	// 	},
-	// 	error: function(){
-	// 		alert("failed to load results.")
-	// 	}
-	// })
+	$.ajax({
+		type: "POST",
+		datatype: "json",
+		url: 'http://divie.herokuapp.com/requestFinalDiv',
+		async: false,
+		success: function(data){ 
+			$.each(data, function(k, v){
+				ResultList.push(
+					new Result(
+						v.item_id, 
+						v.item_name, 
+						v.img_url
+					)
+				);
+			});
+		},
+		error: function(){
+			alert("failed to load final result.")
+		}
+	})
 };
 
 $(document).ready(function(){
@@ -81,6 +79,7 @@ function buildResultsTable()
 	newImgCol.setAttribute("scope", "col");
 
 	var newAssetCol = document.createElement("th");
+	newAssetCol.setAttribute("colspan", "2");
 	newAssetCol.setAttribute("scope", "col");
 	newAssetCol.setAttribute("id", "right");
 	var newTitle = document.createTextNode("Your Items!");
