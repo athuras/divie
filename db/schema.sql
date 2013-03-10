@@ -41,9 +41,10 @@ CREATE TABLE bid (
 Implies who is linked to each auction
 */
 DROP TABLE if exists relationship;
-CREATE TABLE relationship (
-	auction_id INT NULL,
-	agent_id INT NULL
+CREATE TABLE agent (
+	agent_id SERIAL NOT NULL,
+	agent_name varchar NOT NULL,
+	profile varchar
 );
 
 /*

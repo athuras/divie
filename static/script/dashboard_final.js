@@ -1,23 +1,50 @@
 UserResults = [];
-UserResults.push(new UserResult(1, "Riley Donelson", "img/riley.jpg", [1,0,1]));
-UserResults.push(new UserResult(2, "Matthew Chong", "img/matt.jpg", [1,1,1]));
-UserResults.push(new UserResult(3, "Brian Sinclair", "img/brian.jpg", [1,0,0]));
-UserResults.push(new UserResult(4, "Scott Neil", "img/scott.jpg", [0,0,1]));
-UserResults.push(new UserResult(5, "Alex Huras", "img/alex.jpg", [1,1,0]));
+// UserResults.push(new UserResult(1, "Riley Donelson", "img/riley.jpg", [1,0,1]));
+// UserResults.push(new UserResult(2, "Matthew Chong", "img/matt.jpg", [1,1,1]));
+// UserResults.push(new UserResult(3, "Brian Sinclair", "img/brian.jpg", [1,0,0]));
+// UserResults.push(new UserResult(4, "Scott Neil", "img/scott.jpg", [0,0,1]));
+// UserResults.push(new UserResult(5, "Alex Huras", "img/alex.jpg", [1,1,0]));
 
-var PREFERRED_DIVISION = 2;
+var PREFERRED_DIVISION = 3;
 var NUM_OF_LOTS = 0;
+var sumOfLots = [];
 
 var lotList = [];
-for (var i = 0; i < NUM_OF_LOTS.length; i++) {
-	lotList.push(false);	
+	
+function loaded()
+{
+	$.ajax({
+		type: "POST",
+		datatype: "json",
+		url: 'http://divie.herokuapp.com/requestPrefs',
+		async: false,
+		success: function(data){ 
+			$.each(data, function(k, v){
+				ResultList.push(
+					new UserResult(
+						v.agent_id, 
+						v.agent_name, 
+						v.profile,
+						v.prefs
+					)
+				);
+			});
+		},
+		error: function(){
+			alert("failed to load preferences.")
+		}
+	})
 };
 
 function getNumOfLots() {
 	if (UserResults.length == 0)
-		alert("Err: No Results");
+		NUM_OF_LOTS = 0;
 	else
 		NUM_OF_LOTS = UserResults[0].results.length;
+	for (var i = 0; i < NUM_OF_LOTS; i++) {
+		lotList.push(false);
+		sumOfLots.push(0);
+	};
 };
 
 function UserResult(userId, name, img, result)
@@ -48,7 +75,6 @@ function loadHeader()
 
 	var width = 227;
 	var widthOfImg = 100;
-	console.log(((width * (NUM_OF_LOTS - PREFERRED_DIVISION))));
 	$(".diviePref").css("right",((width * (NUM_OF_LOTS - PREFERRED_DIVISION)) + (width/2)) - widthOfImg + "px");
 
 	loadResults();	
@@ -84,6 +110,7 @@ function loadResults()
 		
 			if (UserResults[i].results[j] == "1")
 			{
+				sumOfLots[j] += 1;
 				newIcon.setAttribute("class", "icon-checkmark");
 			}
 
@@ -93,6 +120,33 @@ function loadResults()
 
 		body.appendChild(newAssetRow);
 	};
+
+	var newTotalRow = document.createElement("tr");
+	newTotalRow.setAttribute("class", "assetRow");
+
+	for (var i = 0; i < NUM_OF_LOTS+2; i++) {
+
+		var newTd = document.createElement("td");
+
+		if (i != 0)
+		{
+			var newTextNode;
+			if (i == 1)
+			{
+				newTextNode = document.createTextNode("Total");
+			}
+			else
+			{
+				newTextNode = document.createTextNode(sumOfLots[i-2]);
+			}
+			newTd.appendChild(newTextNode);
+		}
+
+		newTotalRow.appendChild(newTd);
+	};
+
+	body.appendChild(newTotalRow);
+
 
 	loadFooter();
 };

@@ -1,6 +1,7 @@
 import db
 import os
 import results
+import prefs
 from flask import Flask
 from flask import json
 from flask import redirect
@@ -119,11 +120,11 @@ def saveBids():
 def divieResults():
     if request.method == 'POST':
         try:
-            status = execute_auction(1)
+            execute_auction(1)
         except Exception as e:
             return "Error: " + str(e)
 
-    return status
+    return "successful"
 
 @app.route('/requestResults', methods=['POST'])
 def popResults():
@@ -150,10 +151,12 @@ def submitPack():
         msg = db.save_package(js, auction_id=1)
         return msg
 
-@app.route('/requestPackages', methods=['POST'])
-def requestPack():
+@app.route('/requestPrefs', methods=['POST'])
+def requestPrefs():
     if request.method == 'POST':
-        res = db.get_packages(auction_id=1)
+        data = db.get_preferences(auction_id=1)
+        lots = db.get_lots(auction_id=1)
+        res = prefs.processPrefs(data, lots)
         js = json.dumps(res)
         resp = Response(js, status=200, mimetype='applicaiton/json')
         return resp

@@ -180,8 +180,8 @@ def user_auc_rel(): #find which users are associated with the current auction
 
 def get_resultsJSON(userID, auction_id=1):
     query = ("SELECT results.*, item.item_name, item.img_url FROM results INNER JOIN item ON" +
-            " results.item_id = item.item_id WHERE results.agent_id = %(uID)s AND results.auction_id = %(aucID)s" +
-            " ORDER BY auction_id, agent_id, item_id;")
+            " results.item_id = item.item_id AND results.agent_id = %(uID)s AND results.auction_id = %(aucID)s" +
+            " ORDER BY results.auction_id, results.agent_id, results.item_id;")
     data =  {
                 "uID": int(userID),
                 "aucID": int(auction_id)
@@ -192,7 +192,7 @@ def get_resultsJSON(userID, auction_id=1):
 
 def get_results(userID, auction_id=1):
     query = ("SELECT results.*, item.item_name, item.img_url FROM results INNER JOIN item ON" +
-            " results.item_id = item.item_id WHERE results.agent_id = %(uID)s AND results.auction_id = %(aucID)s" +
+            " results.item_id = item.item_id AND results.agent_id = %(uID)s AND results.auction_id = %(aucID)s" +
             " ORDER BY results.auction_id, results.agent_id, results.item_id;")
     data =  {
                 "uID": int(userID),
@@ -202,8 +202,9 @@ def get_results(userID, auction_id=1):
 
     return vals
 
-def get_packages(auction_id=1):
-    query = ("SELECT * FROM preferences WHERE auction_id=%(aucId)s")
+def get_preferences(auction_id=1):
+    query = ("SELECT p.*, agent.agent_name FROM preferences as p INNER JOIN agent on p.agent_id = agent.agent_id " +
+            "AND p.auction_id=%(aucId)s ORDER BY p.agent_id;")
     data = {"aucId": auction_id}
     vals = query_template(query, data)
     return vals
