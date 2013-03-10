@@ -68,7 +68,7 @@ function getNumOfLots(resultList) {
 function Result(id, name, img, lots)
 {
 	this.name = name;
-	this.img = img;
+	this.img = 'img/' + img;
 	this.id = id;
 	this.lots = lots;
 	this.max = 0;
