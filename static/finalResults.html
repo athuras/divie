@@ -1,0 +1,48 @@
+<!doctype html>
+
+<html>
+<head>
+	<title>divie | The simple asset divider</title>
+	<link rel='stylesheet' type='text/css' href='css/auction.css'>
+	<link rel='stylesheet' type='text/css' href='css/results.css'>
+	<link rel='stylesheet' type='text/css' href='css/finalResults.css'>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="script/finalResults.js"></script>
+	<link href="css/ui-lightness/jquery-ui-1.10.1.custom.css" rel="stylesheet">
+  	<script src="script/jquery-ui-1.10.1.custom.js"></script>
+  	<script type="text/javascript" src="script/utils.js"></script>
+  	
+</head>
+<body onLoad="loaded(); buildResultsTable();">
+	<div class='header'>
+		<img class='logo' src='img/divie-logo.png'>
+		<div class='links'>
+			<ul>
+				<li style="color: #fff; background-color: #6582b0;" id='myAuctions' id='myAuctions'>
+				My Auctions</li><li>
+				Profile</li><li id='logOut'>
+				Log Out</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class='topText'>
+		<span id='yellow'>Approve</span> all packages you believe to be fair...<br/>
+		and click <span id='green'>Submit</span> to finalize your choices!
+	</div>
+		<table id="displayTable">
+			<thead>
+				<tr class='head' id='head'>
+				</tr>
+			</thead>
+			<tbody id='body'>
+			</tbody>
+			<tfoot id='foot'>
+	<!-- 			<tr>
+				</tr> -->
+			</tfoot>
+		</table>
+
+		<div class='submitBtn'></div>
+</body>
+</html>
