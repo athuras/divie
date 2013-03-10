@@ -54,12 +54,25 @@ html {
 }
 
 .statusBox {
-	background-color: #3ccb57;
+/*	background-color: #3ccb57;*/
 	height: 100%;
 	width: 100px;
 	position: relative;
 	float: left;
 	pointer-events:none;
+}
+
+#active.statusBox
+{
+	background-color: #3ccb57;
+}
+
+#allocComplete.statusBox{
+	background-color: #f9c620;;
+}
+
+#auctionComplete.statusBox{
+	background-color: #365d98;
 }
 
 .statusText {
