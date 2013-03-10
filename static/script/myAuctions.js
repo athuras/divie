@@ -67,7 +67,9 @@ function loadAuctions()
 		var newStartDate = document.createElement("div");
 		newStartDate.setAttribute("class", "date");
 		newStartDate.setAttribute("id", "start");
-		var newStartDateValue = document.createTextNode("Starts: " + AuctionList[i].startDate);
+		String starting = AuctionList[i].startDate
+		var sdate = starting.substring(0,24);
+		var newStartDateValue = document.createTextNode("Starts: " + sdate);
 		newStartDate.appendChild(newStartDateValue);
 
 		var newEndDate = document.createElement("div");
