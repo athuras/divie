@@ -137,6 +137,21 @@ def resetAuction():
         resp = Response(js, status=200, mimetype='application/json')
         return resp
 
+@app.route('/submitPackage', methods=['POST'])
+def submitPack():
+    if request.method == 'POST':
+        js = request.json
+        msg = db.save_package(js, auction_id=1)
+        return msg
+
+@app.route('/requestPackages', methods=['POST'])
+def requestPack():
+    if request.method == 'POST':
+        res = db.get_packages(auction_id=1)
+        js = json.dumps(res)
+        resp = Response(js, status=200, mimetype='applicaiton/json')
+        return resp
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
