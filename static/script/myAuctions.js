@@ -194,8 +194,7 @@ function bindRedirections(){
 			else if (Auction.status == Status.AllocComplete.value)
 				window.location = 'http://divie.herokuapp.com/static/results.html';
 			else if (Auction.status == Status.AuctionComplete.value)
-				// Is this right or will there be another results page?
-				window.location = 'http://divie.herokuapp.com/static/results.html';
+				window.location = 'http://divie.herokuapp.com/static/finalResults.html';
 		}
 	})	
 };

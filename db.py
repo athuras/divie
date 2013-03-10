@@ -204,10 +204,10 @@ def get_diviePref(auction_id=1):
     return vals
 
 def get_finalDivision(userID, auction_id=1):
-    query = ("SELECT item.item_id, item.item_name, item.img_url from item INNER JOIN results on" +
-            " item.item_id = results.item_id AND results.auction_id=%(aucID)s AND" +
-            " results.agent_id = %(userID)s INNER JOIN auction" +
-            " ON auction.auction_id=%(aucID)s AND results.lot_id = auction.lot_num;")
+    query = ("SELECT item.item_id, item.item_name, item.img_url from results INNER JOIN auction on" +
+            " results.lot_id = auction.lot_num AND results.auction_id=auction.auction_id AND" +
+            " results.auction_id=%(aucID)s AND results.agent_id=%(userID)s INNER JOIN item ON" +
+            " item.item_id=results.item_id;")
     data = {"aucId": auction_id, "userID": userID}
     vals = query_template_dict(query, data)
     return vals
