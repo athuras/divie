@@ -111,7 +111,7 @@ function loadAuctions()
 			var newStatusText = document.createElement("div");
 			newStatusText.setAttribute("class", "statusText");
 
-			if(AuctionList[i].agent_id == AuctionList[i].exec_id)
+			if(AuctionList[i].userId == AuctionList[i].execId)
 				statLbl = Status.AllocComplete.txtExec;
 			else
 				statLbl = Status.AllocComplete.txt
@@ -137,7 +137,7 @@ function loadAuctions()
 			var newStatusText = document.createElement("div");
 			newStatusText.setAttribute("class", "statusText");
 
-			if(AuctionList[i].agent_id == AuctionList[i].exec_id)
+			if(AuctionList[i].agentId == AuctionList[i].execId)
 				statLbl = Status.AuctionComplete.txtExec;
 			else
 				statLbl = Status.AuctionComplete.txt
@@ -203,8 +203,8 @@ function Auction(id, userId, execId, name, desc, startDate, endDate, status){
 	this.execId = execId;
 	this.name = name;
 	this.description = desc;
-	this.startDate = Date(startDate).toString("dddd, MMMM, yyyy");
-	this.endDate = Date(endDate).toString("dddd, MMMM, yyyy");
+	this.startDate = Date(startDate)
+	this.endDate = Date(endDate)
 	this.status = status;
 };
 

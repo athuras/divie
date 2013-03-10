@@ -64,6 +64,8 @@ def query_DelIns(query, args=()):
         cur.close()
         conn.close()
 
+    return "successful"
+
 def query_template(query, args=(), **kwargs):
     many = False
     if 'many' in kwargs:
@@ -120,7 +122,7 @@ def get_items(): #gets item list, description, image url and value
 
 def get_auctionsJSON(userID):
     query = "SELECT *, %(uID)s as agent_id FROM auction;"
-    data =  {"uID": userID}
+    data =  {"uID": int(userID)}
     vals = query_template_dict(query, data)
     return vals
 
