@@ -14,12 +14,21 @@ var AssetList = [];
 
 var init = true;
 var MAX_BUDGET_VALUE = 100;
+ 
+// creates a restricted set to be returned in stringification process
+function jsonReplacer(key, value)
+{
+	if(key=="img") return undefined;
+	else if(key=="description") return undefined;
+	else if(key=="name") return undefined;
+	else return value;
+};
 
 //this loads assets from server
 function loaded()
 {
 	currBudget = MAX_BUDGET_VALUE;
-	
+
 	$.ajax({
 		type: "POST",
 		datatype: "json",
@@ -51,15 +60,17 @@ function finishAuction()
 {
 	$.ajax({
 		type: "POST",
-		datatype: "json",
-		url: 'http://divie.herokuapp.com/static/auction.html/submitBids',
+		dataType: "text",
+		contentType: "application/json",
+		url: 'http://divie.herokuapp.com/submitBids',
 		async: false,
-		data: AssetList,
+		data: JSON.stringify(AssetList, jsonReplacer),
 		success: function(msg){ 
 				alert(msg)
 		},
-		error: function(){
-			alert("failed to load assets.")
+		error: function(msg){
+			alert("Error! " + msg)
+			console.log(msg)
 		}
 	})
 };
@@ -105,7 +116,7 @@ function addAssets()
 			var assignTextValue = document.createTextNode("Assign a Value");
 			newAssignText.appendChild(assignTextValue);
 		}
-		
+
 		//var valueBarValue = document.createTextNode(AssetList[i].rank); 
 
 		newAssetSpan.appendChild(spanValue);
@@ -378,15 +389,7 @@ function adjustBudget(idTag)
 	currBudget = parseInt(tempBudget) - parseInt(runningSum);
 	remBudget.innerHTML = "Remaining Budget:  " + '<img src = "img/heart-white.png"/> ' + currBudget;
 	document.getElementById("slider-remaining").innerHTML = '<img src = "img/heart-red.png"/> ' + getRemainingBudget() + '<br> remaining';
-	if (document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[1].style.width == 0 + "%")
-	{
-		document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[2].style.width = 8 + "%";
-	}
-	else
-	{
-		document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[2].style.width = (parseInt(AssetList[findArrLoc(idTag)].rank) / MAX_BUDGET_VALUE * 100) + 11  + "%";
-	}
-	
+	document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[2].style.width = (parseInt(AssetList[findArrLoc(idTag)].rank) / MAX_BUDGET_VALUE * 100) + 11  + "%";
 	document.getElementById(AssetList[findArrLoc(idTag)].id).childNodes[2].innerHTML = '<img src = "img/heart-red.png"/> ' + AssetList[findArrLoc(idTag)].rank;
 
 	if (currBudget == 0)
@@ -434,6 +437,3 @@ function findArrLoc(idTag)
 		}
 	}
 };
-
-
-
