@@ -1,6 +1,6 @@
 var AuctionList = [];
-// AuctionList.push(new Auction(1, 1, "Grandma's Belongings", "Splittin her shit up", "February 23, 2013", "March 15, 2013", "active"));
-// AuctionList.push(new Auction(1, 1, "Uncle Ken's Shit Needs Divie", "Splittin her shit up", "April 23, 2013", "April 30, 2013"));
+// AuctionList.push(new Auction(1, 1, 1,  "Grandma's Belongings", "Splittin her shit up", "February 23, 2013", "March 15, 2013", 3));
+// AuctionList.push(new Auction(1, 1, 2, "Uncle Ken's Shit Needs Divie", "Splittin her shit up", "April 23, 2013", "April 30, 2013", 3));
 
 var Status = {
 	Inactive : {value: 0, txt: "Inactive.", txtExec: "Inactive."},
@@ -89,6 +89,7 @@ function loadAuctions()
 		{
 			var newActive = document.createElement("div");
 			newActive.setAttribute("class", "statusBox");
+			newActive.setAttribute("id", "active");
 
 			var newStatusText = document.createElement("div");
 			newStatusText.setAttribute("class", "statusText");
@@ -110,6 +111,7 @@ function loadAuctions()
 		{
 			var newActive = document.createElement("div");
 			newActive.setAttribute("class", "statusBox");
+			newActive.setAttribute("id", "allocComplete");
 
 			var newStatusText = document.createElement("div");
 			newStatusText.setAttribute("class", "statusText");
@@ -136,6 +138,7 @@ function loadAuctions()
 		{
 			var newActive = document.createElement("div");
 			newActive.setAttribute("class", "statusBox");
+			newActive.setAttribute("id", "auctionComplete");
 
 			var newStatusText = document.createElement("div");
 			newStatusText.setAttribute("class", "statusText");
@@ -194,8 +197,7 @@ function bindRedirections(){
 			else if (Auction.status == Status.AllocComplete.value)
 				window.location = 'http://divie.herokuapp.com/static/results.html';
 			else if (Auction.status == Status.AuctionComplete.value)
-				// Is this right or will there be another results page?
-				window.location = 'http://divie.herokuapp.com/static/results.html';
+				window.location = 'http://divie.herokuapp.com/static/finalResults.html';
 		}
 	})	
 };

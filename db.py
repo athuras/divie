@@ -171,7 +171,6 @@ def get_lots(auction_id=1):
     vals = query_template(query, data)
     return vals
 
-
 def user_auc_rel(): #find which users are associated with the current auction
     auction_id = 1
     query = "SELECT agent_id FROM item WHERE auction_id = " + auction_id + ";"
@@ -179,8 +178,9 @@ def user_auc_rel(): #find which users are associated with the current auction
     return str(vals)
 
 def get_resultsJSON(userID, auction_id=1):
-    query = ("SELECT results.*, item.item_name, item.img_url FROM results INNER JOIN item ON" +
+    query = ("SELECT results.*, item.item_name, item.img_url, bid.value FROM results INNER JOIN item ON" +
             " results.item_id = item.item_id AND results.agent_id = %(uID)s AND results.auction_id = %(aucID)s" +
+            " INNER JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = %(uID)s AND bid.auction_id = %(aucID)s"
             " ORDER BY results.auction_id, results.agent_id, results.item_id;")
     data =  {
                 "uID": int(userID),
@@ -190,23 +190,26 @@ def get_resultsJSON(userID, auction_id=1):
 
     return vals
 
-def get_results(userID, auction_id=1):
-    query = ("SELECT results.*, item.item_name, item.img_url FROM results INNER JOIN item ON" +
-            " results.item_id = item.item_id AND results.agent_id = %(uID)s AND results.auction_id = %(aucID)s" +
-            " ORDER BY results.auction_id, results.agent_id, results.item_id;")
-    data =  {
-                "uID": int(userID),
-                "aucID": int(auction_id)
-            }
-    vals = query_template(query, data)
-
+def get_preferences(auction_id=1):
+    query = ("SELECT p.*, agent.agent_name, agent.profile FROM preference as p INNER JOIN agent on" +
+            " p.agent_id = agent.agent_id WHERE p.auction_id=%(aucId)s ORDER BY p.agent_id;")
+    data = {"aucId": auction_id}
+    vals = query_template_dict(query, data)
     return vals
 
-def get_preferences(auction_id=1):
-    query = ("SELECT p.*, agent.agent_name FROM preferences as p INNER JOIN agent on p.agent_id = agent.agent_id " +
-            "AND p.auction_id=%(aucId)s ORDER BY p.agent_id;")
-    data = {"aucId": auction_id}
-    vals = query_template(query, data)
+def get_diviePref(auction_id=1):
+    query = "SELECT lot_num FROM auction WHERE auction_id = %(aucID)s;"
+    data = {"aucID": auction_id}
+    vals = query_template(query, data) # just want the one value in a list
+    return vals
+
+def get_finalDivision(userID, auction_id=1):
+    query = ("SELECT item.item_id, item.item_name, item.img_url from results INNER JOIN auction ON" +
+            " results.lot_id = auction.lot_num AND results.auction_id=auction.auction_id AND" +
+            " results.auction_id=%(aucID)s AND results.agent_id=%(userID)s INNER JOIN item ON" +
+            " item.item_id=results.item_id;")
+    data = {"aucID": auction_id, "userID": userID}
+    vals = query_template_dict(query, data)
     return vals
 
 #--------------------
@@ -245,9 +248,11 @@ def save_Bids(bids, userID, auction_id=1):
 
     return "Delete: " + msg1 + " || Insert: " + msg2 + " || Relationship: " + msg3
 
-def save_package(lot, auction_id=1):
-    query = ("UPDATE auction SET lot_num = %(lotId)s WHERE auction_id = %(aucId)s;")
-    data = {"lotId": lot, "aucId": auction_id}
+def save_package(lots, auction_id=1):
+    index = [i for i, x in enumerate(lots) if x == True]
+
+    query = ("UPDATE auction SET lot_num = %(lotId)s, active = 3 WHERE auction_id = %(aucId)s;")
+    data = {"lotId": index[0], "aucId": auction_id}
     msg = query_DelIns(query, data)
     return msg
 
@@ -271,6 +276,16 @@ def save_results(results, userID, auction_id=1):
                      "lot": r['lot']})
         query_DelIns(query)
     return "Inserted"
+
+def save_prefs(prefs, userID, auction_id=1):
+    indicies = [i for i, x in enumerate(prefs) if x == True]
+
+    query = ("INSERT INTO preference (auction_id, agent_id, lot_id) VALUES (%(aucID)s, %(aID)s, %(lID)s);")
+    data = [{"aucID": int(auction_id), "aID": int(userID), "lID": p} for p in indicies]
+    status = query_DelIns(query, data, many=True)
+
+    return status
+
 
 def save_results_test(): #this works
     list_ = (1,1,1,1)

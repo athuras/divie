@@ -61,8 +61,16 @@ def execute_auction(auction_id):
         status2 = db.query_DelIns("INSERT INTO performance (auction_id, lot_id, loss_mean, loss_var, full_mean, full_var, imba) " +
                                     "VALUES (%(auction_id)s, %(lot_id)s, %(loss_mean)s, %(loss_var)s, %(full_mean)s, %(full_var)s, %(imba)s)",
                                     perf, many=True)
-        db.query_DelIns("UPDATE auction SET active = 2 WHERE auction_id = %(auction_id)s",
-                          {"auction_id": auction_id})
+
+        # get the motherfucking system preference
+        # mean_loss, mean_full, var_loss, var_full, imba. all up in this bitch.
+        ps = [(z, AUC.objective_function(i[0][0], i[1][0], i[0][1], i[1][1], i[2]))
+                for z, i in enumerate(res)]
+        pid = max(ps, key=lambda x: x[1])[0]
+
+        db.query_DelIns("UPDATE auction SET active = 2, lot_num = %(lot_id)s WHERE auction_id = %(auction_id)s",
+                {"auction_id": auction_id, "lot_id": pid})
+
         return status1, status2
 
     if check_if_complete(auction_id) == [(2,)]:
@@ -144,13 +152,15 @@ def resetAuction():
         resp = Response(js, status=200, mimetype='application/json')
         return resp
 
+#Admin selecting final package. Update auction table and status!
 @app.route('/submitPackage', methods=['POST'])
 def submitPack():
     if request.method == 'POST':
         js = request.json
-        msg = db.save_package(js, auction_id=1)
-        return msg
+        status = db.save_package(js, auction_id=1)
+        return status
 
+#admin requesting all user prefs to dashboard final
 @app.route('/requestPrefs', methods=['POST'])
 def requestPrefs():
     if request.method == 'POST':
@@ -158,6 +168,28 @@ def requestPrefs():
         lots = db.get_lots(auction_id=1)
         res = prefs.processPrefs(data, lots)
         js = json.dumps(res)
+        resp = Response(js, status=200, mimetype='applicaiton/json')
+        return resp
+
+#user submiting prefs from results page
+@app.route('/submitPrefs', methods=['POST'])
+def submitPrefs():
+    if request.method == 'POST':
+        data = request.json
+        status = db.save_prefs(data, escape(session['username']), auction_id=1)
+        return status
+
+@app.route('/requestDiviePref', methods=['POST'])
+def diviePref():
+    if request.method == 'POST':
+        pLot = db.get_diviePref(auction_id=1)
+        return str(pLot[0][0]) #it's a list of tuple's
+
+@app.route('/requestFinalDiv', methods=['POST'])
+def requestFinDiv():
+    if request.method == 'POST':
+        vals = db.get_finalDivision(escape(session['username']), auction_id=1)
+        js = json.dumps(vals)
         resp = Response(js, status=200, mimetype='applicaiton/json')
         return resp
 
