@@ -39,12 +39,13 @@
 
 .bubble {
 	background-color: rgba(0,0,0,0.6);
-	position: absolute;
+	position: relative;
 	height: 5em;
 	width: 80%;
 	border-radius: 10px;
-	top: 12em;
 	left: 10%;
+	right: 10%;
+	display: inline-block;
 }
 
 .bubbletext {
@@ -56,4 +57,13 @@
 	font-weight: 100;
 	left: 2em;
 	width: 95%;
+}
+
+.wrapper {
+	position: absolute;
+	top: 4em;
+	width: 90%;
+	height: 15em;
+	left: 5%;
+
 }
