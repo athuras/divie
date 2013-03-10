@@ -16,6 +16,7 @@ def processResults(iterable, aucLots, auction_id=1):
 						'item_id': row['item_id'],
 						'img_url': row['img_url'],
 						'item_name': row['item_name'],
+						'value': row['value'],
 						'lots': lotres
 					}
 		return without_lot
