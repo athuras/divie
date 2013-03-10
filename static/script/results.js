@@ -54,19 +54,20 @@ function loaded()
 $(document).ready(function(){
 	$('.submitBtn').click(function(){
 		$.ajax({
-		type: "POST",
-		datatype: "text",
-		contentType: "application/json",
-		url: 'http://divie.herokuapp.com/submitPrefs',
-		data: JSON.stringify(lotList),
-		async: false,
-		success: function(data){
-			window.location = "http://divie.herokuapp.com/static/myauctions/html";
-		},
-		error: function(msg){
-			alert("failed to submit preferences. " + msg)
-		}
-	})
+			type: "POST",
+			datatype: "text",
+			contentType: "application/json",
+			url: 'http://divie.herokuapp.com/submitPrefs',
+			data: JSON.stringify(lotList),
+			async: false,
+			success: function(data){
+				window.location = "http://divie.herokuapp.com/static/myauctions/html";
+			},
+			error: function(msg){
+				alert("failed to submit preferences. " + msg);
+				console.log(msg)
+			}
+		})
 	})
 });
 
