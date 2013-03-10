@@ -19,7 +19,7 @@ def execute_auction(auction_id):
     '''Executes the Auction, writes results to the db'''
     def check_if_complete(auction_id):
         '''Checks if auction_status is not 2'''
-        res = db.query_template("SELECT active from auction where auction_id = %i", auction_id)
+        res = db.query_template("SELECT active from auction where auction_id = %s", (auction_id,))
         return res
 
     def get_agent_info(auction_id):
