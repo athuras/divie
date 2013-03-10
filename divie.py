@@ -17,6 +17,11 @@ app.secret_key = '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1
 
 def execute_auction(auction_id):
     '''Executes the Auction, writes results to the db'''
+    def check_if_complete(auction_id):
+        '''Checks if auction_status is not 2'''
+        res = db.query_template("SELECT active from auction where auction_id = %i", auction_id)
+        return res
+
     def get_agent_info(auction_id):
         '''Returns {agent_id: [(item_id, bid_value)]} for agents in auction_id'''
         res = db.query_template("SELECT item_id, agent_id, value from bid where auction_id = %(a_id)s", {'a_id': auction_id})
@@ -58,6 +63,9 @@ def execute_auction(auction_id):
         db.query_DelIns("UPDATE auction SET active = 2 WHERE auction_id = %(auction_id)s",
                           {"auction_id": auction_id})
         return status1, status2
+
+    if check_if_complete(auction_id) == [(2,)]:
+        return "AUCTION IS ALREADY COMPLETE"
 
     agents = [AUC.Agent(k, v) for k, v in get_agent_info(auction_id).iteritems()]
     Auction = AUC.Auction(auction_id, agents)
