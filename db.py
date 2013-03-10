@@ -206,7 +206,7 @@ def get_preferences(auction_id=1):
     query = ("SELECT p.*, agent.agent_name FROM preferences as p INNER JOIN agent on p.agent_id = agent.agent_id " +
             "AND p.auction_id=%(aucId)s ORDER BY p.agent_id;")
     data = {"aucId": auction_id}
-    vals = query_template(query, data)
+    vals = query_template_dict(query, data)
     return vals
 
 #--------------------

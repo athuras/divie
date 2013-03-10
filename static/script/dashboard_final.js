@@ -51,7 +51,7 @@ function UserResult(userId, name, img, result)
 {
 	this.id = userId;
 	this.name = name;
-	this.img = img;
+	this.img = 'img/' + img;
 	this.results = result;
 };
 
