@@ -79,6 +79,7 @@ function buildResultsTable()
 	newImgCol.setAttribute("scope", "col");
 
 	var newAssetCol = document.createElement("th");
+	newAssetCol.setAttribute("colspan", "2");
 	newAssetCol.setAttribute("scope", "col");
 	newAssetCol.setAttribute("id", "right");
 	var newTitle = document.createTextNode("Your Items!");
