@@ -50,12 +50,19 @@ def db_test():
     return 'SUCCESS!:\n' + str(vals)
 
 
-def query_DelIns(query, args=()):
+def query_DelIns(query, args=(), **kwargs):
+    many = False
+    if 'many' in kwargs:
+        many = kwargs['many']
+
     conn = None
     try:
         conn = connect_db()
         cur = conn.cursor()
-        cur.execute(query, args)
+        if many:
+            cur.executemany(query, args)
+        else:
+            cur.execute(query, args)
         conn.commit()
     except psycopg2.Error as e:
         return 'DB Error: ' + str(e)
