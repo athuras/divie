@@ -189,7 +189,9 @@ def diviePref():
 def requestFinDiv():
     if request.method == 'POST':
         vals = db.get_finalDivision(escape(session['username']), auction_id=1)
-        return vals
+        js = json.dumps(vals)
+        resp = Response(js, status=200, mimetype='applicaiton/json')
+        return resp
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

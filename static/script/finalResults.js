@@ -36,7 +36,7 @@ function loaded()
 			});
 		},
 		error: function(){
-			alert("failed to load results.")
+			alert("failed to load final result.")
 		}
 	})
 };
