@@ -5,7 +5,7 @@
 def main():
     pass
 
-def cost_function(mean_loss, mean_full, var_loss, var_full, imba):
+def objective_function(mean_loss, mean_full, var_loss, var_full, imba):
     '''
     Used to break ties, hacked together from the following empirical criteria:
     Higher is better
