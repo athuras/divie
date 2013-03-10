@@ -149,8 +149,8 @@ def resetAuction():
 def submitPack():
     if request.method == 'POST':
         js = request.json
-        msg = db.save_package(js, auction_id=1)
-        return msg
+        status = db.save_package(js, auction_id=1)
+        return status
 
 #admin requesting all user prefs to dashboard final
 @app.route('/requestPrefs', methods=['POST'])

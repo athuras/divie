@@ -36,6 +36,26 @@ function loaded()
 	})
 };
 
+$(document).ready(function(){
+	$('.finalizeBtn').click(function(){
+		$.ajax({
+			type: "POST",
+			datatype: "text",
+			contentType: "application/json",
+			url: 'http://divie.herokuapp.com/submitPackage',
+			data: JSON.stringify(lotList),
+			async: false,
+			success: function(data){
+				window.location = "http://divie.herokuapp.com/static/myauctions.html";
+			},
+			error: function(msg){
+				alert("failed to submit package. " + msg);
+				console.log(msg);
+			}
+		})
+	})
+});
+
 function getNumOfLots() {
 	if (UserResults.length == 0)
 		NUM_OF_LOTS = 0;
@@ -202,9 +222,3 @@ function approve(id){
 		};
 		
 };
-
-$(document).ready(function(){
-	$('.finalizeBtn').click(function(){
-		// take me somewhere
-	})
-});

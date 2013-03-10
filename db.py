@@ -245,9 +245,11 @@ def save_Bids(bids, userID, auction_id=1):
 
     return "Delete: " + msg1 + " || Insert: " + msg2 + " || Relationship: " + msg3
 
-def save_package(lot, auction_id=1):
+def save_package(lots, auction_id=1):
+    index = [i for i, x in enumerate(lots) if x == True]
+
     query = ("UPDATE auction SET lot_num = %(lotId)s, active = 3 WHERE auction_id = %(aucId)s;")
-    data = {"lotId": lot, "aucId": auction_id}
+    data = {"lotId": index[0], "aucId": auction_id}
     msg = query_DelIns(query, data)
     return msg
 
