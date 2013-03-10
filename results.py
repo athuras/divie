@@ -24,20 +24,23 @@ def processResults(iterable, aucLots, auction_id=1):
 	results = []
 	aux = []
 	prev = None
+	prevK = None
 	for row in iterable:
 		key = (row['auction_id'], row['agent_id'], row['item_id'])
 		lot = row['lot_id']
-		if prev is not None and key == prev:
-			aux.append(lot)
-		else:
-			results.append(addRes(row, aux, aucLots))
+
+		if prev is not None and key != prevK:
+			results.append(addRes(prev, aux, aucLots))
 			aux = []
-		prev = key
-	if prev is not None and prev != key:
+			
+		aux.append(lot)
+		prev = row
+		prevK = key
+
+	if prev is not None and key == prevK:
 		results.append(addRes(row, aux, aucLots))
 
 	return results
-
 
 # testvals = [{'auction_id': 1, 
 # 		'agent_id': 1, 
@@ -53,7 +56,32 @@ def processResults(iterable, aucLots, auction_id=1):
 # 		'lot_id': 2},
 # 		{'auction_id': 1, 
 # 		'agent_id': 1, 
+# 		'item_id': 3, 
+# 		'img_url': '11', 
+# 		'item_name': "thing1", 
+# 		'lot_id': 3},
+# 		{'auction_id': 1, 
+# 		'agent_id': 2, 
 # 		'item_id': 1, 
 # 		'img_url': '11', 
 # 		'item_name': "thing1", 
-# 		'lot_id': 3}]
+# 		'lot_id': 2},
+# 		{'auction_id': 1, 
+# 		'agent_id': 2, 
+# 		'item_id': 1, 
+# 		'img_url': '11', 
+# 		'item_name': "thing1", 
+# 		'lot_id': 3},
+# 		{'auction_id': 1, 
+# 		'agent_id': 3, 
+# 		'item_id': 1, 
+# 		'img_url': '11', 
+# 		'item_name': "thing1", 
+# 		'lot_id': 3},{'auction_id': 1, 
+# 		'agent_id': 3, 
+# 		'item_id': 2, 
+# 		'img_url': '11', 
+# 		'item_name': "thing1", 
+# 		'lot_id': 1}]
+
+# print processResults(testvals, [1,2,3])
