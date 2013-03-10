@@ -50,12 +50,19 @@ def db_test():
     return 'SUCCESS!:\n' + str(vals)
 
 
-def query_DelIns(query, args=()):
+def query_DelIns(query, args=(), **kwargs):
+    many = False
+    if 'many' in kwargs:
+        many = kwargs['many']
+
     conn = None
     try:
         conn = connect_db()
         cur = conn.cursor()
-        cur.execute(query, args)
+        if many:
+            cur.executemany(query, args)
+        else:
+            cur.execute(query, args)
         conn.commit()
     except psycopg2.Error as e:
         return 'DB Error: ' + str(e)
@@ -195,6 +202,12 @@ def get_results(userID, auction_id=1):
 
     return vals
 
+def get_packages(auction_id=1):
+    query = ("SELECT * FROM preferences WHERE auction_id=%(aucId)s")
+    data = {"aucId": auction_id}
+    vals = query_template(query, data)
+    return vals
+
 #--------------------
 # SAVING and RESET QUERIES
 #--------------------
@@ -231,14 +244,21 @@ def save_Bids(bids, userID, auction_id=1):
 
     return "Delete: " + msg1 + " || Insert: " + msg2 + " || Relationship: " + msg3
 
+def save_package(lot, auction_id=1):
+    query = ("UPDATE auction SET lot_num = %(lotId)s WHERE auction_id = %(aucId)s;")
+    data = {"lotId": lot, "aucId": auction_id}
+    msg = query_DelIns(query, data)
+    return msg
+
 def reload_bids(auction_id=1):
     query = ("TRUNCATE TABLE bid RESTART IDENTITY CASCADE;")
     query_template(query)
     query =  ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time)" +
                 "SELECT auction_id, item_id, agent_id, value, bid_time" +
                 "FROM bid_base " +
-                "WHERE auction_id = auction;")
-    query_template(query)
+                "WHERE auction_id = %(aucID)s;")
+    data = {"aucID": auction_id}
+    query_DelIns(query, data)
 
 def save_results(results, userID, auction_id=1):
     for r in results:
@@ -248,7 +268,7 @@ def save_results(results, userID, auction_id=1):
                      "itemID": r['id'],
                      "uID": userID,
                      "lot": r['lot']})
-        query_template(query)
+        query_DelIns(query)
     return "Inserted"
 
 def save_results_test(): #this works
@@ -258,17 +278,17 @@ def save_results_test(): #this works
 #             "uID": 1,
 #             "lot": 1})
     query = ("INSERT INTO results (auction_id, item_id, agent_id, lot_id) VALUES (%s, %s, %s, %s);")
-    query_template(query, list_)
+    query_DelIns(query, list_)
     return "success"
 
 def clear_results(auction_id=1):
     query = ("TRUNCATE TABLE results;")
-    query_template(query)
+    query_DelIns(query)
 
 def reset_auction(auction_id=1):
     query = ("UPDATE auction SET lot_num = DEFAULT WHERE auction_id = %(aucId)s;")
     data = {"aucId": auction_id}
-    query_template(query, data)
+    query_DelIns(query, data)
 
     clear_results(auction_id)
     reload_bids(auction_id)

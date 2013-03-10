@@ -19,10 +19,10 @@ def execute_auction(auction_id):
     '''Executes the Auction, writes results to the db'''
     def get_agent_info(auction_id):
         '''Returns {agent_id: [(item_id, bid_value)]} for agents in auction_id'''
-        res = db.query_template("SELECT item_id, agent_id, value from bid where auction_id = %(a_id)s", {'a_id': auction_id}, many=True)
+        res = db.query_template("SELECT item_id, agent_id, value from bid where auction_id = %(a_id)s", {'a_id': auction_id})
         master = defaultdict(lambda: [])
         for record in res:
-            i_id, a_id, v = res
+            i_id, a_id, v = record
             master[a_id].append((i_id, v))
         return master
 
@@ -45,23 +45,21 @@ def execute_auction(auction_id):
         perf = []
         for i, results in enumerate(res):
             allocs, metrics = results[0], results[1]
-            for sub_record in allocs:
-                item, agent = sub_record
+            perf.append(perf_record_factory(metrics, i))
+            for item, agent in allocs.iteritems():
                 master.append(alloc_record_factory(item, agent, i))
-            for m_tuple in metrics:  # Hardcoded like a BAWS
-                perf.append(perf_record_factory(m_tuple, i))
 
-        status1 = db.query_template("INSERT INTO results (auction_id, item_id, agent_id, lot_id) " +
-                                    "VALUES (%(auction_id)s, %(item_id)s, %(agent_id)s, %(lot_id)s);",
+        status1 = db.query_DelIns("INSERT INTO results (auction_id, item_id, agent_id, lot_id) " +
+                                    "VALUES (%(auction_id)s, %(item_id)s, %(agent_id)s, %(lot_id)s)",
                                     master, many=True)
-        status2 = db.query_template("INSERT INTO performance (auction_id, lot_id, loss_mean, loss_var, full_mean, full_var, imba) " +
-                                    "VALUES (%(auction_id)s, %(lot_id)s, %(loss_mean)s, %(loss_var)s, %(full_mean)s, %(full_var)s, %(var)s)",
+        status2 = db.query_DelIns("INSERT INTO performance (auction_id, lot_id, loss_mean, loss_var, full_mean, full_var, imba) " +
+                                    "VALUES (%(auction_id)s, %(lot_id)s, %(loss_mean)s, %(loss_var)s, %(full_mean)s, %(full_var)s, %(imba)s)",
                                     perf, many=True)
-        db.query_template("UPDATE auction SET active = 2 WHERE auction_id = %(auction_id)s;",
+        db.query_DelIns("UPDATE auction SET active = 2 WHERE auction_id = %(auction_id)s",
                           {"auction_id": auction_id})
         return status1, status2
 
-    agents = [AUC.Agent(k, v) for k, v in get_agent_info().iteritems()]
+    agents = [AUC.Agent(k, v) for k, v in get_agent_info(auction_id).iteritems()]
     Auction = AUC.Auction(auction_id, agents)
     resolution = Auction.multi_resolve()
     resolution = AUC.attempt_filter_imba(resolution)
@@ -135,6 +133,21 @@ def resetAuction():
         res = db.reset_auction(auction_id=1)
         js = json.dumps(res)
         resp = Response(js, status=200, mimetype='application/json')
+        return resp
+
+@app.route('/submitPackage', methods=['POST'])
+def submitPack():
+    if request.method == 'POST':
+        js = request.json
+        msg = db.save_package(js, auction_id=1)
+        return msg
+
+@app.route('/requestPackages', methods=['POST'])
+def requestPack():
+    if request.method == 'POST':
+        res = db.get_packages(auction_id=1)
+        js = json.dumps(res)
+        resp = Response(js, status=200, mimetype='applicaiton/json')
         return resp
 
 if __name__ == '__main__':
