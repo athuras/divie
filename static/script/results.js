@@ -1,18 +1,18 @@
 // Initialization stuff ------------------------------------------------------------------------------
 
 var ResultList = [];
-// ResultList.push(new Result(101, "Sailboat Painting", "img/sailboat.png", 30, [0,1,1]));
-// ResultList.push(new Result(2, "Car", "img/car.jpg", 25, [1,1,1]));
-// ResultList.push(new Result(3, "Lamp", "img/sailboat.png", 22, [0,1,1]));
-// ResultList.push(new Result(4, "Lamp", "img/sailboat.png",21, [0,0,0]));
-// ResultList.push(new Result(5, "Lamp", "img/sailboat.png", 10, [0,1,0]));
-// ResultList.push(new Result(6, "Lamp", "img/sailboat.png", 8, [0,1,1]));
-// ResultList.push(new Result(1031,"Lamp", "img/sailboat.png", 17,  [0,1,1]));
-// ResultList.push(new Result(23,"Lamp", "img/sailboat.png", 15, [0,1,1]));
-// ResultList.push(new Result(33,"Lamp", "img/sailboat.png", 2, [1,1,1]));
-// ResultList.push(new Result(43,"Lamp", "img/sailboat.png", 7,  [1,1,1]));
-// ResultList.push(new Result(53, "Lamp", "img/sailboat.png", 8, [0,0,0]));
-// ResultList.push(new Result(36,"Lamp", "img/sailboat.png", 45, [0,0,1]));
+ResultList.push(new Result(101, "Sailboat Painting", "img/sailboat.png", 30, [0,1,1]));
+ResultList.push(new Result(2, "Car", "img/car.jpg", 25, [1,1,1]));
+ResultList.push(new Result(3, "Lamp", "img/sailboat.png", 22, [0,1,1]));
+ResultList.push(new Result(4, "Lamp", "img/sailboat.png",21, [0,0,0]));
+ResultList.push(new Result(5, "Lamp", "img/sailboat.png", 10, [0,1,0]));
+ResultList.push(new Result(6, "Lamp", "img/sailboat.png", 8, [0,1,1]));
+ResultList.push(new Result(1031,"Lamp", "img/sailboat.png", 17,  [0,1,1]));
+ResultList.push(new Result(23,"Lamp", "img/sailboat.png", 15, [0,1,1]));
+ResultList.push(new Result(33,"Lamp", "img/sailboat.png", 2, [1,1,1]));
+ResultList.push(new Result(43,"Lamp", "img/sailboat.png", 7,  [1,1,1]));
+ResultList.push(new Result(53, "Lamp", "img/sailboat.png", 8, [0,0,0]));
+ResultList.push(new Result(36,"Lamp", "img/sailboat.png", 45, [0,0,1]));
 
 var POS_OF_FIRST_INDEX = 3;
 
@@ -176,6 +176,10 @@ function createFooter(){
 
 		var newTd = document.createElement("td");
 
+		if (i == (POS_OF_FIRST_INDEX - 2))
+		{
+			newTd.setAttribute("style", "border-right: none;");
+		}
 		if (i >= POS_OF_FIRST_INDEX)
 		{
 			var newImg = document.createElement("div");
