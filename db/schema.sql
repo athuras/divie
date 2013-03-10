@@ -88,3 +88,10 @@ CREATE TABLE performance (
 	full_var float NOT NULL,
 	imba boolean NOT NULL
 );
+
+/* user preference selections*/
+CREATE TABLE preference (
+	auction_id INT NOT NULL,
+	agent_id INT NOT NULL,
+	lot_id INT
+);
