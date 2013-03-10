@@ -57,6 +57,7 @@ function UserResult(userId, name, img, result)
 
 function loadHeader()
 {
+	loaded();
 	getNumOfLots();
 
 	var head = document.getElementById("head");
