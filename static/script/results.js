@@ -51,18 +51,37 @@ function loaded()
 	})
 };
 
-var NUM_OF_LOTS = 0;
+$(document).ready(function(){
+	$('.submitBtn').click(function(){
+		$.ajax({
+		type: "POST",
+		datatype: "text",
+		contentType: "application/json",
+		url: 'http://divie.herokuapp.com/submitPrefs',
+		data: JSON.stringify(lotList)
+		async: false,
+		success: function(data){
+			window.location = "http://divie.herokuapp.com/static/myauctions/html";
+		},
+		error: function(){
+			alert("failed to submit preferences.")
+		}
+	})
+	})
+});
 
+var NUM_OF_LOTS = 0;
 var lotList = [];
-for (var i = 0; i < NUM_OF_LOTS.length; i++) {
-	lotList.push(false);	
-};
 
 function getNumOfLots(resultList) {
 	if (resultList.length == 0)
 		NUM_OF_LOTS = 0
 	else
 		NUM_OF_LOTS = resultList[0].lots.length;
+
+	for (var i = 0; i < NUM_OF_LOTS; i++) {
+		lotList.push(false);
+	};
 };
 
 function Result(id, name, img, lots)
@@ -161,8 +180,8 @@ function createFooter(){
 		{
 			var newImg = document.createElement("div");
 			newImg.setAttribute("class", "approveBtn");
-			newImg.setAttribute("id", i-1);
-			newImg.setAttribute("onclick", 'approve(' + (i-1) + ');');
+			newImg.setAttribute("id", i-2);
+			newImg.setAttribute("onclick", 'approve(' + (i-2) + ');');
 			newTd.appendChild(newImg);
 		}
 

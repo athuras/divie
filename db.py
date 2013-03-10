@@ -272,6 +272,16 @@ def save_results(results, userID, auction_id=1):
         query_DelIns(query)
     return "Inserted"
 
+def save_prefs(prefs, userID, auction_id=1):
+    indicies = [i for i, x in enumerate(prefs) if x == True]
+
+    query = ("INSERT INTO preference (auction_id, agent_id, lot_id) VALUES (%(aucID)s, %(aID)s, %(lID)s);")
+    data = [{"aucID": auction_id, "aID": userID, "lID": p} for p in indicies]
+    status = query_DelIns(query, data, many=True)
+
+    return status
+
+
 def save_results_test(): #this works
     list_ = (1,1,1,1)
 #    diction =  ({"aucID": 1,

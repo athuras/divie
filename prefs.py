@@ -8,13 +8,13 @@ def processPrefs(prefs, aucLots):
 			return 0
 
 	def addRes(row, aux, lots):
-		prefs = [checkLot(aux, k) for k in lots]
+		ps = [checkLot(aux, k) for k in lots]
 
 		without_lot = {
 						'agent_id': row['agent_id'],
 						'agent_name': row['agent_name'],
 						'profile': row['profile'],
-						'prefs': prefs
+						'prefs': ps
 					}
 		return without_lot
 
