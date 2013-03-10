@@ -25,7 +25,7 @@ function loaded()
 						v.agent_id, 
 						v.name, 
 						v.profile,
-						v.lots
+						v.prefs
 					)
 				);
 			});
