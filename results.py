@@ -12,7 +12,6 @@ def processResults(iterable, aucLots, auction_id=1):
 		lotres = [checkLot(aux, k) for k in lots]
 
 		without_lot = {
-						'auction_id': row['auction_id'],
 						'agent_id': row['agent_id'],
 						'item_id': row['item_id'],
 						'img_url': row['img_url'],
