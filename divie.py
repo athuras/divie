@@ -52,12 +52,12 @@ def execute_auction(auction_id):
                 perf.append(perf_record_factory(m_tuple, i))
 
         status1 = db.query_template("INSERT INTO results (auction_id, item_id, agent_id, lot_id) " +
-                                    "VALUES (%(auction_id)s, %(item_id)s, %(agent_id)s, %(lot_id)s);",
+                                    "VALUES (%(auction_id)s, %(item_id)s, %(agent_id)s, %(lot_id)s)",
                                     master, many=True)
         status2 = db.query_template("INSERT INTO performance (auction_id, lot_id, loss_mean, loss_var, full_mean, full_var, imba) " +
-                                    "VALUES (%(auction_id)s, %(lot_id)s, %(loss_mean)s, %(loss_var)s, %(full_mean)s, %(full_var)s, %(var)s)",
+                                    "VALUES (%(auction_id)s, %(lot_id)s, %(loss_mean)s, %(loss_var)s, %(full_mean)s, %(full_var)s, %(imba)s)",
                                     perf, many=True)
-        db.query_template("UPDATE auction SET active = 2 WHERE auction_id = %(auction_id)s;",
+        db.query_template("UPDATE auction SET active = 2 WHERE auction_id = %(auction_id)s",
                           {"auction_id": auction_id})
         return status1, status2
 
