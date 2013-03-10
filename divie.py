@@ -168,7 +168,7 @@ def requestPrefs():
 def submitPrefs():
     if request.method == 'POST':
         data = request.json
-        status = db.save_prefs(data, auction_id=1)
+        status = db.save_prefs(data, escape(session['username']), auction_id=1)
         return status
 
 if __name__ == '__main__':
