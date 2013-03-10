@@ -81,5 +81,6 @@ UPDATE item SET description = 'The antique clock Grandma had in her kitchen. Lom
 UPDATE item SET description = 'Grandma''s radio from when she was a kid. Not sure if it still works anymore, but an antique piece nonetheless. Lomo hoodie vinyl church-key, hella craft beer post-ironic farm-to-table cred freegan scenester blog blue bottle fashion axe mixtape. Banksy bushwick keytar typewriter beard. Neutra farm-to-table synth, bicycle rights aesthetic try-hard vinyl bushwick VHS you probably haven''t heard of them gastropub food truck hashtag pickled. Narwhal aesthetic twee, wayfarers forage plaid actually squid blog. Swag pitchfork narwhal, shoreditch blog mcsweeney''s single-origin coffee vice freegan lo-fi pug tumblr cred. Authentic artisan fixie banksy. Butcher church-key art party pickled.' WHERE item_name = 'Retro Radio';
 
 
-
+INSERT INTO "agent" (agent_name, profile)
+	VALUES ('Sara Miller', 'woman.png'), ('Jon Miller', 'men.png'), ('Steven Miller', 'men.png'), ('Joseph Miller', 'men.png'), ('Sue Miller', 'woman,png');
 
