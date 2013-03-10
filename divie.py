@@ -185,7 +185,7 @@ def diviePref():
         pLot = db.get_diviePref(auction_id=1)
         return str(pLot[0][0]) #it's a list of tuple's
 
-@app.rout('/requestFinalDiv', methods=['POST'])
+@app.route('/requestFinalDiv', methods=['POST'])
 def requestFinDiv():
     if request.method == 'POST':
         vals = db.get_finalDivision(escape(session['username']), auction_id=1)
