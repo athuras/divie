@@ -40,20 +40,22 @@ ALTER TABLE relationship
 /*example item inserts*/
 INSERT INTO "item" (item_name, description, img_url, item_value)
 	VALUES ('Sailboat Painting', '' , 'sailboat.png', 0), 
-		('Antique Lamp', '' , 'antique-lamp.jpg', 0), 
-		('City Painting', '' , 'city-painting.jpg', 0),
-		('Bike Painting', '' , 'bike-painting.jpg', 0),
-		('Antique Clock', '' , 'antique-clock.jpg', 0),
-		('Hand Wood Planer', '' , 'wood-planer.jpg', 0),
-		('Cross-Country Skis', '' , 'xcountry-skis.jpg', 0),
-		('Hunting Lodge', '' , 'hunting-lodge.jpg', 0),
-		('Encyclopedia Britannica', '' , 'encyclopedia.jpg', 0),
-		('Wood Stove', '' , 'wood-stove.jpg', 0),
-		('Armoire', '' , 'armoire.jpg', 0),
-		('Fur Coat', '' , 'fur-coat.jpg', 0),
-		('Old Radio', '' , 'radio.jpg', 0),
-		('Kitting Needles', '' , 'knitting.jpg', 0),
-		('Typewriter', '' , 'typewriter.jpg', 0);
+		('Antique Lamp', '' , 'antique-lamp.png', 0), 
+		('Bike Painting', '' , 'bike-painting.png', 0),
+		('Antique Clock', '' , 'antique-clock.png', 0),
+		('Hand Wood Planer', '' , 'wood-planer.png', 0),
+		('Cross-Country Skis', '' , 'xcountry-skis.png', 0),
+		('Encyclopedia Britannica', '' , 'encyclopedia.png', 0),
+		('Wood Stove', '' , 'wood-stove.png', 0),
+		('Armoire', '' , 'armoire.png', 0),
+		('Retro Radio', '' , 'radio.png', 0),
+		('Kitting Needles', '' , 'knitting.png', 0),
+		('Typewriter', '' , 'typewriter.png', 0),
+		('Hand Carved Pipe', '' , 'pipe.png', 0),
+		('Pyramid Painting', '' , 'pyramid-painting.png', 0),
+		('Grandma''s Quilt', '' , 'quilt.png', 0),
+		('CN-Tower Painting', '' , 'toronto-painting.png', 0),
+		('Graffiti Print', '' , 'graffiti-print.png', 0);
 
 ALTER TABLE auction
 	ADD COLUMN lot_num int DEFAULT NULL;
