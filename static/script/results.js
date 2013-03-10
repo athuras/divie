@@ -38,7 +38,7 @@ function loaded()
 				ResultList.push(
 					new Result(
 						v.item_id, 
-						v.name, 
+						v.item_name, 
 						v.img_url,
 						v.lots
 					)
@@ -60,7 +60,7 @@ for (var i = 0; i < NUM_OF_LOTS.length; i++) {
 
 function getNumOfLots(resultList) {
 	if (resultList.length == 0)
-		alert("Err: No Results");
+		NUM_OF_LOTS = 0
 	else
 		NUM_OF_LOTS = resultList[0].lots.length;
 };
@@ -68,7 +68,7 @@ function getNumOfLots(resultList) {
 function Result(id, name, img, lots)
 {
 	this.name = name;
-	this.img = img;
+	this.img = 'img/' + img;
 	this.id = id;
 	this.lots = lots;
 	this.max = 0;

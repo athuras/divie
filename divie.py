@@ -119,11 +119,11 @@ def saveBids():
 def divieResults():
     if request.method == 'POST':
         try:
-            status = execute_auction(1)
+            execute_auction(1)
         except Exception as e:
             return "Error: " + str(e)
 
-    return status
+    return "successful"
 
 @app.route('/requestResults', methods=['POST'])
 def popResults():
