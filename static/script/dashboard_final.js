@@ -20,7 +20,7 @@ function loaded()
 		async: false,
 		success: function(data){ 
 			$.each(data, function(k, v){
-				ResultList.push(
+				UserResults.push(
 					new UserResult(
 						v.agent_id, 
 						v.agent_name, 
