@@ -183,7 +183,7 @@ def submitPrefs():
 def diviePref():
     if request.method == 'POST':
         pLot = db.get_diviePref(auction_id=1)
-        return str(pLot)
+        return str(pLot[0][0])
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

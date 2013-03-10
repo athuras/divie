@@ -45,7 +45,7 @@ function diviePreference()
 		async: false,
 		success: function(data){
 			console.log(data);
-			PREFERRED_DIVISION = parseInt(data[0])+1; // auctions are 0-based, but front isn't
+			PREFERRED_DIVISION = parseInt(data)+1; // auctions are 0-based, but front isn't
 		},
 		error: function(){
 			alert("failed to load divie preference.")
