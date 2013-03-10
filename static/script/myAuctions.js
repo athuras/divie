@@ -143,7 +143,7 @@ function loadAuctions()
 			var newStatusText = document.createElement("div");
 			newStatusText.setAttribute("class", "statusText");
 
-			if(AuctionList[i].agentId == AuctionList[i].execId)
+			if(AuctionList[i].userId == AuctionList[i].execId)
 				statLbl = Status.AuctionComplete.txtExec;
 			else
 				statLbl = Status.AuctionComplete.txt
@@ -161,13 +161,6 @@ function loadAuctions()
 			newAuc.appendChild(actInd);
 			newAuc.setAttribute("id", AuctionList[i].id);
 		}
-		// else if (AuctionList[i].status == "resultsCompleted")
-		// {
-		// 	var newStatusValue = document.createTextNode(StatusText.resultsCompleted);
-		// 	newStatusText.appendChild(newStatusValue);
-
-		// 	newActive.appendChild(newStatusText);
-		// }
 		else if (AuctionList[i].status == Status.Inactive.value) {
 			newAuc.setAttribute("id", "idle");
 			newAuc.setAttribute("class", "Inactive")
