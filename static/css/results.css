@@ -142,6 +142,7 @@ th:last-child {
 #right {
 	color: #fff;
 	border-top-right-radius: 10px;
+	border-left: none;
 }
 
 .assetRow {
@@ -165,6 +166,15 @@ th:last-child {
 	color: #858585;
 	font-family: 'Myriad Pro', 'Museo Sans', 'Helvetica Neue', sans-serif;
 	font-size: 15pt;
+	border-right: none;
+}
+
+.bidValue {
+	position: relative;
+}
+
+.assetCont{
+	position:absolute;
 }
 
 tfoot td {
@@ -172,13 +182,13 @@ tfoot td {
 }
 
 .approveBtn {
-	display: block;
-	width: 190px;
-	height: 54px;
-	background: url('../img/approve-btn.png');
-	position: relative;
-	left: 50%;
-	margin-left: -95px;
+		display: block;
+		width: 190px;
+		height: 54px;
+		background: url('../img/approve-btn.png');
+		position: relative;
+		left: 50%;
+		margin-left: -95px;
 }
 
 .approveBtn:active {
