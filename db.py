@@ -210,6 +210,12 @@ def get_preferences(auction_id=1):
     vals = query_template_dict(query, data)
     return vals
 
+def get_diviePref(auction_id=1):
+    query = "SELECT lot_num FROM auction WHERE auction_id = %(aucID)s;"
+    data = {"aucID": auction_id}
+    vals = query_template(query, data) # just want the one value in a list
+    return vals
+
 #--------------------
 # SAVING and RESET QUERIES
 #--------------------
