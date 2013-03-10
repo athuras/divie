@@ -1,6 +1,4 @@
 def processPrefs(prefs, aucLots):
-	'''iterable = [(item, user, auction, lot)] sorted by <auction, user, item>'''
-	'''aucLots = [array of all auctions]'''
 	def checkLot(aux, lot):
 		if (lot[0] in aux):
 			return 1
