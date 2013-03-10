@@ -167,9 +167,9 @@ def requestPrefs():
 @app.route('/submitPrefs', methods=['POST'])
 def submitPrefs():
     if request.method == 'POST':
-        data = request.json;
-        status = db.submit_prefs(data, auction_id=1)
-        return str(status)
+        data = request.json
+        status = db.save_prefs(data, auction_id=1)
+        return status
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
