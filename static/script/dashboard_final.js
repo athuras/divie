@@ -11,6 +11,30 @@ var sumOfLots = [];
 
 var lotList = [];
 	
+function loaded()
+{
+	$.ajax({
+		type: "POST",
+		datatype: "json",
+		url: 'http://divie.herokuapp.com/requestPreferences',
+		async: false,
+		success: function(data){ 
+			$.each(data, function(k, v){
+				ResultList.push(
+					new UserResult(
+						v.agent_id, 
+						v.name, 
+						v.profile,
+						v.prefs
+					)
+				);
+			});
+		},
+		error: function(){
+			alert("failed to load results.")
+		}
+	})
+};
 
 function getNumOfLots() {
 	if (UserResults.length == 0)
