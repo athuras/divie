@@ -112,7 +112,7 @@ function loadHeader()
 		head.appendChild(newTh);
 	};	
 
-	var width = 227;
+	var width = 234;
 	var widthOfImg = 100;
 	$(".diviePref").css("right",((width * (NUM_OF_LOTS - PREFERRED_DIVISION)) + (width/2)) - widthOfImg + "px");
 
