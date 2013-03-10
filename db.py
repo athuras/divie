@@ -273,7 +273,7 @@ def save_results(results, userID, auction_id=1):
     return "Inserted"
 
 def save_prefs(prefs, userID, auction_id=1):
-    indicies = [i for i, x in enumerate(prefs) if str(x) == "true"]
+    indicies = [i for i, x in enumerate(prefs) if x == True]
 
     query = ("INSERT INTO preference (auction_id, agent_id, lot_id) VALUES (%(aucID)s, %(aID)s, %(lID)s);")
     data = [{"aucID": int(auction_id), "aID": int(userID), "lID": p} for p in indicies]

@@ -61,7 +61,7 @@ $(document).ready(function(){
 			data: JSON.stringify(lotList),
 			async: false,
 			success: function(data){
-				console.log(data);
+				console.log(data)
 				//window.location = "http://divie.herokuapp.com/static/myauctions/html";
 			},
 			error: function(msg){
