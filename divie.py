@@ -183,7 +183,13 @@ def submitPrefs():
 def diviePref():
     if request.method == 'POST':
         pLot = db.get_diviePref(auction_id=1)
-        return str(pLot[0][0])
+        return str(pLot[0][0]) #it's a list of tuple's
+
+@app.rout('/requestFinalDiv', methods=['POST'])
+def requestFinDiv():
+    if request.method == 'POST':
+        vals = db.get_finalDivision(escape(session['username']), auction_id=1)
+        return vals
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
