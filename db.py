@@ -202,8 +202,9 @@ def get_results(userID, auction_id=1):
 
     return vals
 
-def get_packages(auction_id=1):
-    query = ("SELECT * FROM preferences WHERE auction_id=%(aucId)s")
+def get_preferences(auction_id=1):
+    query = ("SELECT p.*, agent.agent_name FROM preferences as p INNER JOIN agent on p.agent_id = agent.agent_id " +
+            "AND p.auction_id=%(aucId)s ORDER BY p.agent_id;")
     data = {"aucId": auction_id}
     vals = query_template(query, data)
     return vals
