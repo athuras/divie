@@ -60,9 +60,9 @@ def query_DelIns(query, args=(), **kwargs):
         conn = connect_db()
         cur = conn.cursor()
         if many:
-            cur.execute(query, args)
-        else:
             cur.executemany(query, args)
+        else:
+            cur.execute(query, args)
         conn.commit()
     except psycopg2.Error as e:
         return 'DB Error: ' + str(e)
