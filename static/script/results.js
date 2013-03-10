@@ -61,8 +61,7 @@ $(document).ready(function(){
 			data: JSON.stringify(lotList),
 			async: false,
 			success: function(data){
-				console.log(data)
-				//window.location = "http://divie.herokuapp.com/static/myauctions/html";
+				window.location = "http://divie.herokuapp.com/static/myauctions/html";
 			},
 			error: function(msg){
 				alert("failed to submit preferences. " + msg);
