@@ -38,7 +38,7 @@ function loaded()
 
 function getNumOfLots() {
 	if (UserResults.length == 0)
-		alert("Err: No Results");
+		NUM_OF_LOTS = 0;
 	else
 		NUM_OF_LOTS = UserResults[0].results.length;
 	for (var i = 0; i < NUM_OF_LOTS; i++) {
