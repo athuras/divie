@@ -18,7 +18,7 @@ def processPrefs(prefs, aucLots):
 					}
 		return without_lot
 
-	prefs = []
+	res = []
 	aux = []
 	prev = None
 	prevK = None
@@ -27,14 +27,33 @@ def processPrefs(prefs, aucLots):
 		lot = row['lot_id']
 
 		if prev is not None and key != prevK:
-			prefs.append(addRes(prev, aux, aucLots))
+			res.append(addRes(prev, aux, aucLots))
 			aux = []
-			
+		
+		print key
+		print aux
 		aux.append(lot)
 		prev = row
 		prevK = key
 
 	if prev is not None and key == prevK:
-		prefs.append(addRes(row, aux, aucLots))
+		res.append(addRes(row, aux, aucLots))
 
-	return prefs
+	return res
+
+
+# testvals = [{'agent_id': 1, 
+# 		'agent_name': 'R', 
+# 		'profile': '11', 
+# 		'lot_id': 0},
+# 		{'agent_id': 1, 
+# 		'agent_name': 'R', 
+# 		'profile': '11', 
+# 		'lot_id': 1},
+# 		{'agent_id': 1, 
+# 		'agent_name': 'R', 
+# 		'profile': '11', 
+# 		'lot_id': 2}]
+		
+
+# print processPrefs(testvals, ((0,),(1,),(2,)))
