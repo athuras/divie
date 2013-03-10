@@ -58,7 +58,7 @@ $(document).ready(function(){
 		datatype: "text",
 		contentType: "application/json",
 		url: 'http://divie.herokuapp.com/submitPrefs',
-		data: JSON.stringify(lotList)
+		data: JSON.stringify(lotList),
 		async: false,
 		success: function(data){
 			window.location = "http://divie.herokuapp.com/static/myauctions/html";
