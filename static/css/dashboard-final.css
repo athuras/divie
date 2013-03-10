@@ -1,14 +1,16 @@
 #displayTable {
-	top: 6em;
-	margin-bottom: 10%
+	width: 1000px;
+	left: 0;
 }
 
 .selectBtn {
-	width: 159px;
-	height: 23px;
-	background: url('../img/approve-btn.png');
+	display: block;
+	width: 190px;
+	height: 52px;
 	position: relative;
+	left: 50%;
 	margin-left: -95px;
+	background: url('../img/approve-btn.png');
 }
 
 .selectBtn:active {
@@ -26,4 +28,29 @@
 
 .finalizeBtn:active {
 	background: url('../img/submit-pressed.png');
+}
+
+ .diviePref{
+ 	width: 200px;
+	height: 100px;
+	top: 7.7em;
+ 	position: absolute;
+ 	background: url('../img/recommends.png');
+ }
+
+.container{
+	max-width: 1000px;
+	left: 50%;
+	margin-left: -500px;
+	position: absolute;
+}
+
+.selectPushed {
+	background: url('../img/approved.png');
+	display: block;
+	width: 190px;
+	height: 52px;
+	position: relative;
+	left: 50%;
+	margin-left: -95px;
 }

@@ -13,7 +13,7 @@
   	<script src="script/jquery-ui-1.10.1.custom.js"></script>
   	<script src="script/utils.js"></script>
 </head>
-<body>
+<body onLoad='loadHeader();'>
 	<div class='header'>
 		<img class='logo' src='img/divie-logo.png'>
 		<div class='links'>
@@ -25,73 +25,19 @@
 			</ul>
 		</div>
 	</div>
-
-	<table id="displayTable">
-		<thead>
-			<tr class='head' id='head'>
-				<th></th>
-				<th></th>
-				<th>Package 1</th>
-				<th>Package 2</th>
-				<th>Package 3</th>
-			</tr>
-		</thead>
-		<tbody id='body'>
-			<tr class='assetRow'>
-				<td><img class='pic' src='img/riley.jpg'></td>
-				<td class='actor'>Riley Donelson</td>
-				<td></td>
-				<td></td>
-				<td class='icon-checkmark'></td>
-			</tr>
-			<tr class='assetRow'>
-				<td><img class='pic' src='img/matt.jpg'></td>
-				<td class='actor'>Matt Chong</td>
-				<td></td>
-				<td class='icon-checkmark'></td>
-				<td></td>
-			</tr>
-			<tr class='assetRow'>
-				<td><img class='pic' src='img/scott.jpg'></td>
-				<td class='actor'>Scott Neil</td>
-				<td></td>
-				<td class='icon-checkmark'></td>
-				<td></td>
-			</tr>
-			<tr class='assetRow'>
-				<td><img class='pic' src='img/alex.jpg'></td>
-				<td class='actor'>Alex Huras</td>
-				<td class='icon-checkmark'></td>
-				<td class='icon-checkmark'></td>
-				<td></td>
-			</tr>
-			<tr class='assetRow'>
-				<td><img class='pic' src='img/brian.jpg'></td>
-				<td class='actor'>Brian Sinclair</td>
-				<td class='icon-checkmark'></td>
-				<td></td>
-				<td class='icon-checkmark'></td>
-			</tr>
-			<tr class='assetRow'>
-				<td></td>
-				<td>Total</td>
-				<td>2</td>
-				<td>3</td>
-				<td>2</td>
-			</tr>
-		</tbody>
-		<tfoot id='foot'>
-			<tr>
-				<td></td>
-				<td></td>
-				<td class='selectBtn'></td>
-				<td class='selectBtn'></td>
-				<td class='selectBtn'></td>
-			</tr>
-		</tfoot>
-	</table>
-
-	<div class='finalizeBtn'></div>
-<script type="text/javascript" src="script/utils.js"></script>
+	<div class='container'>
+		<div class="diviePref"></div>
+		<table id="displayTable">
+			<thead>
+				<tr class='head' id='head'>
+				</tr>
+			</thead>
+			<tbody id='body'>
+			</tbody>
+			<tfoot id='foot'>
+			</tfoot>
+		</table>
+		<div class='finalizeBtn'></div>
+	</div>
 </body>
 </html>
