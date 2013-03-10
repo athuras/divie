@@ -1,9 +1,9 @@
 UserResults = [];
-UserResults.push(new UserResult(1, "Riley Donelson", "img/riley.jpg", [1,0,1]));
-UserResults.push(new UserResult(2, "Matthew Chong", "img/matt.jpg", [1,1,1]));
-UserResults.push(new UserResult(3, "Brian Sinclair", "img/brian.jpg", [1,0,0]));
-UserResults.push(new UserResult(4, "Scott Neil", "img/scott.jpg", [0,0,1]));
-UserResults.push(new UserResult(5, "Alex Huras", "img/alex.jpg", [1,1,0]));
+// UserResults.push(new UserResult(1, "Riley Donelson", "img/riley.jpg", [1,0,1]));
+// UserResults.push(new UserResult(2, "Matthew Chong", "img/matt.jpg", [1,1,1]));
+// UserResults.push(new UserResult(3, "Brian Sinclair", "img/brian.jpg", [1,0,0]));
+// UserResults.push(new UserResult(4, "Scott Neil", "img/scott.jpg", [0,0,1]));
+// UserResults.push(new UserResult(5, "Alex Huras", "img/alex.jpg", [1,1,0]));
 
 var PREFERRED_DIVISION = 3;
 var NUM_OF_LOTS = 0;
@@ -16,14 +16,14 @@ function loaded()
 	$.ajax({
 		type: "POST",
 		datatype: "json",
-		url: 'http://divie.herokuapp.com/requestPreferences',
+		url: 'http://divie.herokuapp.com/requestPrefs',
 		async: false,
 		success: function(data){ 
 			$.each(data, function(k, v){
 				ResultList.push(
 					new UserResult(
 						v.agent_id, 
-						v.name, 
+						v.agent_name, 
 						v.profile,
 						v.prefs
 					)
@@ -31,7 +31,7 @@ function loaded()
 			});
 		},
 		error: function(){
-			alert("failed to load results.")
+			alert("failed to load preferences.")
 		}
 	})
 };
