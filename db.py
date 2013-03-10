@@ -193,7 +193,7 @@ def get_resultsJSON(userID, auction_id=1):
 def get_results(userID, auction_id=1):
     query = ("SELECT results.*, item.item_name, item.img_url FROM results INNER JOIN item ON" +
             " results.item_id = item.item_id WHERE results.agent_id = %(uID)s AND results.auction_id = %(aucID)s" +
-            " ORDER BY auction_id, agent_id, item_id;")
+            " ORDER BY results.auction_id, results.agent_id, results.item_id;")
     data =  {
                 "uID": int(userID),
                 "aucID": int(auction_id)
