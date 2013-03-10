@@ -27,9 +27,7 @@ def processPrefs(prefs, aucLots):
 		if prev is not None and key != prevK:
 			res.append(addRes(prev, aux, aucLots))
 			aux = []
-		
-		print key
-		print aux
+			
 		aux.append(lot)
 		prev = row
 		prevK = key
