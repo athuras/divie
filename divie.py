@@ -179,6 +179,12 @@ def submitPrefs():
         status = db.save_prefs(data, escape(session['username']), auction_id=1)
         return status
 
+@app.route('/requestDiviePref', methods=['POST'])
+def diviePref():
+    if request.method == 'POST':
+        pLot = db.get_diviePref(auction_id=1)
+        return str(pLot)
+
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)

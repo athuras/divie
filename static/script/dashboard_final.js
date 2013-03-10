@@ -5,7 +5,7 @@ UserResults = [];
 // UserResults.push(new UserResult(4, "Scott Neil", "img/scott.jpg", [0,0,1]));
 // UserResults.push(new UserResult(5, "Alex Huras", "img/alex.jpg", [1,1,0]));
 
-var PREFERRED_DIVISION = 3;
+var PREFERRED_DIVISION = -1;
 var NUM_OF_LOTS = 0;
 var sumOfLots = [];
 
@@ -32,6 +32,22 @@ function loaded()
 		},
 		error: function(){
 			alert("failed to load preferences.")
+		}
+	})
+};
+
+function diviePreference()
+{
+	$.ajax({
+		type: "POST",
+		datatype: "text",
+		url: 'http://divie.herokuapp.com/requestDiviePref',
+		async: false,
+		success: function(data){ 
+			PREFERRED_DIVISION = parseInt(data)+1; // auctions are 0-based, but front isn't
+		},
+		error: function(){
+			alert("failed to load divie preference.")
 		}
 	})
 };
@@ -78,6 +94,7 @@ function UserResult(userId, name, img, result)
 function loadHeader()
 {
 	loaded();
+	diviePreference()
 	getNumOfLots();
 
 	var head = document.getElementById("head");
