@@ -86,6 +86,10 @@ def execute_auction(auction_id):
     resolution = AUC.attempt_filter_imba(resolution)
     return write_results(resolution)
 
+#################
+# Flask Methods #
+#################
+
 @app.route('/')
 def home():
     return redirect(url_for('static', filename='login.html'))
@@ -93,14 +97,21 @@ def home():
 @app.route('/static/login.html', methods=['POST'])
 def login():
     if request.method == 'POST':
-        userId = db.get_userId(request.form['username'])
+        name = request.form['username']
+        userId = db.get_userId(name)
         session['username'] = userId
+        session['name'] = name
         return redirect(url_for('static', filename='myAuctions.html'))
 
 @app.route('/logout')
 def logout():
-    session.pop('userID', None)
+    session.pop('username', None)
+    session.pop('name', None)
     return redirect(url_for('static', filename='login.html'))
+
+@app.route('/name', methods=['POST'])
+def getName():
+    return str(escape(session['name']))
 
 @app.route('/requestAssets', methods=['POST'])
 def getItems():
