@@ -101,19 +101,15 @@ def logout():
 def getItems():
     # When auction is loaded request asset list
     if request.method == 'POST':
-        data = db.get_itemsJSON(escape(session['username']));
-        js = json.dumps(data)
-        resp = Response(js, status=200, mimetype='application/json')
-        return resp
+        vals = db.get_itemsJSON(escape(session['username']));
+        return createJSON(vals)
 
 @app.route('/requestAuctions', methods=['POST'])
 def getAuctions():
     # When auction is loaded request asset list
     if request.method == 'POST':
-        data = db.get_auctionsJSON(escape(session['username']));
-        js = json.dumps(data)
-        resp = Response(js, status=200, mimetype='application/json')
-        return resp
+        vals = db.get_auctionsJSON(escape(session['username']));
+        return createJSON(vals)
 
 @app.route('/submitBids', methods=['POST'])
 def saveBids():
@@ -124,6 +120,7 @@ def saveBids():
         return saveResult
     return "error2"
 
+#admin execution of auction
 @app.route('/divieResults', methods=['POST'])
 def divieResults():
     if request.method == 'POST':
@@ -134,23 +131,20 @@ def divieResults():
 
     return "successful"
 
+#gets user specific results
 @app.route('/requestResults', methods=['POST'])
 def popResults():
     if request.method == 'POST':
         res = db.get_resultsJSON(escape(session['username']),auction_id=1)
         lots = db.get_lots(auction_id=1)
         procRes = results.processResults(res, lots)
-        js = json.dumps(procRes)
-        resp = Response(js, status=200, mimetype='application/json')
-        return resp
+        return createJSON(procRes)
 
 @app.route('/resetAuction', methods=['POST'])
 def resetAuction():
     if request.method == 'POST':
-        res = db.reset_auction(auction_id=1)
-        js = json.dumps(res)
-        resp = Response(js, status=200, mimetype='application/json')
-        return resp
+        vals = db.reset_auction(auction_id=1)
+        return createJSON(vals)
 
 #Admin selecting final package. Update auction table and status!
 @app.route('/submitPackage', methods=['POST'])
@@ -167,9 +161,7 @@ def requestPrefs():
         data = db.get_preferences(auction_id=1)
         lots = db.get_lots(auction_id=1)
         res = prefs.processPrefs(data, lots)
-        js = json.dumps(res)
-        resp = Response(js, status=200, mimetype='applicaiton/json')
-        return resp
+        return createJSON(res)
 
 #user submiting prefs from results page
 @app.route('/submitPrefs', methods=['POST'])
@@ -179,19 +171,33 @@ def submitPrefs():
         status = db.save_prefs(data, escape(session['username']), auction_id=1)
         return status
 
+#gets the system preferred division
 @app.route('/requestDiviePref', methods=['POST'])
 def diviePref():
     if request.method == 'POST':
         pLot = db.get_diviePref(auction_id=1)
         return str(pLot[0][0]) #it's a list of tuple's
 
+#gets user specific final asset division
 @app.route('/requestFinalDiv', methods=['POST'])
 def requestFinDiv():
     if request.method == 'POST':
         vals = db.get_finalDivision(escape(session['username']), auction_id=1)
+        return createJSON(vals)
+
+#gets all user bids
+@app.route('/requestAllBids', methods=['POST'])
+def requestBids():
+    if request.method == 'POST':
+        vals = db.get_allBids(auction_id=1)
+        return createJSON(vals)
+
+def createJSON(vals):
+    try:
         js = json.dumps(vals)
-        resp = Response(js, status=200, mimetype='applicaiton/json')
-        return resp
+        return Response(js, status=200, mimetype='applicaiton/json')
+    except Exception as e:
+        return "Error: " + str(e)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
