@@ -92,7 +92,7 @@ function loadUsers()
 
 		body.appendChild(newAssetRow);
 
-		var ranks = UserRankings[i].Bid;
+		var ranks = UserRankings[i].Bids;
 
 		for (var j = 0; j < ranks.length; j++) {
 				var newRateRow = document.createElement("tr");
