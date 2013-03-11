@@ -215,9 +215,11 @@ def get_finalDivision(userID, auction_id=1):
 def get_allBids(auction_id=1):
     users = ("SELECT * FROM agent;")
     allUs = query_template_dict(users)
-    bids = get_bidsAuction(1)
-    combined = [{"agent_id": u['agent_id'], "agent_name": u['agent_name'], "profile": u['profile'], "Bids": 
-            [bid for bid in bids if bid['agent_id']==u['agent_id']]} for u in allUs]
+    bids = ("SELECT bid.agent_id, bid.value, item.item_name FROM bid INNER JOIN item ON"+
+            "bid.item_id = item.item_id and bid.auction_id = %(aucID)s;")
+    allBs = query_template_dict(bids, {"aucID": auction_id})
+    combined = [{"agent_id": u['agent_id'], "agent_name": u['agent_name'], "profile": "img/"+u['profile'], 
+            "Bids": [bid for bid in allBs if bid['agent_id']==u['agent_id']]} for u in allUs]
     # 
     # combined = [user['bid'].append(bid for bid in bids if bid['agent_id']==user['agent_id']) for user in allUs]
     return combined
