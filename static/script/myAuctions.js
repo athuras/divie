@@ -39,7 +39,8 @@ function loaded()
 				);
 			});
 		},
-		error: function(){
+		error: function(msg){
+			console.log(msg)
 			alert("failed to load auctions.")
 		}
 	})
