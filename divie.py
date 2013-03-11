@@ -93,7 +93,8 @@ def home():
 @app.route('/static/login.html', methods=['POST'])
 def login():
     if request.method == 'POST':
-        session['username'] = request.form['username']
+        userId = db.get_userId(request.form['username'])
+        session['username'] = userId
         return redirect(url_for('static', filename='myAuctions.html'))
 
 @app.route('/logout')
