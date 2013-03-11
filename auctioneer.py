@@ -68,8 +68,11 @@ def mean_variance(iterable, key=lambda x: x):
         s += key(i)
         s2 += key(i) ** 2
         n += 1
-    mean = float(s) / n
-    return mean, float(s2) / n - (mean / n) ** 2
+    if n != 0:
+        mean = float(s) / n
+        return mean, float(s2) / n - (mean / n) ** 2
+    else:
+        return s, s2 - s**2
 
 class Agent(object):
     '''Each agent has a list of bids, and some identification information'''
