@@ -16,6 +16,7 @@ td:first-child {
 	width: 30px;
 }
 
+
 tr:last-child, td:first-child, td:last-child, th:first-child, th:last-child {
 	border: none;
 }
@@ -45,7 +46,7 @@ th:last-child {
 
 .arrow {
 	width: 40px;
-	height: 30px;
+	height: 40px;
 	text-align: center;
 	margin-left: 15px;
 }
@@ -84,4 +85,15 @@ th:last-child {
 	background: url('../img/divie-pushed.png');
 }
 
+.pic {
+	height: 50px;
+	width: 50px;
+	border-radius: 25px;
+	margin: 0.5em;
+}
+
+#checkmark {
+	width: 15px;
+	padding-right: 10px;
+}
 
