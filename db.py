@@ -252,8 +252,9 @@ def save_package(lot, auction_id=1):
     return msg
 
 def reload_bids(auction_id=1):
-    query = ("TRUNCATE TABLE bid RESTART IDENTITY CASCADE;")
-    query_template(query)
+    query = ("delete from bid where auction_id = %(auction_id);")
+    data = {'auction_id': auction_id}
+    query_DelIns(query, data)
     query =  ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time)" +
                 "SELECT auction_id, item_id, agent_id, value, bid_time" +
                 "FROM bid_base " +
@@ -283,11 +284,12 @@ def save_results_test(): #this works
     return "success"
 
 def clear_results(auction_id=1):
-    query = ("TRUNCATE TABLE results;")
-    query_DelIns(query)
+    query = ("DELETE from results where auction_id = %(auction_id)s;")
+    data = {'auction_id': auction_id}
+    query_DelIns(query, data)
 
 def reset_auction(auction_id=1):
-    query = ("UPDATE auction SET lot_num = DEFAULT WHERE auction_id = %(aucId)s;")
+    query = ("UPDATE auction SET lot_num = DEFAULT, active = 1 WHERE auction_id = %(aucId)s;")
     data = {"aucId": auction_id}
     query_DelIns(query, data)
 
