@@ -5,7 +5,7 @@ UserResults = [];
 // UserResults.push(new UserResult(4, "Scott Neil", "img/scott.jpg", [0,0,1]));
 // UserResults.push(new UserResult(5, "Alex Huras", "img/alex.jpg", [1,1,0]));
 
-var PREFERRED_DIVISION = 3;
+var PREFERRED_DIVISION = -1;
 var NUM_OF_LOTS = 0;
 var sumOfLots = [];
 
@@ -20,7 +20,7 @@ function loaded()
 		async: false,
 		success: function(data){ 
 			$.each(data, function(k, v){
-				ResultList.push(
+				UserResults.push(
 					new UserResult(
 						v.agent_id, 
 						v.agent_name, 
@@ -35,6 +35,43 @@ function loaded()
 		}
 	})
 };
+
+function diviePreference()
+{
+	$.ajax({
+		type: "POST",
+		datatype: "text",
+		url: 'http://divie.herokuapp.com/requestDiviePref',
+		async: false,
+		success: function(data){
+			console.log(data);
+			PREFERRED_DIVISION = parseInt(data)+1; // auctions are 0-based, but front isn't
+		},
+		error: function(){
+			alert("failed to load divie preference.")
+		}
+	})
+};
+
+$(document).ready(function(){
+	$('.finalizeBtn').click(function(){
+		$.ajax({
+			type: "POST",
+			datatype: "text",
+			contentType: "application/json",
+			url: 'http://divie.herokuapp.com/submitPackage',
+			data: JSON.stringify(lotList),
+			async: false,
+			success: function(data){
+				window.location = "http://divie.herokuapp.com/static/myAuctions.html";
+			},
+			error: function(msg){
+				alert("failed to submit package. " + msg);
+				console.log(msg);
+			}
+		})
+	})
+});
 
 function getNumOfLots() {
 	if (UserResults.length == 0)
@@ -51,12 +88,14 @@ function UserResult(userId, name, img, result)
 {
 	this.id = userId;
 	this.name = name;
-	this.img = img;
+	this.img = 'img/' + img;
 	this.results = result;
 };
 
 function loadHeader()
 {
+	loaded();
+	diviePreference()
 	getNumOfLots();
 
 	var head = document.getElementById("head");
@@ -73,7 +112,7 @@ function loadHeader()
 		head.appendChild(newTh);
 	};	
 
-	var width = 227;
+	var width = 234;
 	var widthOfImg = 100;
 	$(".diviePref").css("right",((width * (NUM_OF_LOTS - PREFERRED_DIVISION)) + (width/2)) - widthOfImg + "px");
 
@@ -201,9 +240,3 @@ function approve(id){
 		};
 		
 };
-
-$(document).ready(function(){
-	$('.finalizeBtn').click(function(){
-		// take me somewhere
-	})
-});

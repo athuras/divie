@@ -1,6 +1,4 @@
 def processPrefs(prefs, aucLots):
-	'''iterable = [(item, user, auction, lot)] sorted by <auction, user, item>'''
-	'''aucLots = [array of all auctions]'''
 	def checkLot(aux, lot):
 		if (lot[0] in aux):
 			return 1
@@ -8,13 +6,13 @@ def processPrefs(prefs, aucLots):
 			return 0
 
 	def addRes(row, aux, lots):
-		prefs = [checkLot(aux, k) for k in lots]
+		ps = [checkLot(aux, k) for k in lots]
 
 		without_lot = {
 						'agent_id': row['agent_id'],
 						'agent_name': row['agent_name'],
 						'profile': row['profile'],
-						'prefs': prefs
+						'prefs': ps
 					}
 		return without_lot
 
@@ -29,9 +27,6 @@ def processPrefs(prefs, aucLots):
 		if prev is not None and key != prevK:
 			res.append(addRes(prev, aux, aucLots))
 			aux = []
-		
-		print key
-		print aux
 		aux.append(lot)
 		prev = row
 		prevK = key
