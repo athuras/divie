@@ -135,15 +135,15 @@ def divieResults():
 @app.route('/requestResults', methods=['POST'])
 def popResults():
     if request.method == 'POST':
-        res = db.get_resultsJSON(escape(session['username']),auction_id=1)
-        lots = db.get_lots(auction_id=1)
+        res = db.get_resultsJSON(escape(session['username']), 1)
+        lots = db.get_lots(1)
         procRes = results.processResults(res, lots)
         return createJSON(procRes)
 
 @app.route('/resetAuction', methods=['POST'])
 def resetAuction():
     if request.method == 'POST':
-        vals = db.reset_auction(auction_id=1)
+        vals = db.reset_auction(1)
         return createJSON(vals)
 
 #Admin selecting final package. Update auction table and status!
@@ -151,15 +151,15 @@ def resetAuction():
 def submitPack():
     if request.method == 'POST':
         js = request.json
-        status = db.save_package(js, auction_id=1)
+        status = db.save_package(js, 1)
         return status
 
 #admin requesting all user prefs to dashboard final
 @app.route('/requestPrefs', methods=['POST'])
 def requestPrefs():
     if request.method == 'POST':
-        data = db.get_preferences(auction_id=1)
-        lots = db.get_lots(auction_id=1)
+        data = db.get_preferences(1)
+        lots = db.get_lots(1)
         res = prefs.processPrefs(data, lots)
         return createJSON(res)
 
@@ -168,28 +168,28 @@ def requestPrefs():
 def submitPrefs():
     if request.method == 'POST':
         data = request.json
-        status = db.save_prefs(data, escape(session['username']), auction_id=1)
+        status = db.save_prefs(data, escape(session['username']), 1)
         return status
 
 #gets the system preferred division
 @app.route('/requestDiviePref', methods=['POST'])
 def diviePref():
     if request.method == 'POST':
-        pLot = db.get_diviePref(auction_id=1)
+        pLot = db.get_diviePref(1)
         return str(pLot[0][0]) #it's a list of tuple's
 
 #gets user specific final asset division
 @app.route('/requestFinalDiv', methods=['POST'])
 def requestFinDiv():
     if request.method == 'POST':
-        vals = db.get_finalDivision(escape(session['username']), auction_id=1)
+        vals = db.get_finalDivision(escape(session['username']), 1)
         return createJSON(vals)
 
 #gets all user bids
 @app.route('/requestAllBids', methods=['POST'])
 def requestBids():
     if request.method == 'POST':
-        vals = db.get_allBids(auction_id=1)
+        vals = db.get_allBids(1)
         return createJSON(vals)
 
 def createJSON(vals):

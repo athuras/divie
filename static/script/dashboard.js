@@ -32,17 +32,18 @@ function loaded(){
 	$.ajax({
 		type: "POST",
 		datatype: "json",
-		url: 'http://divie.herokuapp.com/requestBids',
+		url: 'http://divie.herokuapp.com/requestAllBids',
 		async: false,
 		success: function(data){ 
 			$.each(data, function(k, v){
 				AuctionList.push(
 					new Auction(
 						v.agent_id,
-						v.agent_name, 
+						v.agent_name,
+						v.profile, 
 						v.item_id,
 						v.item_name,
-						v.bids
+						v.Bids
 					)
 				);
 			});
