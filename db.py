@@ -187,7 +187,6 @@ def get_resultsJSON(userID, auction_id=1):
                 "aucID": int(auction_id)
             }
     vals = query_template_dict(query, data)
-
     return vals
 
 def get_preferences(auction_id=1):
@@ -218,9 +217,9 @@ def get_allBids(auction_id=1):
     bids = ("SELECT bid.agent_id, bid.value, item.item_name FROM bid INNER JOIN item ON"+
             " bid.item_id = item.item_id and bid.auction_id = %(aucID)s;")
     allBs = query_template_dict(bids, {"aucID": auction_id})
-    combined = [{"agent_id": u['agent_id'], "agent_name": u['agent_name'], "profile": "img/"+u['profile'], 
+    combined = [{"agent_id": u['agent_id'], "agent_name": u['agent_name'], "profile": "img/"+u['profile'],
             "Bids": [bid for bid in allBs if bid['agent_id']==u['agent_id']]} for u in allUs]
-    # 
+    #
     # combined = [user['bid'].append(bid for bid in bids if bid['agent_id']==user['agent_id']) for user in allUs]
     return combined
 
@@ -262,21 +261,15 @@ def save_Bids(bids, userID, auction_id=1):
 
 def save_package(lots, auction_id=1):
     index = [i for i, x in enumerate(lots) if x == True]
-
     query = ("UPDATE auction SET lot_num = %(lotId)s, active = 3 WHERE auction_id = %(aucId)s;")
     data = {"lotId": index[0], "aucId": auction_id}
     msg = query_DelIns(query, data)
     return msg
 
 def reload_bids(auction_id=1):
-    query = ("TRUNCATE TABLE bid RESTART IDENTITY CASCADE;")
-    query_template(query)
-    query =  ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time)" +
-                "SELECT auction_id, item_id, agent_id, value, bid_time" +
-                "FROM bid_base " +
-                "WHERE auction_id = %(aucID)s;")
-    data = {"aucID": auction_id}
-    query_DelIns(query, data)
+    query = ("delete from bid where auction_id = %(auction_id)s;")
+    data = {'auction_id': auction_id}
+    return query_DelIns(query, data)
 
 def save_results(results, userID, auction_id=1):
     for r in results:
@@ -291,33 +284,22 @@ def save_results(results, userID, auction_id=1):
 
 def save_prefs(prefs, userID, auction_id=1):
     indicies = [i for i, x in enumerate(prefs) if x == True]
-
     query = ("INSERT INTO preference (auction_id, agent_id, lot_id) VALUES (%(aucID)s, %(aID)s, %(lID)s);")
     data = [{"aucID": int(auction_id), "aID": int(userID), "lID": p} for p in indicies]
     status = query_DelIns(query, data, many=True)
-
     return status
 
-
-def save_results_test(): #this works
-    list_ = (1,1,1,1)
-#    diction =  ({"aucID": 1,
-#             "itemID": 1,
-#             "uID": 1,
-#             "lot": 1})
-    query = ("INSERT INTO results (auction_id, item_id, agent_id, lot_id) VALUES (%s, %s, %s, %s);")
-    query_DelIns(query, list_)
-    return "success"
-
 def clear_results(auction_id=1):
-    query = ("TRUNCATE TABLE results;")
-    query_DelIns(query)
+    query = ("DELETE from results where auction_id = %(auction_id)s;")
+    data = {'auction_id': auction_id}
+    return query_DelIns(query, data)
 
 def reset_auction(auction_id=1):
-    query = ("UPDATE auction SET lot_num = DEFAULT WHERE auction_id = %(aucId)s;")
+    query = ("UPDATE auction SET lot_num = DEFAULT, active = 1 WHERE auction_id = %(aucId)s;")
     data = {"aucId": auction_id}
-    query_DelIns(query, data)
-
-    clear_results(auction_id)
-    reload_bids(auction_id)
-    return "cleared"
+    s1 = query_DelIns(query, data)
+    s2 = clear_results(auction_id)
+    query = "truncate table preference;"
+    s3 = query_DelIns(query)
+    s4 = reload_bids(auction_id)
+    return s1, s2, s3, s4
