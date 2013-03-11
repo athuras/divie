@@ -1,11 +1,12 @@
 UserResults = [];
-// UserResults.push(new UserResult(1, "Riley Donelson", "img/riley.jpg", [1,0,1]));
-// UserResults.push(new UserResult(2, "Matthew Chong", "img/matt.jpg", [1,1,1]));
-// UserResults.push(new UserResult(3, "Brian Sinclair", "img/brian.jpg", [1,0,0]));
-// UserResults.push(new UserResult(4, "Scott Neil", "img/scott.jpg", [0,0,1]));
-// UserResults.push(new UserResult(5, "Alex Huras", "img/alex.jpg", [1,1,0]));
+// UserResults.push(new UserResult(1, "Riley Donelson", "img/riley.jpg", [1,0]));
+// UserResults.push(new UserResult(2, "Matthew Chong", "img/matt.jpg", [1,1]));
+// UserResults.push(new UserResult(3, "Brian Sinclair", "img/brian.jpg", [1,0]));
+// UserResults.push(new UserResult(4, "Scott Neil", "img/scott.jpg", [0,0]));
+// UserResults.push(new UserResult(5, "Alex Huras", "img/alex.jpg", [1,1]));
 
 var PREFERRED_DIVISION = -1;
+// var PREFERRED_DIVISION = 1;
 var NUM_OF_LOTS = 0;
 var sumOfLots = [];
 
@@ -104,17 +105,13 @@ function loadHeader()
 		var newTh = document.createElement("th");
 		if (i != 0 && i != 1)
 		{	
-			//		newTh.setAttribute("id", (i-1));
+			newTh.setAttribute("id", "Division" + (i-1));
 			var newThValue = document.createTextNode("Division " + (i-1));
 
 			newTh.appendChild(newThValue);
 		}
 		head.appendChild(newTh);
 	};	
-
-	var width = 234;
-	var widthOfImg = 100;
-	$(".diviePref").css("right",((width * (NUM_OF_LOTS - PREFERRED_DIVISION)) + (width/2)) - widthOfImg + "px");
 
 	loadResults();	
 
@@ -212,6 +209,11 @@ function loadFooter()
 	};
 
 	foot.appendChild(newRow);
+
+	var width = $("#Division1").width();
+	console.log(width);
+	var widthOfImg = 100;
+	$(".diviePref").css("right",((width * (NUM_OF_LOTS - PREFERRED_DIVISION)) + (width/2)) - widthOfImg + "px");
 };
 
 function approve(id){

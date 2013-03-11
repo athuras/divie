@@ -56,3 +56,28 @@ CREATE TABLE item (
 	img_url string null,
 	value float 0
 )
+
+/*
+Agent Preferences by Auction
+*/
+DROP TABLE if exists preference;
+CREATE TABLE preference (
+	auction_id integer not null,
+	agent_id integer not null,
+	lot_id integer not null
+)
+
+/*
+Algorithm performance
+*/
+DROP TABLE if exists performance;
+CREATE TABLE performance (
+	auction_id integer not null
+	lot_id integer not null,
+	loss_mean float not null,
+	loss_var float not null,
+	full_mean float not null,
+	full_var float not null,
+	imba boolean not null
+)
+
