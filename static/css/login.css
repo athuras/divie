@@ -64,6 +64,7 @@ form {
 	padding: 0.8em;
 	color: #171717;
 	border: none;
+	width:226px;
 	border-radius: 5px;
 	margin-bottom: 0.6em;
 }
@@ -84,5 +85,5 @@ form {
 	top:50%;
 	left:50%;
 	margin-left: -200px;
-	margin-top: -210px;
+	margin-top: -250px;
 }
