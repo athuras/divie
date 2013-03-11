@@ -218,9 +218,9 @@ def get_allBids(auction_id=1):
     bids = ("SELECT bid.agent_id, bid.value, item.item_name FROM bid INNER JOIN item ON"+
             " bid.item_id = item.item_id and bid.auction_id = %(aucID)s;")
     allBs = query_template_dict(bids, {"aucID": auction_id})
-    combined = [{"agent_id": u['agent_id'], "agent_name": u['agent_name'], "profile": "img/"+u['profile'], 
+    combined = [{"agent_id": u['agent_id'], "agent_name": u['agent_name'], "profile": "img/"+u['profile'],
             "Bids": [bid for bid in allBs if bid['agent_id']==u['agent_id']]} for u in allUs]
-    # 
+    #
     # combined = [user['bid'].append(bid for bid in bids if bid['agent_id']==user['agent_id']) for user in allUs]
     return combined
 
@@ -269,7 +269,7 @@ def save_package(lots, auction_id=1):
     return msg
 
 def reload_bids(auction_id=1):
-    query = ("delete from bid where auction_id = %(auction_id);")
+    query = ("delete from bid where auction_id = %(auction_id)s;")
     data = {'auction_id': auction_id}
     query_DelIns(query, data)
     query =  ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time)" +
