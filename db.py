@@ -157,12 +157,12 @@ def get_bidsJSON(userID, auction_id=1):
     vals = query_template_dict(query, data)
     return vals
 
-def get_bids(auction_id=1):
+def get_bidsAuction(auction_id=1):
     query = "SELECT * FROM bid WHERE auction_id = %(aucID)s;"
     data =  {
                 "aucID": int(auction_id)
             }
-    vals = query_template(query, data)
+    vals = query_template_dict(query, data)
     return vals
 
 def get_lots(auction_id=1):
@@ -212,6 +212,18 @@ def get_finalDivision(userID, auction_id=1):
     vals = query_template_dict(query, data)
     return vals
 
+def get_allBids(auction_id=1):
+    users = ("SELECT * FROM agent;")
+    allUs = query_template_dict(users)
+    bids = ("SELECT bid.agent_id, bid.value, item.item_name FROM bid INNER JOIN item ON"+
+            " bid.item_id = item.item_id and bid.auction_id = %(aucID)s;")
+    allBs = query_template_dict(bids, {"aucID": auction_id})
+    combined = [{"agent_id": u['agent_id'], "agent_name": u['agent_name'], "profile": "img/"+u['profile'],
+            "Bids": [bid for bid in allBs if bid['agent_id']==u['agent_id']]} for u in allUs]
+    #
+    # combined = [user['bid'].append(bid for bid in bids if bid['agent_id']==user['agent_id']) for user in allUs]
+    return combined
+
 #--------------------
 # SAVING and RESET QUERIES
 #--------------------
@@ -257,8 +269,9 @@ def save_package(lots, auction_id=1):
     return msg
 
 def reload_bids(auction_id=1):
-    query = ("TRUNCATE TABLE bid RESTART IDENTITY CASCADE;")
-    query_template(query)
+    query = ("delete from bid where auction_id = %(auction_id)s;")
+    data = {'auction_id': auction_id}
+    query_DelIns(query, data)
     query =  ("INSERT INTO bid (auction_id, item_id, agent_id, value, bid_time)" +
                 "SELECT auction_id, item_id, agent_id, value, bid_time" +
                 "FROM bid_base " +
@@ -298,11 +311,12 @@ def save_results_test(): #this works
     return "success"
 
 def clear_results(auction_id=1):
-    query = ("TRUNCATE TABLE results;")
-    query_DelIns(query)
+    query = ("DELETE from results where auction_id = %(auction_id)s;")
+    data = {'auction_id': auction_id}
+    query_DelIns(query, data)
 
 def reset_auction(auction_id=1):
-    query = ("UPDATE auction SET lot_num = DEFAULT WHERE auction_id = %(aucId)s;")
+    query = ("UPDATE auction SET lot_num = DEFAULT, active = 1 WHERE auction_id = %(aucId)s;")
     data = {"aucId": auction_id}
     query_DelIns(query, data)
 
