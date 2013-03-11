@@ -64,7 +64,7 @@ def execute_auction(auction_id):
 
         # get the motherfucking system preference
         # mean_loss, mean_full, var_loss, var_full, imba. all up in this bitch.
-        ps = [(z, AUC.objective_function(i[0][0], i[1][0], i[0][1], i[1][1], i[2]))
+        ps = [(z, AUC.objective_function(i[1][0][0], i[1][1][0], i[1][0][1], i[1][1][1], i[1][2]))
                 for z, i in enumerate(res)]
         if len(ps) > 0:
             pid = max(ps, key=lambda x: x[1])[0]
