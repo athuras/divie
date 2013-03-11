@@ -1,40 +1,56 @@
-Assets = [];
-Assets.push("Lamp");
-Assets.push("Furniture");
-Assets.push("Painting");
-Assets.push("TV");
-Assets.push("Everything Else");
-
 UserRankings = [];
-UserRankings.push(new UserRank(1, "Riley Donelson", [21, 34, 15, 0, 14]));
-UserRankings.push(new UserRank(2, "Matthew Chong", [0,14,5,8,9]));
-UserRankings.push(new UserRank(3, "Brian Sinclair", [1,2,3,4,5]));
-UserRankings.push(new UserRank(4, "Scott Neil", [2,4,5,6,73]));
-UserRankings.push(new UserRank(5, "Alex Huras", [34,45,0,0,0]));
+// UserRankings.push({"agend_id": 1, "agent_name": "Matt Chong", "profile": "img/matt.jpg", 
+// 						"Bid": [{"item_name": "Lamp", "value": 4},
+// 								{"item_name": "Painting", "value": 35},
+// 								{"item_name": "Shit", "value": 4},
+// 								{"item_name": "On", "value": 35},
+// 								{"item_name": "My", "value": 3},
+// 								{"item_name": "Dick", "value": 6}]});
+// UserRankings.push({"agend_id": 2, "agent_name": "Riley Donelson", "profile": "img/matt.jpg", 
+// 						"Bid": [{"item_name": "Lamp", "value": 4},
+// 								{"item_name": "Painting", "value": 35},
+// 								{"item_name": "Shit", "value": 4},
+// 								{"item_name": "On", "value": 35},
+// 								{"item_name": "My", "value": 3},
+// 								{"item_name": "Dick", "value": 6}]});
+// UserRankings.push({"agend_id": 3, "agent_name": "Alex Huras", "profile": "img/matt.jpg", 
+// 						"Bid": [{"item_name": "Lamp", "value": 4},
+// 								{"item_name": "Painting", "value": 35},
+// 								{"item_name": "Shit", "value": 4},
+// 								{"item_name": "On", "value": 35},
+// 								{"item_name": "My", "value": 3},
+// 								{"item_name": "Dick", "value": 6}]});
+// UserRankings.push({"agend_id": 4, "agent_name": "Scott Neil", "profile": "img/matt.jpg", 
+// 						"Bid": [{"item_name": "Lamp", "value": 4},
+// 								{"item_name": "Painting", "value": 35},
+// 								{"item_name": "Shit", "value": 4},
+// 								{"item_name": "On", "value": 35},
+// 								{"item_name": "My", "value": 3},
+// 								{"item_name": "Dick", "value": 6}]});
 
 function loaded(){
-	// $.ajax({
-	// 	type: "POST",
-	// 	datatype: "json",
-	// 	url: 'http://divie.herokuapp.com/requestBids',
-	// 	async: false,
-	// 	success: function(data){ 
-	// 		$.each(data, function(k, v){
-	// 			AuctionList.push(
-	// 				new Auction(
-	// 					v.agent_id,
-	// 					v.agent_name, 
-	// 					v.item_id,
-	// 					v.item_name,
-	// 					v.bids
-	// 				)
-	// 			);
-	// 		});
-	// 	},
-	// 	error: function(){
-	// 		alert("failed to load bids.")
-	// 	}
-	// })
+	$.ajax({
+		type: "POST",
+		datatype: "json",
+		url: 'http://divie.herokuapp.com/requestBids',
+		async: false,
+		success: function(data){ 
+			$.each(data, function(k, v){
+				AuctionList.push(
+					new Auction(
+						v.agent_id,
+						v.agent_name, 
+						v.item_id,
+						v.item_name,
+						v.bids
+					)
+				);
+			});
+		},
+		error: function(){
+			alert("failed to load bids.")
+		}
+	})
 };
 
 $(document).ready(function(){
@@ -42,13 +58,6 @@ $(document).ready(function(){
 		window.location = 'http://divie.herokuapp.com/static/loader.html'
 	})
 });
-
-function UserRank(userID, name, ranks)
-{
-	this.id = userID;
-	this.name = name;
-	this.ranks = ranks;
-}
 
 function loadUsers()
 {
@@ -68,27 +77,32 @@ function loadUsers()
 		arrowImg.setAttribute("src", "img/arrow-left.png");
 		tdArr.appendChild(arrowImg);
 
+		var tdPic = document.createElement("td");
+		tdPic.setAttribute("class", "pic");
+		var newPic = document.createElement("img");
+		newPic.setAttribute("class", "pic");
+		newPic.setAttribute("src", UserRankings[i].profile);
+		tdPic.appendChild(newPic);
+
 		var tdActor = document.createElement("td");
 		tdActor.setAttribute("class", "actor");
-		var actorName = document.createTextNode(UserRankings[i].name);
+		var actorName = document.createTextNode(UserRankings[i].agent_name);
 		tdActor.appendChild(actorName)
 
 		var tdIcon = document.createElement("td");
 		tdIcon.setAttribute("class", "icon-checkmark");
+		tdIcon.setAttribute("id", "checkmark");
 
 		newAssetRow.appendChild(tdArr);
+		newAssetRow.appendChild(tdPic);
 		newAssetRow.appendChild(tdActor);
 		newAssetRow.appendChild(tdIcon);
 
 		body.appendChild(newAssetRow);
 
-		var ranks = UserRankings[i].ranks;
+		var ranks = UserRankings[i].Bid;
 
 		for (var j = 0; j < ranks.length; j++) {
-
-			if (ranks[j] > 0)
-			{
-
 				var newRateRow = document.createElement("tr");
 				newRateRow.setAttribute("class", "rateRow");
 				newRateRow.setAttribute("id", i + "-" + j);
@@ -100,25 +114,26 @@ function loadUsers()
 
 				var heartImg = document.createElement("img");
 				heartImg.setAttribute("src", "img/heart-grey.png");
-				
-				var rankValue = document.createTextNode(ranks[j])
+
+				var rankValue = document.createTextNode(ranks[j].value)
 
 				tdAsset.appendChild(heartImg);
 				tdAsset.appendChild(rankValue);
 
 				var tdAssetName = document.createElement("td");
 				tdAssetName.setAttribute("class", "assetName");
-				var tdAssetNameVal = document.createTextNode(Assets[j]);
+				var tdAssetNameVal = document.createTextNode(ranks[j].item_name);
 				tdAssetName.appendChild(tdAssetNameVal);
 
-				var tdBlank = document.createElement("td");
+				var tdBlank1 = document.createElement("td");
+				var tdBlank2 = document.createElement("td");
 
+				newRateRow.appendChild(tdBlank1);
 				newRateRow.appendChild(tdAsset);
 				newRateRow.appendChild(tdAssetName);
-				newRateRow.appendChild(tdBlank);
+				newRateRow.appendChild(tdBlank2);
 
 				body.appendChild(newRateRow);
-			}
 
 		};
 	};
