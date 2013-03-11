@@ -35,18 +35,7 @@ function loaded(){
 		url: 'http://divie.herokuapp.com/requestAllBids',
 		async: false,
 		success: function(data){ 
-			$.each(data, function(k, v){
-				AuctionList.push(
-					new Auction(
-						v.agent_id,
-						v.agent_name,
-						v.profile, 
-						v.item_id,
-						v.item_name,
-						v.Bids
-					)
-				);
-			});
+			UserRankings = data;
 		},
 		error: function(){
 			alert("failed to load bids.")
@@ -62,6 +51,8 @@ $(document).ready(function(){
 
 function loadUsers()
 {
+	loaded();
+
 	var body = document.getElementById("body");
 
 	for (var i = 0; i < UserRankings.length; i++) {
