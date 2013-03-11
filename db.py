@@ -117,7 +117,7 @@ def query_template_dict(query, args=()):
 #--------------------
 
 def get_userId(username):
-    query = "SELECT agent_id FROM agent where agent_name = $(uN)s"
+    query = "SELECT agent_id FROM agent WHERE agent_name = %(uN)s;"
     data = {"uN": username}
     vals = query_template(query, data)
     return vals[0][0] #list of tuples
