@@ -113,8 +113,8 @@ def getItems():
 def getAuctions():
     # When auction is loaded request asset list
     if request.method == 'POST':
-        vals = db.get_auctionsJSON(escape(session['username']));
-        return createJSON(vals)
+        # vals = db.get_auctionsJSON(escape(session['username']));
+        return str(escape(session['username']))#createJSON(vals)
 
 @app.route('/submitBids', methods=['POST'])
 def saveBids():
