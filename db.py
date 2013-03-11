@@ -321,5 +321,7 @@ def reset_auction(auction_id=1):
     query_DelIns(query, data)
 
     clear_results(auction_id)
-    reload_bids(auction_id)
+    query = "truncate table preference;"
+    query_DelIns(query)
+    #reload_bids(auction_id)
     return "cleared"
