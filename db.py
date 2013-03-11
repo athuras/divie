@@ -116,6 +116,12 @@ def query_template_dict(query, args=()):
 # SELECT QUERIES
 #--------------------
 
+def get_userId(username):
+    query = "SELECT agent_id FROM agent where agent_name = $(uN)s"
+    data = {"uN": username}
+    vals = query_template(query, data)
+    return vals[0][0] #list of tuples
+
 def get_itemsJSON(userID):
     query = "SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" \
         " as value FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = " + userID + ";"
