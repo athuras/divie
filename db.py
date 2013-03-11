@@ -120,7 +120,7 @@ def get_userId(username):
     query = "SELECT agent_id FROM agent WHERE agent_name = %(uN)s;"
     data = {"uN": username}
     vals = query_template(query, data)
-    return vals[0][0] #list of tuples
+    return vals[0] #list of tuples
 
 def get_itemsJSON(userID):
     query = "SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" \
