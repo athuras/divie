@@ -66,10 +66,14 @@ def execute_auction(auction_id):
         # mean_loss, mean_full, var_loss, var_full, imba. all up in this bitch.
         ps = [(z, AUC.objective_function(i[0][0], i[1][0], i[0][1], i[1][1], i[2]))
                 for z, i in enumerate(res)]
-        pid = max(ps, key=lambda x: x[1])[0]
+        if len(ps) > 0:
+            pid = max(ps, key=lambda x: x[1])[0]
 
-        db.query_DelIns("UPDATE auction SET active = 2, lot_num = %(lot_id)s WHERE auction_id = %(auction_id)s",
-                {"auction_id": auction_id, "lot_id": pid})
+            db.query_DelIns("UPDATE auction SET active = 2, lot_num = %(lot_id)s WHERE auction_id = %(auction_id)s",
+                    {"auction_id": auction_id, "lot_id": pid})
+        else:
+            db.query_DelIns("UPDATE auction set active = 2, lot_num = DEFAULT WHERE auction_id = %(auction_id)s",
+                    {"auction_id": auction_id})
 
         return status1, status2
 
