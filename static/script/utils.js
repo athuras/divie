@@ -26,4 +26,19 @@ $(document).ready(function() {
 			})
 		}
 	})
+	('#username').click(function()
+	{
+		$.ajax({
+				type: "POST",
+				datatype: "text",
+				url: 'http://divie.herokuapp.com/name',
+				async: false,
+				success: function(name){
+					//set the element value to name
+				},
+				error: function(msg){
+					console.log(msg);
+				}
+			})
+	})
 });

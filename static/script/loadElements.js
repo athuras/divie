@@ -1,5 +1,5 @@
 var AssetList = [];
-// AssetList.push(new Asset(101, "Sailboat Painting", 45, '', "img/sailboat.png"));
+// AssetList.push(new Asset(101, "Sailboat Painting", 45, "Lorem Ipsum is simply dummy text of the printing", "img/sailboat.png"));
 // AssetList.push(new Asset(2, "Car", 0, '', "img/car.jpg"));
 // AssetList.push(new Asset(3, "Lamp", 32, '', "img/sailboat.png"));
 // AssetList.push(new Asset(4, "Family Portrait", 0, '', "img/sailboat.png"));
@@ -222,6 +222,10 @@ function loadAsset(idTag)
 				newTopBoxDiv.appendChild(newImg);
 				newTopBoxDiv.appendChild(newWordsDiv);
 
+				var container = document.createElement("div");
+				container.setAttribute("class", "sliderContainer");
+
+
 				var newSliderClass = document.createElement("div");
 				newSliderClass.setAttribute("class", "sliderHorizon");
 				newSliderClass.setAttribute("id", "sliderHorizon");
@@ -278,12 +282,17 @@ function loadAsset(idTag)
 				var finishedButtonValue = document.createTextNode("Finished!");
 				finishedButton.appendChild(finishedButtonValue);
 
+				container.appendChild(newSliderClass);
+				container.appendChild(prevButton);
+				container.appendChild(nextButton);
+				container.appendChild(finishedButton);
 
 				newDiv.appendChild(newTopBoxDiv);
-				newDiv.appendChild(newSliderClass);
-				newDiv.appendChild(prevButton);
-				newDiv.appendChild(nextButton);
-				newDiv.appendChild(finishedButton);
+				newDiv.appendChild(container);
+				// newDiv.appendChild(newSliderClass);
+				// newDiv.appendChild(prevButton);
+				// newDiv.appendChild(nextButton);
+				// newDiv.appendChild(finishedButton);
 				//newDiv.appendChild(newSliderFill);
 
 				mainDiv.appendChild(newDiv);
