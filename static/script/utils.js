@@ -30,7 +30,7 @@ $(document).ready(function() {
 	$.ajax({
 			type: "POST",
 			datatype: "text",
-			url: 'http://divie.herokuapp.com/name',
+			url: 'http://divie.herokuapp.com/profile',
 			async: false,
 			success: function(data){
 				$.each(data, function(k, v){
