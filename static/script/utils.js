@@ -41,5 +41,5 @@ $(document).ready(function() {
 			error: function(msg){
 				console.log(msg);
 			}
-		})
+	})
 });

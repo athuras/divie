@@ -94,14 +94,14 @@ def execute_auction(auction_id):
 def home():
     return redirect(url_for('static', filename='login.html'))
 
-@app.route('/static/login.html', methods=['POST'])
+@app.route('/authenticate', methods=['POST'])
 def login():
     if request.method == 'POST':
-        name = request.form['username']
+        name = request.json
         userId = db.get_userId(name)
         session['userID'] = userId
         session['name'] = name
-        return redirect(url_for('static', filename='myAuctions.html'))
+        return "success"
 
 @app.route('/logout')
 def logout():
