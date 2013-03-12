@@ -30,18 +30,16 @@ $(document).ready(function() {
 	$.ajax({
 			type: "POST",
 			datatype: "text",
-			url: 'http://divie.herokuapp.com/name',
+			url: 'http://divie.herokuapp.com/profile',
 			async: false,
-			success: function(name){
-				$(".username").html("Hi " + name + "!");
+			success: function(data){
+				$.each(data, function(k, v){
+					$(".username").html("Hi " + v.agent_name + "!");
+					$('.profile').attr('src', 'img/'+v.profile);
+				});
 			},
 			error: function(msg){
 				console.log(msg);
 			}
 		})
-});
-
-$(document).ready(function() {	
-	$(".username").html("Hi " + "name" + "!");
-	$('.profile').attr('src', 'img/men.png');
 });
