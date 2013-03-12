@@ -99,32 +99,33 @@ def login():
     if request.method == 'POST':
         name = request.form['username']
         userId = db.get_userId(name)
-        session['username'] = userId
+        session['userID'] = userId
         session['name'] = name
         return redirect(url_for('static', filename='myAuctions.html'))
 
 @app.route('/logout')
 def logout():
-    session.pop('username', None)
+    session.pop('userID', None)
     session.pop('name', None)
     return redirect(url_for('static', filename='login.html'))
 
-@app.route('/name', methods=['POST'])
+@app.route('/profile', methods=['POST'])
 def getName():
-    return str(escape(session['name']))
+    vals = db.get_userData(escape(session['userID']))
+    return createJSON(vals)
 
 @app.route('/requestAssets', methods=['POST'])
 def getItems():
     # When auction is loaded request asset list
     if request.method == 'POST':
-        vals = db.get_itemsJSON(escape(session['username']));
+        vals = db.get_itemsJSON(escape(session['userID']));
         return createJSON(vals)
 
 @app.route('/requestAuctions', methods=['POST'])
 def getAuctions():
     # When auction is loaded request asset list
     if request.method == 'POST':
-        vals = db.get_auctionsJSON(escape(session['username']));
+        vals = db.get_auctionsJSON(escape(session['userID']));
         return createJSON(vals)
 
 @app.route('/submitBids', methods=['POST'])
@@ -132,7 +133,7 @@ def saveBids():
     # When user has completed rankings insert into database and return succesful
     if request.method == 'POST':
         res = request.json
-        saveResult = db.save_Bids(res, escape(session['username']))
+        saveResult = db.save_Bids(res, escape(session['userID']))
         return saveResult
     return "error2"
 
@@ -151,7 +152,7 @@ def divieResults():
 @app.route('/requestResults', methods=['POST'])
 def popResults():
     if request.method == 'POST':
-        res = db.get_resultsJSON(escape(session['username']), 1)
+        res = db.get_resultsJSON(escape(session['userID']), 1)
         lots = db.get_lots(1)
         procRes = results.processResults(res, lots)
         return createJSON(procRes)
@@ -184,7 +185,7 @@ def requestPrefs():
 def submitPrefs():
     if request.method == 'POST':
         data = request.json
-        status = db.save_prefs(data, escape(session['username']), 1)
+        status = db.save_prefs(data, escape(session['userID']), 1)
         return status
 
 #gets the system preferred division
@@ -198,7 +199,7 @@ def diviePref():
 @app.route('/requestFinalDiv', methods=['POST'])
 def requestFinDiv():
     if request.method == 'POST':
-        vals = db.get_finalDivision(escape(session['username']), 1)
+        vals = db.get_finalDivision(escape(session['userID']), 1)
         return createJSON(vals)
 
 #gets all user bids

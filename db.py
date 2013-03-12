@@ -122,6 +122,12 @@ def get_userId(username):
     vals = query_template(query, data)
     return vals[0][0] #list of tuples
 
+def get_userData(userID):
+    query = "SELECT agent_name, profile FROM agent WHERE agent_id=%(userID)s;"
+    data = {"userID": userID}
+    vals = query_template_dict(query, data)
+    return vals
+
 def get_itemsJSON(userID):
     query = "SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" \
         " as value FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = " + userID + ";"
@@ -176,12 +182,6 @@ def get_lots(auction_id=1):
     data = {"aucId": auction_id}
     vals = query_template(query, data)
     return vals
-
-def user_auc_rel(): #find which users are associated with the current auction
-    auction_id = 1
-    query = "SELECT agent_id FROM item WHERE auction_id = " + auction_id + ";"
-    vals = query_template(query)
-    return str(vals)
 
 def get_resultsJSON(userID, auction_id=1):
     query = ("SELECT results.*, item.item_name, item.img_url, bid.value FROM results INNER JOIN item ON" +

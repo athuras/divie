@@ -37,18 +37,18 @@ def processPrefs(prefs, aucLots):
 	return res
 
 
-# testvals = [{'agent_id': 1, 
-# 		'agent_name': 'R', 
-# 		'profile': '11', 
-# 		'lot_id': 0},
-# 		{'agent_id': 1, 
-# 		'agent_name': 'R', 
-# 		'profile': '11', 
-# 		'lot_id': 1},
-# 		{'agent_id': 1, 
-# 		'agent_name': 'R', 
-# 		'profile': '11', 
-# 		'lot_id': 2}]
+testvals = [{'agent_id': 1, 
+		'agent_name': 'R', 
+		'profile': '11', 
+		'lot_id': 0},
+		{'agent_id': 1, 
+		'agent_name': 'R', 
+		'profile': '11', 
+		'lot_id': 1},
+		{'agent_id': 1, 
+		'agent_name': 'R', 
+		'profile': '11', 
+		'lot_id': 2}]
 		
 
-# print processPrefs(testvals, ((0,),(1,),(2,)))
+print processPrefs(testvals, ((0,),(1,),(2,)))
