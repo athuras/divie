@@ -49,8 +49,10 @@ html {
 }
 
 #idle {
-	opacity: 0.75;
+	opacity: 0.5;
 	cursor: default;
+	border-bottom: 2px solid #405a6b;
+	background-color: #fff;
 }
 
 .statusBox {
@@ -73,6 +75,10 @@ html {
 
 #auctionComplete.statusBox{
 	background-color: #365d98;
+}
+
+#inactive.statusBox{
+	background-color: #646769;
 }
 
 .statusText {
@@ -111,3 +117,5 @@ html {
 	top: 100px;
 	margin-top: -11px;
 }
+
+
