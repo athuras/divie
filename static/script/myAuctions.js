@@ -182,7 +182,6 @@ function loadAuctions()
 			newActive.appendChild(newStatusText);
 
 			newAuc.appendChild(newActive);
-			newAuc.appendChild(actInd);
 			newAuc.setAttribute("id", AuctionList[i].id);
 
 			newAuc.setAttribute("id", "idle");
