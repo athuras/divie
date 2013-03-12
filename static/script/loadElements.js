@@ -66,7 +66,8 @@ function finishAuction()
 		async: false,
 		data: JSON.stringify(AssetList, jsonReplacer),
 		success: function(msg){ 
-				alert(msg)
+			console.log(msg)
+			window.location = "http://divie.herokuapp.com/static/myAuctions.html"
 		},
 		error: function(msg){
 			alert("Error! " + msg)
