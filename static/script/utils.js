@@ -26,4 +26,20 @@ $(document).ready(function() {
 			})
 		}
 	})
+	//sets username
+	$.ajax({
+			type: "POST",
+			datatype: "text",
+			url: 'http://divie.herokuapp.com/profile',
+			async: false,
+			success: function(data){
+				$.each(data, function(k, v){
+					$(".username").html("Hi " + v.agent_name + "!");
+					$('.profile').attr('src', 'img/'+v.profile);
+				});
+			},
+			error: function(msg){
+				console.log(msg);
+			}
+	})
 });

@@ -117,6 +117,18 @@ def query_template_dict(query, args=()):
 # SELECT QUERIES
 #--------------------
 
+def get_userId(username):
+    query = "SELECT agent_id FROM agent WHERE agent_name = %(uN)s;"
+    data = {"uN": username}
+    vals = query_template(query, data)
+    return vals[0][0] #list of tuples
+
+def get_userData(userID):
+    query = "SELECT agent_name, profile FROM agent WHERE agent_id=%(userID)s;"
+    data = {"userID": userID}
+    vals = query_template_dict(query, data)
+    return vals
+
 def get_itemsJSON(userID):
     query = "SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" \
         " as value FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = " + userID + ";"
@@ -172,12 +184,6 @@ def get_lots(auction_id=1):
     vals = query_template(query, data)
     return vals
 
-def user_auc_rel(): #find which users are associated with the current auction
-    auction_id = 1
-    query = "SELECT agent_id FROM item WHERE auction_id = " + auction_id + ";"
-    vals = query_template(query)
-    return str(vals)
-
 def get_resultsJSON(userID, auction_id=1):
     query = ("SELECT results.*, item.item_name, item.img_url, bid.value FROM results INNER JOIN item ON" +
             " results.item_id = item.item_id AND results.agent_id = %(uID)s AND results.auction_id = %(aucID)s" +
@@ -213,15 +219,19 @@ def get_finalDivision(userID, auction_id=1):
     return vals
 
 def get_allBids(auction_id=1):
-    users = ("SELECT * FROM agent;")
-    allUs = query_template_dict(users)
+    data = {"aucID": auction_id}
+
+    users = ("SELECT agent.* FROM agent INNER JOIN auction on agent.agent_id != auction.exec_id " +
+            "AND auction.auction_id = %(aucID)s;")
+    allUs = query_template_dict(users, data)
+
     bids = ("SELECT bid.agent_id, bid.value, item.item_name FROM bid INNER JOIN item ON"+
             " bid.item_id = item.item_id and bid.auction_id = %(aucID)s;")
-    allBs = query_template_dict(bids, {"aucID": auction_id})
+    allBs = query_template_dict(bids, data)
+
     combined = [{"agent_id": u['agent_id'], "agent_name": u['agent_name'], "profile": "img/"+u['profile'],
             "Bids": [bid for bid in allBs if bid['agent_id']==u['agent_id']]} for u in allUs]
-    #
-    # combined = [user['bid'].append(bid for bid in bids if bid['agent_id']==user['agent_id']) for user in allUs]
+    
     return combined
 
 #--------------------

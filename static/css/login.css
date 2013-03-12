@@ -16,7 +16,7 @@ color: #608dc9;
 text-decoration: underline;  	
 position: relative;
 text-align: center; 	
-margin: 2em 0 0 0;  	
+margin-top: 35px;	
 cursor: pointer;  	
 }
 
@@ -46,6 +46,10 @@ form {
 	margin: 2em 0 0 0;
 }
 
+.textboxContainer{
+	padding-top: 35px
+}
+
 .loginContainer {
 	height: 300px;
 	width: 300px;
@@ -55,7 +59,7 @@ form {
 	margin-left: -155px;
 	top: 80px;
 	border-radius: 10px;
-	padding: 20px 10px 10px 10px;
+	padding: 20px 10px 0px 10px;
 	color: #eee;
 	text-align: center;
 }
@@ -64,17 +68,21 @@ form {
 	padding: 0.8em;
 	color: #171717;
 	border: none;
+	width:226px;
 	border-radius: 5px;
 	margin-bottom: 0.6em;
 }
 
-#submitBtn {
-	margin-top: 2em;
-	padding: 1em 8.5em 1em 8.5em;
+#goBtn {
+	margin-left: 9%;
+	margin-top: 35px;
+	width: 81%;
+	padding: 0.6em 0em 0.6em 0em;
 	background-color: #61c965;
 	color: #eee;
 	border-radius: 5px;
 	border: 1px solid #171717;
+	cursor: pointer;
 }
 
 .wrapper{
@@ -84,5 +92,5 @@ form {
 	top:50%;
 	left:50%;
 	margin-left: -200px;
-	margin-top: -210px;
+	margin-top: -250px;
 }
