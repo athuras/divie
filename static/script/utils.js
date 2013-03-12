@@ -26,19 +26,22 @@ $(document).ready(function() {
 			})
 		}
 	})
-	('#username').click(function()
-	{
-		$.ajax({
-				type: "POST",
-				datatype: "text",
-				url: 'http://divie.herokuapp.com/name',
-				async: false,
-				success: function(name){
-					//set the element value to name
-				},
-				error: function(msg){
-					console.log(msg);
-				}
-			})
-	})
+	//sets username
+	$.ajax({
+			type: "POST",
+			datatype: "text",
+			url: 'http://divie.herokuapp.com/name',
+			async: false,
+			success: function(name){
+				$(".username").html("Hi " + name + "!");
+			},
+			error: function(msg){
+				console.log(msg);
+			}
+		})
+});
+
+$(document).ready(function() {	
+	$(".username").html("Hi " + "name" + "!");
+	$('.profile').attr('src', 'img/men.png');
 });
