@@ -4,7 +4,7 @@ $(document).ready(function() {
 	window.location = 'http://divie.herokuapp.com/static/terms.html'
 	});
 
-	$('#submitBtn').click(function(){
+	$('#goBtn').click(function(){
 		var data = $("#uname").val();
 		$.ajax({
 			type: "POST",

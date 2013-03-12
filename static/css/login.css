@@ -82,6 +82,7 @@ form {
 	color: #eee;
 	border-radius: 5px;
 	border: 1px solid #171717;
+	cursor: pointer;
 }
 
 .wrapper{
