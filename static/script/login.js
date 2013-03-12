@@ -2,7 +2,7 @@ $(document).ready(function() {
 	$('.terms').click(function()
 	{
 	window.location = 'http://divie.herokuapp.com/static/terms.html'
-	})
+	});
 
 	$('#submitBtn').click(function(){
 		var data = $("#uname").val();
@@ -14,11 +14,12 @@ $(document).ready(function() {
 			data: JSON.stringify(data),
 			async: false,
 			success: function(msg){
-				window.location = "http://divie.herokuapp.com/static/myAuction.html"
+				console.log(msg);
+				window.location = "http://divie.herokuapp.com/static/myAuctions.html";
 			},
 			error: function(msg){
-				alert("Could not authenticate user. Invalid username.")
+				alert("Could not authenticate user. Invalid username.");
 			}
 		})
-	})
+	});
 });
