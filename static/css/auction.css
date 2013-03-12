@@ -99,6 +99,28 @@ body {
 	border-right: 1px solid #315286;
 }
 
+.username
+{
+	position: absolute;
+	top: 16px;
+	left: 190px;
+	font-size: 14pt;
+	margin-right: 3%;
+	color: #e0e5ed;
+	font-weight: 100;
+	vertical-align: text-middle;
+}
+
+.profile {
+	height: 35px;
+	width: 35px;
+	border-radius: 25px;
+	position: absolute;
+	top: 7.5px;
+	margin-right: 3%;
+	position: absolute;
+	left: 145px;
+}
 .links {
 	position: absolute;
 	top: 16px;
@@ -283,7 +305,7 @@ body {
 	top: 60%;
 	left: 0px;
 	width: 100%;
-	height:  50%;
+	height:  40%;
 	display: block;
 }
 .sliderHorizon {
@@ -373,7 +395,7 @@ a {
 	text-align: center;
 	width: 12em;
 	position: absolute;
-	bottom: 10em;
+	bottom: 7em;
 	color: #d7dfea;
 	background-color: #1d212b;
 	font-weight: 100;
@@ -395,7 +417,7 @@ a {
 	text-align: center;
 	width: 12em;
 	position: absolute;
-	bottom: 10em;
+	bottom: 7em;
 	font-weight: 100;
 	cursor: pointer;
 	background: transparent;
