@@ -14,15 +14,16 @@ Version: Python 2.7
 
 '''
 import psycopg2
-
+import os
 
 def connect_db():
     conn = psycopg2.connect(**{
-            'host': 'ec2-54-243-232-179.compute-1.amazonaws.com',
-            'database': 'd708fal6ch74uk',
-            'user': 'qbilqsbasxktlu',
-            'password': 'vEiXaha5nBimvRAxbjRqygZeSE',
-            'port': 5432
+            'host': os.environ.get('PG_GREEN_HOST',
+                                    'ec2-54-243-232-179.compute-1.amazonaws.com'),
+            'database': os.environ.get('PG_GREEN_DATABASE', 'd708fal6ch74uk'),
+            'user': os.environ.get('PG_GREEN_USER', None),
+            'password': os.environ.get('PG_GREEN_PW', None),
+            'port': os.environ.get('PG_GREEN_PORT', 5432)
             })
     return conn
 
