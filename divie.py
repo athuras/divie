@@ -101,7 +101,7 @@ def login():
         userId = db.get_userId(name)
         session['userID'] = userId
         session['name'] = name
-        return "success"
+        return "successful"
 
 @app.route('/logout')
 def logout():
