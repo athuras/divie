@@ -278,9 +278,8 @@ def reset_auction(auction_id=1):
     data = {"aucId": auction_id}
     s1 = query_DelIns(query, data)
     s2 = clear_results(auction_id)
-    query = "truncate table preference;"
-    s3 = query_DelIns(query)
-
     exclude = (1, 2, 3)
+    query = "delete from preference where auction_id = %(auction_id)s and agent_id not in %(exclude)s"
+    s3 = query_DelIns(query, {"auction_id": auction_id, "exclude": exclude})
     s4 = reload_bids(auction_id, exclude)
     return s1, s2, s3, s4
