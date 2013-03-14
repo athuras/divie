@@ -1,7 +1,5 @@
 function loaded(){
-	// var millisecondsToWait = 3000;
-	// setTimeout(function() {
-	// }, millisecondsToWait);
+	window.setTimeout(function() {
 	$.ajax({
 		type: "POST",
 		dataType: "text",
@@ -17,4 +15,6 @@ function loaded(){
 			console.log(msg)
 		}
 	})
+	}, 2500);
+	
 };

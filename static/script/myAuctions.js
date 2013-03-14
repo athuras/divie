@@ -1,6 +1,6 @@
 var AuctionList = [];
 // AuctionList.push(new Auction(1, 1, 1,  "Grandma's Belongings", "Splittin her shit up", "February 23, 2013", "March 15, 2013", 3));
-// AuctionList.push(new Auction(1, 1, 2, "Uncle Ken's Shit Needs Divie", "Splittin her shit up", "April 23, 2013", "April 30, 2013", 3));
+// AuctionList.push(new Auction(1, 1, 2, "Uncle Ken's Shit Needs Divie", "Splittin her shit up", "April 23, 2013", "April 30, 2013", 0));
 
 var Status = {
 	Inactive : {value: 0, txt: "Inactive.", txtExec: "Inactive."},
@@ -23,12 +23,12 @@ function loaded()
 		datatype: "json",
 		url: 'http://divie.herokuapp.com/requestAuctions',
 		async: false,
-		success: function(data){ 
+		success: function(data){
 			$.each(data, function(k, v){
 				AuctionList.push(
 					new Auction(
-						v.auction_id, 
-						v.agent_id, 
+						v.auction_id,
+						v.agent_id,
 						v.exec_id,
 						v.auction_name,
 						v.description,
@@ -49,7 +49,7 @@ function loaded()
 function loadAuctions()
 {
 	loaded();
-	
+
 	var panel = document.getElementById("panel");
 	for(var i=0;i<AuctionList.length;i++)
 	{
@@ -107,7 +107,7 @@ function loadAuctions()
 			newAuc.appendChild(newActive);
 			newAuc.appendChild(actInd);
 			newAuc.setAttribute("id", AuctionList[i].id);
-		} 
+		}
 		else if (AuctionList[i].status == Status.AllocComplete.value)
 		{
 			var newActive = document.createElement("div");
@@ -163,8 +163,28 @@ function loadAuctions()
 			newAuc.setAttribute("id", AuctionList[i].id);
 		}
 		else if (AuctionList[i].status == Status.Inactive.value) {
+
+			var newActive = document.createElement("div");
+			newActive.setAttribute("class", "statusBox");
+			newActive.setAttribute("id", "inactive");
+
+			var newStatusText = document.createElement("div");
+			newStatusText.setAttribute("class", "statusText");
+
+			if(AuctionList[i].userId == AuctionList[i].execId)
+				statLbl = Status.Inactive.txtExec;
+			else
+				statLbl = Status.Inactive.txt
+
+			var newStatusValue = document.createTextNode(statLbl);
+			newStatusText.appendChild(newStatusValue);
+
+			newActive.appendChild(newStatusText);
+
+			newAuc.appendChild(newActive);
+			newAuc.setAttribute("id", AuctionList[i].id);
+
 			newAuc.setAttribute("id", "idle");
-			newAuc.setAttribute("class", "Inactive")
 		}
 
 		panel.appendChild(newAuc);
@@ -185,6 +205,8 @@ function bindRedirections(){
 				window.location = 'http://divie.herokuapp.com/static/dashboard-final.html';
 			else if (Auction.status == Status.Active.value)
 				window.location = 'http://divie.herokuapp.com/static/dashboard.html';
+			else if (Auction.status == Status.AuctionComplete.value)
+				window.location = 'http://divie.herokuapp.com/static/dashboard.html';
 		} else {
 			if (Auction.status == Status.Active.value)
 				window.location = 'http://divie.herokuapp.com/static/auction.html';
@@ -193,7 +215,7 @@ function bindRedirections(){
 			else if (Auction.status == Status.AuctionComplete.value)
 				window.location = 'http://divie.herokuapp.com/static/finalResults.html';
 		}
-	})	
+	})
 };
 
 function Auction(id, userId, execId, name, desc, startDate, endDate, status){

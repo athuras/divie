@@ -13,7 +13,7 @@ from collections import defaultdict
 
 
 app = Flask(__name__)
-app.secret_key = '\xfd{H\xe5<\x95\xf9\xe3\x96.5\xd1\x01O<!\xd5\xa2\xa0\x9fR"\xa1\xa8'
+app.secret_key = os.environ.get('APP_SECRET', None)
 
 
 def execute_auction(auction_id):
@@ -94,14 +94,14 @@ def execute_auction(auction_id):
 def home():
     return redirect(url_for('static', filename='login.html'))
 
-@app.route('/static/login.html', methods=['POST'])
+@app.route('/authenticate', methods=['POST'])
 def login():
     if request.method == 'POST':
-        name = request.form['username']
+        name = request.json
         userId = db.get_userId(name)
         session['userID'] = userId
         session['name'] = name
-        return redirect(url_for('static', filename='myAuctions.html'))
+        return "successful"
 
 @app.route('/logout')
 def logout():

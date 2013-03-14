@@ -1,54 +1,17 @@
-'''
-
-Author: Brian Sinclair
-
-Editted: Feb. 23, 2013
-
-Description:
-Connects to DB
-
-Change log:
-
-Version: Python 2.7
-
-
-'''
 import psycopg2
+import os
 
 
 def connect_db():
     conn = psycopg2.connect(**{
-            'host': 'ec2-54-243-232-179.compute-1.amazonaws.com',
-            'database': 'd708fal6ch74uk',
-            'user': 'qbilqsbasxktlu',
-            'password': 'vEiXaha5nBimvRAxbjRqygZeSE',
-            'port': 5432
+            'host': os.environ.get('PG_GREEN_HOST',
+                                    'ec2-54-243-232-179.compute-1.amazonaws.com'),
+            'database': os.environ.get('PG_GREEN_DATABASE', 'd708fal6ch74uk'),
+            'user': os.environ.get('PG_GREEN_USER', None),
+            'password': os.environ.get('PG_GREEN_PW', None),
+            'port': os.environ.get('PG_GREEN_PORT', 5432)
             })
     return conn
-
-
-def home():
-    return "Not Dead Yet ..."
-
-def db_test():
-    conn = None
-    try:
-        conn = connect_db()
-        cur = conn.cursor()
-        cur.execute("DROP TABLE if exists test;")
-        cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
-        cur.execute("INSERT INTO test (num, data) VALUES (%s, %s);", (31415, 'THISISATEST'))
-        cur.execute("SELECT * FROM test;")
-        vals = cur.fetchall()
-        conn.commit()
-    except psycopg2.Error as e:
-        return 'DB Error: ' + str(e)
-
-    finally:
-        cur.close()
-        conn.close()
-    return 'SUCCESS!:\n' + str(vals)
-
 
 def query_DelIns(query, args=(), **kwargs):
     many = False
@@ -184,10 +147,15 @@ def get_lots(auction_id=1):
     return vals
 
 def get_resultsJSON(userID, auction_id=1):
-    query = ("SELECT results.*, item.item_name, item.img_url, bid.value FROM results INNER JOIN item ON" +
-            " results.item_id = item.item_id AND results.agent_id = %(uID)s AND results.auction_id = %(aucID)s" +
-            " INNER JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = %(uID)s AND bid.auction_id = %(aucID)s"
-            " ORDER BY results.auction_id, results.agent_id, results.item_id;")
+    # query = ("SELECT results.*, item.item_name, item.img_url, bid.value FROM results INNER JOIN item ON" +
+    #         " results.item_id = item.item_id AND results.agent_id = %(uID)s AND results.auction_id = %(aucID)s" +
+    #         " INNER JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = %(uID)s AND bid.auction_id = %(aucID)s"
+    #         " ORDER BY results.auction_id, results.agent_id, results.item_id;")
+
+    query = ("SELECT bid.*, item.item_name, item.img_url, coalesce(results.lot_id, -1) as lot_id FROM bid INNER JOIN item ON" +
+            " bid.item_id = item.item_id LEFT JOIN results ON bid.item_id = results.item_id AND bid.agent_id=results.agent_id" +
+            " WHERE bid.agent_id = %(uID)s AND bid.auction_id = %(aucID)s"+
+            " ORDER BY bid.auction_id, bid.agent_id, bid.item_id;")
     data =  {
                 "uID": int(userID),
                 "aucID": int(auction_id)
@@ -230,7 +198,7 @@ def get_allBids(auction_id=1):
 
     combined = [{"agent_id": u['agent_id'], "agent_name": u['agent_name'], "profile": "img/"+u['profile'],
             "Bids": [bid for bid in allBs if bid['agent_id']==u['agent_id']]} for u in allUs]
-    
+
     return combined
 
 #--------------------
@@ -276,9 +244,10 @@ def save_package(lots, auction_id=1):
     msg = query_DelIns(query, data)
     return msg
 
-def reload_bids(auction_id=1):
-    query = ("delete from bid where auction_id = %(auction_id)s;")
-    data = {'auction_id': auction_id}
+def reload_bids(auction_id, exclude_agent_ids):
+    '''Resets bids for given auction, excluding agent_ids specified'''
+    query = "delete from bid where auction_id = %(auction_id)s and agent_id in %(agents)s"
+    data = {'auction_id': auction_id, 'agents': exclude_agent_ids}
     return query_DelIns(query, data)
 
 def save_results(results, userID, auction_id=1):
@@ -311,5 +280,7 @@ def reset_auction(auction_id=1):
     s2 = clear_results(auction_id)
     query = "truncate table preference;"
     s3 = query_DelIns(query)
-    s4 = reload_bids(auction_id)
+
+    exclude = (1, 2, 3)
+    s4 = reload_bids(auction_id, exclude)
     return s1, s2, s3, s4
