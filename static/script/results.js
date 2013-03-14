@@ -218,14 +218,14 @@ function createFooter(){
 function approve(lotNum){
 	var approveBtn = document.getElementById(lotNum);
 	
-	if (!lotList[lotNum])
+	if (!lotList[lotNum-1])
 	{
-		lotList[lotNum] = true;
+		lotList[lotNum-1] = true;
 		approveBtn.setAttribute("class", "approvePushed");
 	}
 	else
 	{
-		lotList[lotNum] = false;
+		lotList[lotNum-1] = false;
 		approveBtn.setAttribute("class", "approveBtn")
 	}
 };

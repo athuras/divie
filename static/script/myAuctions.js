@@ -23,12 +23,12 @@ function loaded()
 		datatype: "json",
 		url: 'http://divie.herokuapp.com/requestAuctions',
 		async: false,
-		success: function(data){ 
+		success: function(data){
 			$.each(data, function(k, v){
 				AuctionList.push(
 					new Auction(
-						v.auction_id, 
-						v.agent_id, 
+						v.auction_id,
+						v.agent_id,
 						v.exec_id,
 						v.auction_name,
 						v.description,
@@ -49,7 +49,7 @@ function loaded()
 function loadAuctions()
 {
 	loaded();
-	
+
 	var panel = document.getElementById("panel");
 	for(var i=0;i<AuctionList.length;i++)
 	{
@@ -107,7 +107,7 @@ function loadAuctions()
 			newAuc.appendChild(newActive);
 			newAuc.appendChild(actInd);
 			newAuc.setAttribute("id", AuctionList[i].id);
-		} 
+		}
 		else if (AuctionList[i].status == Status.AllocComplete.value)
 		{
 			var newActive = document.createElement("div");
@@ -205,6 +205,8 @@ function bindRedirections(){
 				window.location = 'http://divie.herokuapp.com/static/dashboard-final.html';
 			else if (Auction.status == Status.Active.value)
 				window.location = 'http://divie.herokuapp.com/static/dashboard.html';
+			else if (Auction.status == Status.AuctionComplete.value)
+				window.location = 'http://divie.herokuapp.com/static/dashboard.html';
 		} else {
 			if (Auction.status == Status.Active.value)
 				window.location = 'http://divie.herokuapp.com/static/auction.html';
@@ -213,7 +215,7 @@ function bindRedirections(){
 			else if (Auction.status == Status.AuctionComplete.value)
 				window.location = 'http://divie.herokuapp.com/static/finalResults.html';
 		}
-	})	
+	})
 };
 
 function Auction(id, userId, execId, name, desc, startDate, endDate, status){
