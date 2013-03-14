@@ -93,12 +93,12 @@ def get_userData(userID):
 
 def get_itemsJSON(userID):
     query = "SELECT item.item_id, item.item_name, item.description, item.img_url, coalesce(bid.value, 0)" \
-        " as value FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = " + userID + ";"
-    vals = query_template_dict(query)
+        " as value FROM item LEFT JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = %(userID)s order by item.item_id"
+    vals = query_template_dict(query, {'userID': userID)
     return vals
 
 def get_items(): #gets item list, description, image url and value
-    query = "SELECT * FROM item;"
+    query = "SELECT * FROM item order by item_id;"
     vals = query_template(query)
     return str(vals)
 
