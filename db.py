@@ -141,7 +141,7 @@ def get_bidsAuction(auction_id=1):
     return vals
 
 def get_lots(auction_id=1):
-    query = "SELECT DISTINCT lot_id FROM results WHERE auction_id = %(aucId)s;"
+    query = "SELECT DISTINCT lot_id FROM results WHERE auction_id = %(aucId)s order by lot_id;"
     data = {"aucId": auction_id}
     vals = query_template(query, data)
     return vals
@@ -164,7 +164,7 @@ def get_resultsJSON(userID, auction_id=1):
     return vals
 
 def get_preferences(auction_id=1):
-    query = ("SELECT DISTINCT p.*, agent.agent_name, agent.profile FROM preference as p INNER JOIN agent on" +
+    query = ("SELECT DISTINCT ON (p.*) p.*, agent.agent_name, agent.profile FROM preference as p INNER JOIN agent on" +
             " p.agent_id = agent.agent_id WHERE p.auction_id=%(aucId)s ORDER BY p.agent_id, p.lot_id;")
     data = {"aucId": auction_id}
     vals = query_template_dict(query, data)
