@@ -11,7 +11,7 @@ var ResultList = [];
 // ResultList.push(new Result(23,"Lamp", "img/sailboat.png", 15, [0,1,1]));
 // ResultList.push(new Result(33,"Lamp", "img/sailboat.png", 2, [1,1,1]));
 // ResultList.push(new Result(43,"Lamp", "img/sailboat.png", 7,  [1,1,1]));
-// ResultList.push(new Result(53, "Lamp", "img/sailboat.png", 8, [0,0,0]));
+// ResultList.push(new Result(53, "Lamp", "img/sailboat.png", 8, [0,0,1));
 // ResultList.push(new Result(36,"Lamp", "img/sailboat.png", 45, [0,0,1]));
 
 var POS_OF_FIRST_INDEX = 3;

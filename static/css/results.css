@@ -82,9 +82,9 @@ table, td, th, tr {
 	border-radius: 10px;
 	position: relative;
 	top: 14em;
-	left: 50%;
-	margin-left: -41%;
-	margin-bottom: 17em;
+	/*left: 50%;*/
+	/*margin-left: -35%;*/
+	margin: 0 auto 17em auto;
 }
 
 table td {
