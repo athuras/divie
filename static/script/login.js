@@ -23,9 +23,9 @@ $(document).ready(function() {
 		})
 	});
 
-	$('#goBtn').keyup(function(event){
-    if(event.keyCode == 13){
-      var data = $("#uname").val();
+	$(document).keypress(function(e) {
+    if(e.which == 13) {
+       var data = $("#uname").val();
 		$.ajax({
 			type: "POST",
 			datatype: "text",
@@ -39,6 +39,9 @@ $(document).ready(function() {
 			},
 			error: function(msg){
 				alert("Could not authenticate user. Invalid username.");
+			}
+		})
     }
-});
+	});
+
 });
