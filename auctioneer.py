@@ -28,11 +28,11 @@ def unique_groups(allocs):
         return frozenset({(k, v) for k, v in alloc.iteritems()})
 
     performance_table = {}
-    alloc_groups = []
+    alloc_groups = set()
     for item in allocs:
         fs = to_fs(item[0])
         performance_table[fs] = item[1]
-        alloc_groups.append(fs)
+        alloc_groups.add(fs)
 
     reduced = [(dict(i for i in A), performance_table[A]) for A in alloc_groups]
     return reduced
