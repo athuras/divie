@@ -241,7 +241,7 @@ def save_package(lots, auction_id=1):
 
 def reload_bids(auction_id, exclude_agent_ids):
     '''Resets bids for given auction, excluding agent_ids specified'''
-    query = "delete from bid where auction_id = %(auction_id)s and agent_id not in %(agents)s"
+    query = "delete from bid where auction_id = %(auction_id)s and agent_id in %(agents)s"
     data = {'auction_id': auction_id, 'agents': exclude_agent_ids}
     return query_DelIns(query, data)
 
