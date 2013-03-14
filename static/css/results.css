@@ -82,7 +82,8 @@ table, td, th, tr {
 	border-radius: 10px;
 	position: relative;
 	top: 14em;
-	left: 15%;
+	left: 50%;
+	margin-left: -41%;
 	margin-bottom: 17em;
 }
 
@@ -178,7 +179,7 @@ th:last-child {
 }
 
 tfoot td {
-	padding: 1em;
+	padding: 1em 4em 1em 4em;
 }
 
 .approveBtn {
