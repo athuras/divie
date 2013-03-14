@@ -152,9 +152,9 @@ def get_resultsJSON(userID, auction_id=1):
     #         " INNER JOIN bid ON item.item_id = bid.item_id AND bid.agent_id = %(uID)s AND bid.auction_id = %(aucID)s"
     #         " ORDER BY results.auction_id, results.agent_id, results.item_id;")
 
-    query = ("SELECT bid.*, item.item_name, item.img_url, coalesce(results.lot_id, -1) as lot_id FROM bid LEFT JOIN results ON" +
-            " bid.item_id = results.item_id AND bid.agent_id=results.agent_id" +
-            " INNER JOIN item ON item.item_id = bid.item_id WHERE bid.agent_id = %(uID)s AND bid.auction_id = %(aucID)s"+
+    query = ("SELECT bid.*, item.item_name, item.img_url, coalesce(results.lot_id, -1) as lot_id FROM bid INNER JOIN item ON" +
+            " bid.item_id = item.item_id LEFT JOIN results ON bid.item_id = results.item_id AND bid.agent_id=results.agent_id" +
+            " WHERE bid.agent_id = %(uID)s AND bid.auction_id = %(aucID)s"+
             " ORDER BY bid.auction_id, bid.agent_id, bid.item_id;")
     data =  {
                 "uID": int(userID),
