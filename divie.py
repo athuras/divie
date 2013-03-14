@@ -84,6 +84,7 @@ def execute_auction(auction_id):
     Auction = AUC.Auction(auction_id, agents)
     resolution = Auction.multi_resolve()
     resolution = AUC.attempt_filter_imba(resolution)
+    resolution = AUC.unique_groups(resolution)
     return write_results(resolution)
 
 #################
