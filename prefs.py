@@ -1,4 +1,5 @@
 def processPrefs(prefs, aucLots):
+	'''order by agent_id and lot_id'''
 	def checkLot(aux, lot):
 		if (lot[0] in aux):
 			return 1
