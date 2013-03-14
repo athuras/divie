@@ -20,12 +20,21 @@ def objective_function(mean_loss, mean_full, var_loss, var_full, imba):
 
 
 def unique_groups(allocs):
-    '''Strip out the duplicates in the allocs'''
+    '''Strip out the duplicates in the allocs,
+    allocs in the form of ({alloc}, (performance))'''
     # Hash each allocation.
     # Not as dynamic as it could be, but I'm still a little proud of this one
-    condensed = set((frozenset({(k, v) for k, v in Z.iteritems()})
-                     for i, Z in enumerate(allocs)))
-    reduced = [dict(i for i in A) for A in condensed]
+    def to_fs(alloc):
+        return frozenset({(k, v) for k, v in alloc.iteritems()})
+
+    performance_table = {}
+    alloc_groups = []
+    for item in allocs:
+        fs = to_fs(item[0])
+        performance_table[fs] = item[1]
+        alloc_groups.append(fs)
+
+    reduced = [(dict(i for i in A), performance_table[A]) for A in alloc_groups]
     return reduced
 
 def attempt_filter_imba(allocs):
