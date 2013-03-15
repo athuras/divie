@@ -1,18 +1,18 @@
 // Initialization stuff ------------------------------------------------------------------------------
 
 var ResultList = [];
-ResultList.push(new Result(101, "Sailboat Painting", "img/sailboat.png"));
-ResultList.push(new Result(2, "Car", "img/car.jpg"));
-ResultList.push(new Result(3, "Lamp", "img/sailboat.png"));
-ResultList.push(new Result(4, "Lamp", "img/sailboat.png"));
-ResultList.push(new Result(5, "Lamp", "img/sailboat.png"));
-ResultList.push(new Result(6, "Lamp", "img/sailboat.png"));
-ResultList.push(new Result(1031,"Lamp", "img/sailboat.png"));
-ResultList.push(new Result(23,"Lamp", "img/sailboat.png"));
-ResultList.push(new Result(33,"Lamp", "img/sailboat.png"));
-ResultList.push(new Result(43,"Lamp", "img/sailboat.png"));
-ResultList.push(new Result(53, "Lamp", "img/sailboat.png"));
-ResultList.push(new Result(36,"Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(101, "Sailboat Painting", "img/sailboat.png"));
+// ResultList.push(new Result(2, "Car", "img/car.jpg"));
+// ResultList.push(new Result(3, "Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(4, "Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(5, "Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(6, "Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(1031,"Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(23,"Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(33,"Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(43,"Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(53, "Lamp", "img/sailboat.png"));
+// ResultList.push(new Result(36,"Lamp", "img/sailboat.png"));
 
 
 // Initialization stuff ------------------------------------------------------------------------------
